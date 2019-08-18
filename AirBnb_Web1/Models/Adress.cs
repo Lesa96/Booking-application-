@@ -7,6 +7,7 @@ namespace AirBnb_Web1.Models
 {
     public class Adress
     {
+        
         public int ID { get; set; }
 
         public string Streat { get; set; }

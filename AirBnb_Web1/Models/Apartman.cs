@@ -1,6 +1,7 @@
 ﻿using AirBnb_Web1.Helper.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -9,26 +10,30 @@ namespace AirBnb_Web1.Models
     public class Apartman
     {
         public int ID { get; set; }
+        public int LocationID { get; set; }
+        public int HostID { get; set; }
 
         public ApartmanType Type { get; set; }
 
-        public string RoomNumber { get; set; }
+        public int RoomNumber { get; set; }
 
-        public string GuestNumber { get; set; }
+        public double GuestNumber { get; set; }
 
-        public Location Location { get; set; }
+        [ForeignKey("LocationID")]
+        public virtual Location Location { get; set; }
 
-        public List<DateTime> RentDates { get; set; }        // ??
+        public ICollection<DateTime> RentDates { get; set; }        // ??
 
-        public List<DateTime> AvailableDates { get; set; }      //potrebno je da sam generise
+        public ICollection<DateTime> AvailableDates { get; set; }      //potrebno je da sam generise
 
-        public User Host { get; set; }
+        [ForeignKey("HostID")]
+        public virtual User Host { get; set; }
 
-        public List<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
-        public List<string> Pictures { get; set; }
+        public  ICollection<string> Pictures { get; set; }
 
-        public float PricePerNight { get; set; }
+        public double PricePerNight { get; set; }
 
         public DateTime SingUpTime { get; set; }
 
@@ -36,8 +41,8 @@ namespace AirBnb_Web1.Models
 
         public ApartmanStatus Status { get; set; }
 
-        public List<Amenitie> Amenities { get; set; }
+        public virtual ICollection<Amenitie> Amenities { get; set; }
 
-        public List<Reservation> Reservations { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }

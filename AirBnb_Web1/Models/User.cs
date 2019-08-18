@@ -22,10 +22,12 @@ namespace AirBnb_Web1.Models
 
         public Roles Role { get; set; }
 
-        public List<string> ApartmantsToRent { get; set; }    //promeni
+        public virtual ICollection<Comment> Comments { get; set; }
 
-        public List<string> RentedApartmants { get; set; }    //promeni
+        public virtual ICollection<Apartman> ApartmantsToRent { get; set; }    
 
-        public List<string> Reservations { get; set; }    //promeni
+        public virtual ICollection<Apartman> RentedApartmants { get; set; }    
+
+        public virtual ICollection<Reservation> Reservations { get; set; }    
     }
 }
