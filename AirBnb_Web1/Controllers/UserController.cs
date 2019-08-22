@@ -19,9 +19,9 @@ namespace AirBnb_Web1.Controllers
         }
 
         // Post api/users/
-        [HttpPost]
+        [HttpGet]
         [Route("Login")]
-        public HttpResponseMessage Login([FromBody]string username )
+        public HttpResponseMessage Login()
         {
             string streat = context.Adresss.Where(x => x.ID == 1).FirstOrDefault().Streat; //radi kako treba
 

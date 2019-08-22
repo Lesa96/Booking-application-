@@ -1,0 +1,71 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <table>
+    <tr>
+      <td colspan="2" align="center">
+        <h2>Register</h2>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Name:
+      </td>
+      <td>
+        <input type="text" formControlName="name" required>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Surname:
+      </td>
+      <td>
+        <input type="text" formControlName="surname" required>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Email:
+      </td>
+      <td>
+        <input type="email" formControlName="email" required >
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Password:
+      </td>
+      <td>
+        <input type="password" formControlName="password" required>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Confirm Password:
+      </td>
+      <td>
+        <input type="password" formControlName="confirmPassword" required>
+        <br />
+        <!-- <font *ngIf="invalidPass" color="red" size="2">
+        Passwords must be equal
+        </font> -->
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Gender:
+      </td>
+      <td>
+        <select formControlName="gender">
+          <option *ngFor="let gender of genders" [value]="gender">{{gender}}</option> 
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="right">
+        <button type="submit" class="registerbtn"  [disabled]="registerForm.invalid">Register</button>
+      </td>
+    </tr>
+  </table>
+  <div>
+    <p>Already have an account? <a href="login" class="link-login-style">Sign in</a>.</p>
+  </div>
+</form>

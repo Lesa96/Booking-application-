@@ -1,0 +1,30 @@
+<body class="login-body" >
+    <div class="login-form">
+     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" >
+        <table>
+            <tr>
+                <td colspan="2" align="center">
+                    <h2>Login</h2>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="email" formControlName="email" required placeholder="email">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="password" formControlName="password" required placeholder="password">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <button class="registerbtn" type="submit"  [disabled]="loginForm.invalid">Login</button>
+                </td>
+            </tr>
+        </table>
+    </form> 
+    <a href="register" class="link-login-style">Create your Account </a>
+</div>
+</body>
+    
