@@ -2,22 +2,23 @@
 <!--Active-->
 <h3>Active Apartments:</h3>
 <div *ngFor="let apartment of ActiveApartments">
-    <table >
-        <tr>
-            <td>
-              <p class="p-table-home"> <i>Apartment type:</i> {{apartment.Type}} , <i>Number of rooms:</i> {{apartment.RoomNumber}} ,  
-                <i>Guest Number :</i>{{apartment.GuestNumber}}<i>, Price per nigth :</i>{{apartment.PricePerNight}}
+  <table >
+      <tr>
+        <td>
+          <p class="p-table-home"> <i>Apartment type:</i> {{apartment.Type}} , <i>Number of rooms:</i> {{apartment.RoomNumber}} ,  
+            <i>Guest Number :</i>{{apartment.GuestNumber}}<i>, Price per nigth :</i>{{apartment.PricePerNight}}
 
-              </p>           
-            </td>
-            <td align="3">
-                <p>Slike ovde takooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo</p>
-            </td>
-        </tr>
-      
-    </table>
-    <br><br>
-
+          </p>           
+        </td>
+        <td align="3">
+            <p>Slike ovde takooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo</p>
+        </td>
+        <td>
+          <button id="{{apartment.ID}}" (click)="moreDetails($event)" >More details</button>
+        </td>
+      </tr>
+  </table>
+  <br>
 </div>
 
 <!--Not Active-->

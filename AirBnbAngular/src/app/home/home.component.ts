@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../home.service';
 import {Apartment} from '../Classes/Apartment'
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -16,9 +17,30 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     
-    this.TestData();
+    //this.TestData();
     
-    this.homeService.getActiveApartments(); //doesnt do shit now
+    this.homeService.getActiveApartments().subscribe(data=> {
+      var helpApp = data as number;
+      console.log(helpApp);
+      // helpApp.forEach(element => {
+      //   var apartment = new Apartment();
+      //   apartment.ID = element.ID;
+      //   apartment.Type = element.Type;
+      //   apartment.RoomNumber = element.RoomNumber;
+      //   apartment.GuestNumber = element.GuestNumber;
+      //   apartment.PricePerNight = element.PricePerNight;
+
+      //   this.ActiveApartments.push(apartment);
+      // });
+    }); //doesnt do shit now
+  }
+
+  moreDetails(event) {
+    const target = event.target || event.srcElement || event.currentTarget;
+    const idAttr = target.attributes.id;
+    const value = idAttr.nodeValue; //id kliknutog button-a
+
+    console.log(value); // id
   }
 
   TestData()
@@ -26,12 +48,13 @@ export class HomeComponent implements OnInit {
     for (let i = 0; i<5; i++)
     {
       var apartment = new Apartment();
-    apartment.Type = "Room";
-    apartment.RoomNumber = 2;
-    apartment.GuestNumber = 2;
-    apartment.PricePerNight = 50;
+      apartment.ID = 2;
+      apartment.Type = "Room";
+      apartment.RoomNumber = 2;
+      apartment.GuestNumber = 2;
+      apartment.PricePerNight = 50;
 
-    this.ActiveApartments.push(apartment);
+      this.ActiveApartments.push(apartment);
     }
     var apartment = new Apartment();
     apartment.Type = "Full Apartman";

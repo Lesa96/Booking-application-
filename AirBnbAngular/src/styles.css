@@ -18,9 +18,20 @@ table {
     border-spacing: 5px;
     width: 90%;
     border-collapse: separate;
-    
-    
+       
 }
+button {
+    background-color: #807f7f;
+    color: white;
+    border: 2px solid #555555;
+    cursor: pointer;
+  }
+  button:hover {
+      background-color: #000000c0 ;
+      color: white;
+  }
+  
+
 
 /* --------------------------------------------------------------------------------------------*/
 

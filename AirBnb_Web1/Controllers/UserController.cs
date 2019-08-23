@@ -1,4 +1,4 @@
-﻿using AirBnb_Web1.DataAccessLayer;
+using AirBnb_Web1.DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +18,14 @@ namespace AirBnb_Web1.Controllers
             context = AirBnbContext.Instance;
         }
 
-        // Post api/users/
+        // Get api/users/
         [HttpGet]
         [Route("Login")]
-        public HttpResponseMessage Login()
+        public IHttpActionResult Login()
         {
             string streat = context.Adresss.Where(x => x.ID == 1).FirstOrDefault().Streat; //radi kako treba
 
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return Ok();
         }
     }
 }

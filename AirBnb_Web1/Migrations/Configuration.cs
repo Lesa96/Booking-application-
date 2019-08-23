@@ -38,7 +38,7 @@ namespace AirBnb_Web1.Migrations
             location1.ID = 1;
             location1.Latitude = 45.23;
             location1.Longitude = 25.23;
-            location1.AdressID = 1;
+            location1.AdressID = adress1.ID;
             context.Locations.Add(location1);
             context.SaveChanges();
 
@@ -50,15 +50,15 @@ namespace AirBnb_Web1.Migrations
             context.Users.Add(user3);
             context.SaveChanges();
 
-            Apartman apartman1 = new Apartman { ID = 3, SingUpTime = DateTime.Now , SingOutTime = DateTime.Now.AddDays(2), Status= Helper.Enums.ApartmanStatus.Active, GuestNumber = 3, HostID = 3, LocationID = 1, PricePerNight = 20, RoomNumber = 2 };
+            Apartman apartman1 = new Apartman { ID = 1, SingUpTime = DateTime.Now , SingOutTime = DateTime.Now.AddDays(2), Status= Helper.Enums.ApartmanStatus.Active, GuestNumber = 3, HostID = user3.ID, LocationID = location1.ID, PricePerNight = 20, RoomNumber = 2 };
             context.Apartmans.Add(apartman1);
             context.SaveChanges();
 
-            Comment comment1 = new Comment { ID = 1, ApartmanID = 3, GuestID = 2, Rate = 9.5, Text = "Nice one" };
+            Comment comment1 = new Comment { ID = 1, ApartmanID = apartman1.ID, GuestID = user2.ID, Rate = 9.5, Text = "Nice one" };
             context.Comments.Add(comment1);
             context.SaveChanges();
 
-            Reservation reservation1 = new Reservation { ID = 1, ApartmanID = 3, GuestID = 2, NumberOfNights = 10, SingUpDate = DateTime.Now, Stauts = Helper.Enums.ReservationStatus.Accepted, TotalPrice = 100 };
+            Reservation reservation1 = new Reservation { ID = 1, ApartmanID = apartman1.ID, GuestID = user2.ID, NumberOfNights = 10, SingUpDate = DateTime.Now, Stauts = Helper.Enums.ReservationStatus.Accepted, TotalPrice = 100 };
             context.Reservations.Add(reservation1);
             context.SaveChanges();
         }
