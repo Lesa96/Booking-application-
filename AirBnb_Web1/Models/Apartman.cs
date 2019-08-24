@@ -1,4 +1,4 @@
-﻿using AirBnb_Web1.Helper.Enums;
+using AirBnb_Web1.Helper.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,7 +17,7 @@ namespace AirBnb_Web1.Models
 
         public int RoomNumber { get; set; }
 
-        public double GuestNumber { get; set; }
+        public int GuestNumber { get; set; }
 
         [ForeignKey("LocationID")]
         public virtual Location Location { get; set; }

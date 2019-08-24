@@ -20,18 +20,18 @@ export class HomeComponent implements OnInit {
     //this.TestData();
     
     this.homeService.getActiveApartments().subscribe(data=> {
-      var helpApp = data as number;
+      var helpApp = data as Observable<Apartment>;
       console.log(helpApp);
-      // helpApp.forEach(element => {
-      //   var apartment = new Apartment();
-      //   apartment.ID = element.ID;
-      //   apartment.Type = element.Type;
-      //   apartment.RoomNumber = element.RoomNumber;
-      //   apartment.GuestNumber = element.GuestNumber;
-      //   apartment.PricePerNight = element.PricePerNight;
+      //  helpApp.forEach(element => {
+      //    var apartment = new Apartment();
+      //    apartment.ID = element.ID;
+      //    apartment.Type = element.Type;
+      //    apartment.RoomNumber = element.RoomNumber;
+      //    apartment.GuestNumber = element.GuestNumber;
+      //    apartment.PricePerNight = element.PricePerNight;
 
-      //   this.ActiveApartments.push(apartment);
-      // });
+      //    this.ActiveApartments.push(apartment);
+      //  });
     }); //doesnt do shit now
   }
 

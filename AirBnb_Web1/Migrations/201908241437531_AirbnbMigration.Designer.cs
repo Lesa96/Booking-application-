@@ -7,13 +7,13 @@ namespace AirBnb_Web1.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class FMigration : IMigrationMetadata
+    public sealed partial class AirbnbMigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(FMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AirbnbMigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201908181746542_FMigration"; }
+            get { return "201908241437531_AirbnbMigration"; }
         }
         
         string IMigrationMetadata.Source

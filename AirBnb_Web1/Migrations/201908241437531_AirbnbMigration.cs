@@ -3,7 +3,7 @@ namespace AirBnb_Web1.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class FMigration : DbMigration
+    public partial class AirbnbMigration : DbMigration
     {
         public override void Up()
         {
@@ -40,7 +40,7 @@ namespace AirBnb_Web1.Migrations
                         HostID = c.Int(nullable: false),
                         Type = c.Int(nullable: false),
                         RoomNumber = c.Int(nullable: false),
-                        GuestNumber = c.Double(nullable: false),
+                        GuestNumber = c.Int(nullable: false),
                         PricePerNight = c.Double(nullable: false),
                         SingUpTime = c.DateTime(nullable: false),
                         SingOutTime = c.DateTime(nullable: false),

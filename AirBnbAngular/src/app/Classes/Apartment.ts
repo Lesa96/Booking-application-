@@ -4,7 +4,6 @@ export class Apartment {
     Type : string;
     RoomNumber : number;
     GuestNumber : number;
-    Location : any;
     RentDates : Array<any>;
     AvailableDates : Array<any>;
     Comments : Array<any>;
@@ -12,4 +11,20 @@ export class Apartment {
     PricePerNight : number;
     SingUpTime : any;
     SingOutTime : any;
+    Status : string;
+
+    //coments:
+    CommentIDs : Array<number>;
+    //Location info:
+    Latitude : number;
+    Longitude : number;
+    //Adress info:
+    Streat : string;
+    StreatNumber : number;
+    Citysettlement : string;
+    ZipCode : number;
+    //Host info:
+    HostID : number;
+    HostName : string;
+    HostSurename : string;
 }
