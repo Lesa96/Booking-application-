@@ -29,7 +29,7 @@ namespace AirBnb_Web1.Helper.BindingModels
     //Adress
     public string Streat { get; set; }
     public int StreatNumber { get; set; }
-    public string Citysettlement { get; set; }
+    public string Settlement { get; set; }
     public int ZipCode { get; set; }
     //Host:
     public int HostID { get; set; }

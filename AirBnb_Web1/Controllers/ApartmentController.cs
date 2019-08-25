@@ -62,7 +62,7 @@ namespace AirBnb_Web1.Controllers
 
       //Coments into:
       apartmentBM.CommentIDs = new HashSet<int>();
-      ICollection<Comment> test = apartman.Comments; // test
+      ICollection<Comment> test = apartman.Comments; // wokrs
       foreach (var comment in test)
       {
         apartmentBM.CommentIDs.Add(comment.ID);
@@ -73,7 +73,7 @@ namespace AirBnb_Web1.Controllers
       apartmentBM.Streat = locationInfo.Adress.Streat;
       apartmentBM.StreatNumber = locationInfo.Adress.StreatNumber;
       apartmentBM.ZipCode = locationInfo.Adress.ZipCode;
-      apartmentBM.Citysettlement = locationInfo.Adress.Citysettlement;
+      apartmentBM.Settlement = locationInfo.Adress.Settlement;
 
       //Host:
       User Host = context.Users.Where(x => x.ID == apartman.HostID).FirstOrDefault();

@@ -1,24 +1,83 @@
 <h1>Airbnb home page</h1>
-<!--Active-->
-<h3>Active Apartments:</h3>
-<div *ngFor="let apartment of ActiveApartments">
-  <table >
+
+<div>
+  <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+    <table>
       <tr>
         <td>
+          WHERE: 
+        </td>
+        <td>
+          <input type="text" formControlName="settlement">
+        </td>
+        <td>
+          CHECK-IN: 
+        </td>
+        <td>
+          <input type="date" formControlName="checkIn">
+        </td>
+        <td>
+          CHECKOUT: 
+        </td>
+        <td>
+          <input type="date" formControlName="checkOut">
+        </td>
+        <td>
+          GUEST NUMBER: 
+        </td>
+        <td>
+          <input type="number" formControlName="guestNumber" min="1">
+        </td>
+      </tr>
+      <tr>
+        <td>
+         MINIMUM ROOMS: 
+        </td>
+        <td>
+          <input type="number" formControlName="minRooms" min="1">
+        </td>
+        <td>
+          MAXIMUM ROOMS: 
+         </td>
+         <td>
+           <input type="number" formControlName="maxRooms" min="1">
+         </td>
+         <td>
+          MAXIMUM PRICE: 
+         </td>
+         <td>
+           <input type="number" formControlName="maxPrice" min="1">
+         </td>
+         <td align="2" >
+           <button type="submit" >Search</button>
+         </td>
+      </tr>
+    </table>
+  </form>
+</div>
+<br><br>
+<!--Active-->
+<h3>Active Apartments:</h3>
+
+<div >
+  <table >
+      <tr *ngFor="let apartment of ActiveApartments">
+        <td align="1">
           <p class="p-table-home"> <i>Apartment type:</i> {{apartment.Type}} , <i>Number of rooms:</i> {{apartment.RoomNumber}} ,  
-            <i>Guest Number :</i>{{apartment.GuestNumber}}<i>, Price per nigth :</i>{{apartment.PricePerNight}}
+            <i>Guest Number :</i>{{apartment.GuestNumber}}<i>, Price per nigth :</i>{{apartment.PricePerNight}},
+            <i>Settlement :</i>{{apartment.Settlement}}
 
           </p>           
         </td>
         <td align="3">
-            <p>Slike ovde takooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo</p>
+            <img src="apartment.Pictures[0]" alt="No pictures available" height="50px" width="50px"/>
         </td>
-        <td>
+        <td align="1">
           <button id="{{apartment.ID}}" (click)="moreDetails($event)" >More details</button>
         </td>
       </tr>
   </table>
-  <br>
+  
 </div>
 
 <!--Not Active-->

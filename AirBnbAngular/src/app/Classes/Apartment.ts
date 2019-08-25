@@ -6,7 +6,6 @@ export class Apartment {
     GuestNumber : number;
     RentDates : Array<any>;
     AvailableDates : Array<any>;
-    Comments : Array<any>;
     Pictures : Array<string>;
     PricePerNight : number;
     SingUpTime : any;
@@ -21,7 +20,7 @@ export class Apartment {
     //Adress info:
     Streat : string;
     StreatNumber : number;
-    Citysettlement : string;
+    Settlement : string;
     ZipCode : number;
     //Host info:
     HostID : number;

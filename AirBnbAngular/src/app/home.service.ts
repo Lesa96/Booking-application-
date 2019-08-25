@@ -14,12 +14,12 @@ export class HomeService {
 
   getActiveApartments() : Observable<any>
   {    
-    // const httpOptions = {
-    //   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+     const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
       
-    // };
+     };
 
-    return this.http.get(this.homeUri+"GetActiveApartments").pipe(
+    return this.http.get(this.homeUri+"GetActiveApartments",httpOptions).pipe(
       catchError(e => throwError( alert("Eror in home service:  " + e)))
     );
   }

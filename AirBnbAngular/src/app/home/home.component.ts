@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../home.service';
 import {Apartment} from '../Classes/Apartment'
 import { Observable } from 'rxjs';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -10,29 +11,32 @@ import { Observable } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private homeService: HomeService) { }
+  constructor(private homeService: HomeService , private fb: FormBuilder) { }
 
   ActiveApartments : any[] = [];
   FiltredApartments : any[] = []; //bice nakon sto odradi filtriranje, pa ce se on bindovati
 
+  searchForm= this.fb.group({
+    settlement: [],
+    checkIn: [],
+    checkOut: [],
+    guestNumber: [],
+    minRooms: [],
+    maxRooms: [],
+    maxPrice: [],
+    
+  });
+
   ngOnInit() {
     
-    //this.TestData();
     
     this.homeService.getActiveApartments().subscribe(data=> {
       var helpApp = data as Observable<Apartment>;
       console.log(helpApp);
-      //  helpApp.forEach(element => {
-      //    var apartment = new Apartment();
-      //    apartment.ID = element.ID;
-      //    apartment.Type = element.Type;
-      //    apartment.RoomNumber = element.RoomNumber;
-      //    apartment.GuestNumber = element.GuestNumber;
-      //    apartment.PricePerNight = element.PricePerNight;
-
-      //    this.ActiveApartments.push(apartment);
-      //  });
-    }); //doesnt do shit now
+      helpApp.forEach(element => {
+        this.AddApartmentInfos(element);
+        });
+    }); 
   }
 
   moreDetails(event) {
@@ -43,25 +47,38 @@ export class HomeComponent implements OnInit {
     console.log(value); // id
   }
 
-  TestData()
+  AddApartmentInfos(element : any)
   {
-    for (let i = 0; i<5; i++)
-    {
-      var apartment = new Apartment();
-      apartment.ID = 2;
-      apartment.Type = "Room";
-      apartment.RoomNumber = 2;
-      apartment.GuestNumber = 2;
-      apartment.PricePerNight = 50;
-
-      this.ActiveApartments.push(apartment);
-    }
     var apartment = new Apartment();
-    apartment.Type = "Full Apartman";
-    apartment.RoomNumber = 4;
-    apartment.GuestNumber = 10;
+        apartment.ID = element.ID;
+        apartment.Type = element.Type;
+        apartment.RoomNumber = element.RoomNumber;
+        apartment.GuestNumber = element.GuestNumber;
+        apartment.PricePerNight = element.PricePerNight;
+        apartment.RentDates = element.RentDates;
+        apartment.AvailableDates = element.AvailableDates;
+        apartment.Pictures = element.Pictures;
+        apartment.SingUpTime = element.SingUpTime;
+        apartment.SingOutTime = element.SingOutTime;
+        apartment.Status = element.Status;
 
-    this.ActiveApartments.push(apartment);
+        apartment.CommentIDs = element.CommentIDs;
+        apartment.Latitude = element.Latitude;
+        apartment.Longitude = element.Longitude;
+        apartment.Streat = element.Streat;
+        apartment.StreatNumber = element.StreatNumber;
+        apartment.Settlement = element.Settlement;
+        apartment.ZipCode = element.ZipCode;
+        apartment.HostID = element.HostID;
+        apartment.HostName = element.HostName;
+        apartment.HostSurename = element.HostSurename;
+
+        this.ActiveApartments.push(apartment);
+  }
+
+  onSearch()
+  {
+    console.log(this.searchForm.value);
   }
 
 }

@@ -1,4 +1,4 @@
-﻿using AirBnb_Web1.Models;
+using AirBnb_Web1.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace AirBnb_Web1.DataAccessLayer
             adress1.Streat = "Bulevar Oslobodjenja";
             adress1.StreatNumber = 30;
             adress1.ZipCode = 21000;
-            adress1.Citysettlement = "Novi Sad";
+            adress1.Settlement = "Novi Sad";
             context.Adresss.Add(adress1);
             context.SaveChanges();
 

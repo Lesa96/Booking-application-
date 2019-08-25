@@ -15,11 +15,12 @@ h3
 }
 table {
     border: 2px solid black;
-    border-spacing: 5px;
+    border-spacing: 5px , 2px;
     width: 90%;
-    border-collapse: separate;
+    border-collapse: separate;    
        
 }
+tr    {padding: 50px;}
 button {
     background-color: #807f7f;
     color: white;
