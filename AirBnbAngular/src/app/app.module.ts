@@ -8,13 +8,29 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { AdminComponent } from './admin/admin.component';
+import { CreateHostComponent } from './admin/AdminStuff/create-host/create-host.component';
+import { UsersComponent } from './admin/AdminStuff/users/users.component';
+import { ApartmentsComponent } from './admin/AdminStuff/apartments/apartments.component';
+import { ReservationsComponent } from './admin/AdminStuff/reservations/reservations.component';
+import { LogedUserComponent } from './loged-user/loged-user.component';
+import { HostComponent } from './host/host.component';
+import { GuestComponent } from './guest/guest.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LogInComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    AdminComponent,
+    CreateHostComponent,
+    UsersComponent,
+    ApartmentsComponent,
+    ReservationsComponent,
+    LogedUserComponent,
+    HostComponent,
+    GuestComponent
   ],
   imports: [
     BrowserModule,

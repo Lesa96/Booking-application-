@@ -3,6 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { LogInComponent } from './log-in/log-in.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { AdminComponent } from './admin/admin.component';
+import { CreateHostComponent } from './admin/AdminStuff/create-host/create-host.component';
+import { ApartmentsComponent } from './admin/AdminStuff/apartments/apartments.component';
+import { ReservationsComponent } from './admin/AdminStuff/reservations/reservations.component';
+import { UsersComponent } from './admin/AdminStuff/users/users.component';
+import { GuestComponent } from './guest/guest.component';
+import { HostComponent } from './host/host.component';
 
 const routes: Routes = [
   { 
@@ -21,7 +28,35 @@ const routes: Routes = [
   { 
     path: 'home', 
     component: HomeComponent 
-  }
+  },
+  { 
+    path: 'admin', 
+    component: AdminComponent 
+  },
+  { 
+    path: 'admin/createhost', 
+    component: CreateHostComponent 
+  },
+  { 
+    path: 'admin/apartments', 
+    component: ApartmentsComponent 
+  },
+  { 
+    path: 'admin/reservations', 
+    component: ReservationsComponent 
+  },
+  { 
+    path: 'admin/users', 
+    component: UsersComponent 
+  },
+  { 
+    path: 'guest', 
+    component: GuestComponent 
+  },
+  { 
+    path: 'host', 
+    component: HostComponent 
+  },
 ];
 
 @NgModule({

@@ -31,12 +31,32 @@ namespace AirBnb_Web1.Controllers
       ICollection<Apartman> apartments = context.Set<Apartman>().ToList();
       foreach (var apartment in apartments)
       {
-        ApartmentBM apartmentBM = GetApartmentInfo(apartment);
-        apartmentsInfo.Add(apartmentBM);
+        if(apartment.Status == Helper.Enums.ApartmanStatus.Active)
+        {
+          ApartmentBM apartmentBM = GetApartmentInfo(apartment);
+          apartmentsInfo.Add(apartmentBM);
+        }
+        
       }
 
       return Ok(apartmentsInfo);
       
+    }
+
+    [HttpGet]
+    [Route("GetHostApartments")]
+    public IHttpActionResult GetHostApartments(int hostId)
+    {
+      List<ApartmentBM> apartmentsInfo = new List<ApartmentBM>();
+      ICollection<Apartman> apartments = context.Apartmans.Where(x => x.HostID == hostId).ToList();
+      foreach (var apartment in apartments)
+      {
+          ApartmentBM apartmentBM = GetApartmentInfo(apartment);
+          apartmentsInfo.Add(apartmentBM);
+      }
+
+      return Ok(apartmentsInfo);
+
     }
 
 

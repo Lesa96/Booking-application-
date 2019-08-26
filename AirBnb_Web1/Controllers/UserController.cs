@@ -1,4 +1,6 @@
 using AirBnb_Web1.DataAccessLayer;
+using AirBnb_Web1.Helper.BindingModels;
+using AirBnb_Web1.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,5 +31,30 @@ namespace AirBnb_Web1.Controllers
 
             return Ok();
         }
+
+    [HttpGet]
+    [Route("GetUsers")]
+    public IHttpActionResult GetUsers()
+    {
+      ICollection<User> users = context.Set<User>().ToList();
+      ICollection<UserBM> usersBM = new List<UserBM>();
+
+      foreach (User user in users)
+      {
+        UserBM userBM = new UserBM();
+        userBM.ID = user.ID;
+        userBM.Name = user.Name;
+        userBM.Password = user.Password;
+        userBM.Role = user.Role.ToString();
+        userBM.Surename = user.Surename;
+        userBM.UserName = user.UserName;
+        userBM.Gender = user.Gender.ToString();
+
+        usersBM.Add(userBM);
+      }
+
+      return Ok(usersBM);
     }
+
+  }
 }

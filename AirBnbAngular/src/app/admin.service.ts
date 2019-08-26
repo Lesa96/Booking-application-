@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable,throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HomeService {
+export class AdminService {
 
-  private homeUri = "http://localhost:8080/api/Apartment/";
+  private userUri = "http://localhost:8080/api/Users/";
 
   constructor(private http: HttpClient) { }
 
-  getActiveApartments() : Observable<any>
+  getAllUsers() : Observable<any>
   {    
      const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
       
      };
 
-    return this.http.get(this.homeUri+"GetActiveApartments",httpOptions).pipe(
-      catchError(e => throwError(console.error("Eror in home service:  " + e)))
+    return this.http.get(this.userUri+"GetUsers",httpOptions).pipe(
+      catchError(e => throwError(console.error("Eror in admin service:  " + e)))
     );
   }
 }

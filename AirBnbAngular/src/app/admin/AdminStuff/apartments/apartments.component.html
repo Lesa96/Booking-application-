@@ -1,0 +1,26 @@
+<app-admin></app-admin>
+<br><br><br>
+
+<h3>Apartments:</h3>
+
+<div >
+  <table >
+      <tr *ngFor="let apartment of ActiveApartments">
+        <td align="1">
+          <p class="p-table-home"> <i>Apartment type:</i> {{apartment.Type}} , <i>Number of rooms:</i> {{apartment.RoomNumber}} ,  
+            <i>Guest Number :</i>{{apartment.GuestNumber}}<i>, Price per nigth :</i>{{apartment.PricePerNight}},
+            <i>Settlement :</i>{{apartment.Settlement}}
+
+          </p>           
+        </td>
+        <td align="3">
+            <img src="apartment.Pictures[0]" alt="No pictures available" height="50px" width="50px"/>
+        </td>
+        <td align="1">
+          <button id="{{apartment.ID}}" (click)="moreDetails($event)" >Edit Apartment</button>
+        </td>
+        
+      </tr>
+  </table>
+  
+</div>
