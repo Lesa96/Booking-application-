@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Apartment } from 'src/app/Classes/Apartment';
 import { HomeService } from 'src/app/home.service';
 import { FormBuilder } from '@angular/forms';
+import { AdminService } from 'src/app/admin.service';
+import { Router } from '@angular/router';
+import { StorageService } from 'src/app/storage.service';
 
 @Component({
   selector: 'app-apartments',
@@ -11,10 +14,11 @@ import { FormBuilder } from '@angular/forms';
 })
 export class ApartmentsComponent implements OnInit {
 
-  constructor(private homeService: HomeService , private fb: FormBuilder) { }
+  constructor(private adminService: AdminService , private fb: FormBuilder, private router: Router,private storageService: StorageService) { }
 
-  ActiveApartments : any[] = [];
+  AllApartments : any[] = [];
   FiltredApartments : any[] = []; //bice nakon sto odradi filtriranje, pa ce se on bindovati
+  @Output() idOutput = new EventEmitter<number>();
 
   searchForm= this.fb.group({
     settlement: [],
@@ -30,7 +34,7 @@ export class ApartmentsComponent implements OnInit {
   ngOnInit() {
     
     
-    this.homeService.getActiveApartments().subscribe(data=> {
+    this.adminService.getAllApartments().subscribe(data=> {
       var helpApp = data as Observable<Apartment>;
       console.log(helpApp);
       helpApp.forEach(element => {
@@ -39,12 +43,16 @@ export class ApartmentsComponent implements OnInit {
     }); 
   }
 
-  moreDetails(event) {
+  editApartment(event) {
     const target = event.target || event.srcElement || event.currentTarget;
     const idAttr = target.attributes.id;
-    const value = idAttr.nodeValue; //id kliknutog button-a
+    const id = idAttr.nodeValue; //id kliknutog button-a
 
-    console.log(value); // id
+    var apartment = this.AllApartments.find(x => x.ID == id);
+
+    this.storageService.setApartment(apartment);
+    this.router.navigate(['/admin/apartments/edit']);
+
   }
 
   AddApartmentInfos(element : any)
@@ -73,6 +81,6 @@ export class ApartmentsComponent implements OnInit {
         apartment.HostName = element.HostName;
         apartment.HostSurename = element.HostSurename;
 
-        this.ActiveApartments.push(apartment);
+        this.AllApartments.push(apartment);
   }
 }

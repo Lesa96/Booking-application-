@@ -24,6 +24,23 @@ namespace AirBnb_Web1.Controllers
     }
 
     [HttpGet]
+    [Route("GetAllApartments")]
+    public IHttpActionResult GetAllApartments()
+    {
+      List<ApartmentBM> apartmentsInfo = new List<ApartmentBM>();
+      ICollection<Apartman> apartments = context.Set<Apartman>().ToList();
+      foreach (var apartment in apartments)
+      {
+          ApartmentBM apartmentBM = GetApartmentInfo(apartment);
+          apartmentsInfo.Add(apartmentBM);
+
+      }
+
+      return Ok(apartmentsInfo);
+
+    }
+
+    [HttpGet]
     [Route("GetActiveApartments")]
     public IHttpActionResult GetActiveApartments()
     {
@@ -59,6 +76,34 @@ namespace AirBnb_Web1.Controllers
 
     }
 
+    [HttpGet]
+    [Route("GetCommentsForApartment")]
+    public IHttpActionResult GetCommentsForApartment(int apartmentID)
+    {
+      List<CommentBM> commentInfos = new List<CommentBM>();
+      ICollection<Comment> comments = context.Comments.Where(x => x.ApartmanID == apartmentID).ToList();
+
+      foreach (var comment in comments)
+      {
+        CommentBM commentBM = GetCommentInfo(comment);
+        commentInfos.Add(commentBM);
+      }
+
+      return Ok(commentInfos);
+    }
+
+    private CommentBM GetCommentInfo(Comment comment)
+    {
+      CommentBM commentBM = new CommentBM();
+      commentBM.Id = comment.ID;
+      commentBM.Rate = comment.Rate;
+      commentBM.Text = comment.Text;
+      commentBM.Blocked = comment.Blocked;
+
+      commentBM.UserName = context.Users.Where(x => x.ID == comment.GuestID).FirstOrDefault().UserName;
+
+      return commentBM;
+    }
 
     private ApartmentBM GetApartmentInfo(Apartman apartman)
     {

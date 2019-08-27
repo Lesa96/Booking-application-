@@ -6,15 +6,15 @@ import {Apartment } from '../app/Classes/Apartment'
 })
 export class StorageService {
 
-  public ApartmentStorage: Apartment | boolean = false;
+  public ApartmentStorage: Apartment ;
 
     constructor() {}
 
-    public getScope(): Apartment | boolean {
+    public getApartment(): Apartment  {
         return this.ApartmentStorage;
     }
 
-    public setScope(app1: any): void {
+    public setApartment(app1: Apartment): void {
         this.ApartmentStorage = app1;
     }
 

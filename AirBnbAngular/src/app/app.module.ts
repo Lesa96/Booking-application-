@@ -16,6 +16,7 @@ import { ReservationsComponent } from './admin/AdminStuff/reservations/reservati
 import { LogedUserComponent } from './loged-user/loged-user.component';
 import { HostComponent } from './host/host.component';
 import { GuestComponent } from './guest/guest.component';
+import { EditApartmentComponent } from './admin/AdminStuff/apartments/edit-apartment/edit-apartment.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { GuestComponent } from './guest/guest.component';
     ReservationsComponent,
     LogedUserComponent,
     HostComponent,
-    GuestComponent
+    GuestComponent,
+    EditApartmentComponent
   ],
   imports: [
     BrowserModule,

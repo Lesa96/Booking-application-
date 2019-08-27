@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -21,5 +21,7 @@ namespace AirBnb_Web1.Models
         public string Text { get; set; }
 
         public double Rate { get; set; }
+
+        public bool Blocked { get; set; }
     }
 }

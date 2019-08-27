@@ -219,11 +219,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\BindingModels\ApartmentBM.cs" />
+    <Compile Include="Helper\BindingModels\CommentBM.cs" />
     <Compile Include="Helper\BindingModels\UserBM.cs" />
     <Compile Include="Helper\Enums\EnumHelper.cs" />
-    <Compile Include="Migrations\201908251744481_AirBnbMigration.cs" />
-    <Compile Include="Migrations\201908251744481_AirBnbMigration.Designer.cs">
-      <DependentUpon>201908251744481_AirBnbMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201908271737211_Airbnb.cs" />
+    <Compile Include="Migrations\201908271737211_Airbnb.Designer.cs">
+      <DependentUpon>201908271737211_Airbnb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Adress.cs" />
@@ -367,8 +368,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201908251744481_AirBnbMigration.resx">
-      <DependentUpon>201908251744481_AirBnbMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908271737211_Airbnb.resx">
+      <DependentUpon>201908271737211_Airbnb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -10,6 +10,7 @@ import { ReservationsComponent } from './admin/AdminStuff/reservations/reservati
 import { UsersComponent } from './admin/AdminStuff/users/users.component';
 import { GuestComponent } from './guest/guest.component';
 import { HostComponent } from './host/host.component';
+import { EditApartmentComponent } from './admin/AdminStuff/apartments/edit-apartment/edit-apartment.component';
 
 const routes: Routes = [
   { 
@@ -40,6 +41,10 @@ const routes: Routes = [
   { 
     path: 'admin/apartments', 
     component: ApartmentsComponent 
+  },
+  { 
+    path: 'admin/apartments/edit', 
+    component: EditApartmentComponent 
   },
   { 
     path: 'admin/reservations', 
