@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import {Comment} from '../../../../Classes/Comment';
 import { AdminService } from 'src/app/admin.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-apartment',
@@ -13,7 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class EditApartmentComponent implements OnInit {
 
-  constructor(private adminService: AdminService ,private storageService: StorageService, private fb: FormBuilder,) { }
+  constructor(private adminService: AdminService ,private storageService: StorageService, private fb: FormBuilder,private router: Router) { }
   apartment : Apartment;
   apartmentComments : any[] = [];
   appReady = false;
@@ -33,8 +34,8 @@ export class EditApartmentComponent implements OnInit {
       RoomNumber: [this.apartment.RoomNumber,Validators.required],
       GuestNumber: [this.apartment.GuestNumber,Validators.required],
       PricePerNight: [this.apartment.PricePerNight,Validators.required],
-      SingUpTime: [this.apartment.SingUpTime,Validators.required],
-      SingOutTime: [this.apartment.SingOutTime,Validators.required],
+      SingUpTime: [this.apartment.SingUpTime.split("T")[0],Validators.required],
+      SingOutTime: [this.apartment.SingOutTime.split("T")[0],Validators.required],
       Status: [this.apartment.Status,Validators.required],
   
       Latitude: [this.apartment.Latitude,Validators.required],
@@ -53,12 +54,30 @@ export class EditApartmentComponent implements OnInit {
 
   onChange()
   {
+    this.apartment.Type = this.editForm.value.Type;
+    this.apartment.RoomNumber = this.editForm.value.RoomNumber;
+    this.apartment.GuestNumber = this.editForm.value.GuestNumber;
+    this.apartment.PricePerNight = this.editForm.value.PricePerNight;
+    this.apartment.SingUpTime = this.editForm.value.SingUpTime;
+    this.apartment.SingOutTime = this.editForm.value.SingOutTime;
+    this.apartment.Status = this.editForm.value.Status;
+    this.apartment.Latitude = this.editForm.value.Latitude;
+    this.apartment.Longitude = this.editForm.value.Longitude;
+    this.apartment.Streat = this.editForm.value.Streat;
+    this.apartment.StreatNumber = this.editForm.value.StreatNumber;
+    this.apartment.Settlement = this.editForm.value.Settlement;
+    this.apartment.ZipCode = this.editForm.value.ZipCode;
+    
 
+    this.adminService.changeApartment(this.apartment).subscribe(data=>{
+      this.router.navigate(["/admin/apartments"]);
+    });
   }
   onDelete()
   {
-    
+    //kod za brisanje
   }
+  
 
   deleteComment(event)
   {
@@ -67,6 +86,8 @@ export class EditApartmentComponent implements OnInit {
     const id = idAttr.nodeValue; //id kliknutog button-a
 
     alert(id);
+    //kod za brisanje:
+
   }
 
   getAllComments()

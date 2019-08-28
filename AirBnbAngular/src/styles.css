@@ -49,8 +49,24 @@ input[type=text]:focus,input[type=email]:focus, input[type=password]:focus {
     background-color: #ddd;
     outline: none;
 }
+.comment-table
+{
+    background-color: rgb(201, 248, 250);
+    width: 90%;
+    padding-bottom: 1%;
+}
 .registerbtn {
     background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+.deletebtn {
+    background-color: rgb(175, 34, 34);
     color: white;
     padding: 16px 20px;
     margin: 8px 0;

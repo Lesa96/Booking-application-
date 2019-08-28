@@ -108,14 +108,6 @@
       </tr>
       <tr>
         <td>
-          Streat Number:
-        </td>
-        <td>
-          <input type="number" formControlName="StreatNumber" required>
-        </td>
-      </tr>
-      <tr>
-        <td>
           Zip Code:
         </td>
         <td>
@@ -127,7 +119,7 @@
           Host Name:
         </td>
         <td>
-          <input type="text" formControlName="HostName" required>
+          <input type="text" formControlName="HostName" readonly required>
         </td>
       </tr>
       <tr>
@@ -135,7 +127,7 @@
           Host Surname:
         </td>
         <td>
-          <input type="text" formControlName="HostSurename" required>
+          <input type="text" formControlName="HostSurename" readonly required>
         </td>
       </tr>
 
@@ -144,7 +136,7 @@
           <button type="submit" class="registerbtn"  [disabled]="editForm.invalid">Change</button>
         </td>
         <td colspan="1" align="right">
-          <button (click)="onDelete()" class="registerbtn"  >Delete</button>
+          <button (click)="onDelete()" class="deletebtn"  >Delete</button>
         </td>
       </tr>
     </table>
@@ -152,22 +144,16 @@
 </div>
 
 <div>
-  <table *ngFor="let comment of apartmentComments">
+  <table *ngFor="let comment of apartmentComments" class="comment-table">
     <tr>
-      <td>
-        <p><b>{{comment.UserName}}: </b> <i> {{comment.Rate}}</i></p>        
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <p class="p-table-home">  {{comment.Text}} </p> 
-      </td>
-    </tr>
+      <td align="*">
+        <p><b>{{comment.UserName}}: </b> <i> {{comment.Rate}}*   </i></p>  
 
-    <tr>
-      <td>
+        <p class="p-table-home">  {{comment.Text}} </p> 
         <button id="{{comment.Id}}" (click)="deleteComment($event)" >Delete</button>
       </td>
+      
     </tr>
+    
   </table>
 </div>

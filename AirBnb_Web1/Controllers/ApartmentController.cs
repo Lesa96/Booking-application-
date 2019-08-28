@@ -1,5 +1,6 @@
 using AirBnb_Web1.DataAccessLayer;
 using AirBnb_Web1.Helper.BindingModels;
+using AirBnb_Web1.Helper.Enums;
 using AirBnb_Web1.Models;
 using System;
 using System.Collections.Generic;
@@ -90,6 +91,47 @@ namespace AirBnb_Web1.Controllers
       }
 
       return Ok(commentInfos);
+    }
+
+    [HttpPatch]
+    [Route("ChangeApartment")]
+    public IHttpActionResult ChangeApartment(ApartmentBM apartment)
+    {
+      Apartman app = context.Apartmans.Where(x => x.ID == apartment.ID).FirstOrDefault();
+      SetApartment(app, apartment);
+
+      return Ok();
+    }
+
+    private bool SetApartment(Apartman apartman , ApartmentBM apartmentBM)
+    {
+      apartman.Type = (apartmentBM.Type == ApartmanType.FullApartman.ToString() ) ? ApartmanType.FullApartman : ApartmanType.Room;
+      apartman.Status = (apartmentBM.Type == ApartmanStatus.Active.ToString()) ? ApartmanStatus.Active : ApartmanStatus.NotActive;
+
+      apartman.SingUpTime = new DateTime(apartmentBM.SingUpTime.Year, apartmentBM.SingUpTime.Month, apartmentBM.SingUpTime.Day, apartman.SingUpTime.Hour, apartman.SingUpTime.Minute, apartman.SingUpTime.Second) ;
+      apartman.SingOutTime = new DateTime(apartmentBM.SingOutTime.Year, apartmentBM.SingOutTime.Month, apartmentBM.SingOutTime.Day, apartman.SingOutTime.Hour, apartman.SingOutTime.Minute, apartman.SingOutTime.Second);
+      apartman.RoomNumber = apartmentBM.RoomNumber;
+      apartman.RentDates = apartmentBM.RentDates;
+      apartman.PricePerNight = apartmentBM.PricePerNight;
+      apartman.Pictures = apartmentBM.Pictures;
+      apartman.AvailableDates = apartmentBM.AvailableDates;
+      apartman.GuestNumber = apartmentBM.GuestNumber;
+      context.SaveChanges();
+
+      //location info:
+      Location locationInfo = context.Locations.Where(x => x.ID == apartman.LocationID).FirstOrDefault();
+      locationInfo.Latitude = apartmentBM.Latitude;
+      locationInfo.Longitude = apartmentBM.Longitude;
+      context.SaveChanges();
+
+      //Adress
+      locationInfo.Adress.Streat = apartmentBM.Streat  ;
+      locationInfo.Adress.StreatNumber = apartmentBM.StreatNumber  ;
+      locationInfo.Adress.ZipCode = apartmentBM.ZipCode ;
+      locationInfo.Adress.Settlement = apartmentBM.Settlement ;
+      context.SaveChanges();
+
+      return true;
     }
 
     private CommentBM GetCommentInfo(Comment comment)

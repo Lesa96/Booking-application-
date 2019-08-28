@@ -34,7 +34,7 @@ export class AdminService {
      };
 
     return this.http.get(this.apartmentUri+"GetAllApartments",httpOptions).pipe(
-      catchError(e => throwError(console.error("Eror in home service:  " + e)))
+      catchError(e => throwError(console.error("Eror in admin service:  " + e)))
     );
 
   }
@@ -47,7 +47,19 @@ export class AdminService {
      };
 
     return this.http.get(this.apartmentUri+"GetCommentsForApartment",httpOptions).pipe(
-      catchError(e => throwError(console.error("Eror in home service:  " + e)))
+      catchError(e => throwError(console.error("Eror in admin service:  " + e)))
+    );
+
+  }
+
+  changeApartment(apartment : any) : any
+  {   
+     const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+     };
+
+    return this.http.patch(this.apartmentUri+"ChangeApartment",apartment,httpOptions).pipe(
+      catchError(e => throwError(console.error("Eror in admin service:  " + e)))
     );
 
   }
