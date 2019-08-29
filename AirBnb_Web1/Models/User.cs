@@ -1,4 +1,4 @@
-﻿using AirBnb_Web1.Helper.Enums;
+using AirBnb_Web1.Helper.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +16,15 @@ namespace AirBnb_Web1.Models
 
         public string Name { get; set; }
 
-        public string Surename { get; set; }
+        public string Surname { get; set; }
 
         public Genders Gender { get; set; }
 
         public Roles Role { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
+        public bool Blocked { get; set; }
+
+       public virtual ICollection<Comment> Comments { get; set; }
 
         public virtual ICollection<Apartman> ApartmantsToRent { get; set; }    
 

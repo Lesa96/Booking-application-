@@ -75,7 +75,9 @@ export class EditApartmentComponent implements OnInit {
   }
   onDelete()
   {
-    //kod za brisanje
+    this.adminService.deleteApartment(this.apartment.ID).subscribe(data=>{
+      this.router.navigate(["/admin/apartments"]);
+    });
   }
   
 
@@ -83,10 +85,14 @@ export class EditApartmentComponent implements OnInit {
   {
     const target = event.target || event.srcElement || event.currentTarget;
     const idAttr = target.attributes.id;
-    const id = idAttr.nodeValue; //id kliknutog button-a
-
-    alert(id);
-    //kod za brisanje:
+    const id = idAttr.nodeValue; //id kliknutog comment-a
+    
+    this.adminService.deleteApartmentComment(id).subscribe(data=>{
+      //brisi sa view-a:
+      var comm = this.apartmentComments.find(x=> x.Id == id);
+      var idx = this.apartmentComments.indexOf(comm);
+      this.apartmentComments.splice(idx,1);
+    });
 
   }
 

@@ -15,10 +15,12 @@ namespace AirBnb_Web1.Helper.BindingModels
 
     public string Name { get; set; }
 
-    public string Surename { get; set; }
+    public string Surname { get; set; }
 
     public string Gender { get; set; }
 
     public string Role { get; set; }
+
+    public bool Blocked { get; set; }
   }
 }

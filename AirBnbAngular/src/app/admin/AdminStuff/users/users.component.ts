@@ -21,4 +21,25 @@ export class UsersComponent implements OnInit {
       });
   }
 
+  changeStatus(event)
+  {
+    const target = event.target || event.srcElement || event.currentTarget;
+    const idAttr = target.attributes.id;
+    const id = idAttr.nodeValue; //id kliknutog comment-a
+
+    this.adminService.changeUserStatus(id).subscribe(data=> {
+      this.AllUsers.forEach(user=>{
+        if(user.ID == id)
+        {
+          if(user.Blocked)
+            user.Blocked = false;
+          else
+          user.Blocked = true;
+        }
+      });
+    });
+
+    
+  }
+
 }

@@ -30,9 +30,9 @@ namespace AirBnb_Web1.DataAccessLayer
             location1.Longitude = 25.23;
             location1.AdressID = 1;
 
-            User user1 = new User { ID = 1, Name = "Sasa", Surename = "Dragomirovic", Gender = Helper.Enums.Genders.Male,  Password = "123", Role = Helper.Enums.Roles.Admin, UserName = "Sale96" };
-            User user2 = new User { ID = 2, Name = "Biba", Surename = "Bibic", Gender = Helper.Enums.Genders.Male, Password = "123", Role = Helper.Enums.Roles.Guest, UserName = "Biba96" };
-            User user3 = new User { ID = 3, Name = "Gruja", Surename = "Grujic", Gender = Helper.Enums.Genders.Male, Password = "123", Role = Helper.Enums.Roles.Host, UserName = "Gruja96" };
+            User user1 = new User { ID = 1, Name = "Sasa", Surname = "Dragomirovic", Gender = Helper.Enums.Genders.Male,  Password = "123", Role = Helper.Enums.Roles.Admin, UserName = "Sale96" };
+            User user2 = new User { ID = 2, Name = "Biba", Surname = "Bibic", Gender = Helper.Enums.Genders.Male, Password = "123", Role = Helper.Enums.Roles.Guest, UserName = "Biba96" };
+            User user3 = new User { ID = 3, Name = "Gruja", Surname = "Grujic", Gender = Helper.Enums.Genders.Male, Password = "123", Role = Helper.Enums.Roles.Host, UserName = "Gruja96" };
             context.Users.Add(user1);
             context.Users.Add(user2);
             context.Users.Add(user3);

@@ -1,6 +1,73 @@
 <app-admin></app-admin>
-<br><br><br>
+<br><br>
 
-<p>
-  create-host works!
-</p>
+<div class="login-form">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <table>
+      <tr>
+        <td colspan="2" align="center">
+          <h2>Create host</h2>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Name:
+        </td>
+        <td>
+          <input type="text" formControlName="name" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Surname:
+        </td>
+        <td>
+          <input type="text" formControlName="surname" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Username:
+        </td>
+        <td>
+          <input type="text" formControlName="username" required >
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Password:
+        </td>
+        <td>
+          <input type="password" formControlName="password" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Confirm Password:
+        </td>
+        <td>
+          <input type="password" formControlName="confirmPassword" required>
+          <br />
+          <font *ngIf="invalidPass" color="red" size="2">
+          Passwords must be equal
+          </font> 
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Gender:
+        </td>
+        <td>
+          <select formControlName="gender">
+            <option *ngFor="let gender of genders" [value]="gender">{{gender}}</option> 
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" align="right">
+          <button type="submit" class="registerbtn"  [disabled]="registerForm.invalid">Create host</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+  </div>

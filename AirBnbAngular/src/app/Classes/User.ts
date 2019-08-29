@@ -1,11 +1,12 @@
 export class User {
-    Id : number;
+    ID : number;
     Name : string;
     Surname : string;
     Username : string;
     Password : string;
     Gender : string;
     Role : string;
+    Blocked : boolean;
 
 }
 

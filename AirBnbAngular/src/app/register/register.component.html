@@ -3,7 +3,7 @@
   <table>
     <tr>
       <td colspan="2" align="center">
-        <h2>Register</h2>
+        <h2>Create host</h2>
       </td>
     </tr>
     <tr>
@@ -24,10 +24,10 @@
     </tr>
     <tr>
       <td>
-        Email:
+        Username:
       </td>
       <td>
-        <input type="email" formControlName="email" required >
+        <input type="text" formControlName="username" required >
       </td>
     </tr>
     <tr>
@@ -62,7 +62,7 @@
     </tr>
     <tr>
       <td colspan="2" align="right">
-        <button type="submit" class="registerbtn"  [disabled]="registerForm.invalid">Register</button>
+        <button type="submit" class="registerbtn"  [disabled]="registerForm.invalid">Create host</button>
       </td>
     </tr>
   </table>

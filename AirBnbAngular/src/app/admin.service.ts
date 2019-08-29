@@ -22,7 +22,7 @@ export class AdminService {
      };
 
     return this.http.get(this.userUri+"GetUsers",httpOptions).pipe(
-      catchError(e => throwError(console.error("Eror in admin service:  " + e)))
+      catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
     );
   }
 
@@ -34,7 +34,7 @@ export class AdminService {
      };
 
     return this.http.get(this.apartmentUri+"GetAllApartments",httpOptions).pipe(
-      catchError(e => throwError(console.error("Eror in admin service:  " + e)))
+      catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
     );
 
   }
@@ -47,7 +47,7 @@ export class AdminService {
      };
 
     return this.http.get(this.apartmentUri+"GetCommentsForApartment",httpOptions).pipe(
-      catchError(e => throwError(console.error("Eror in admin service:  " + e)))
+      catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
     );
 
   }
@@ -59,8 +59,56 @@ export class AdminService {
      };
 
     return this.http.patch(this.apartmentUri+"ChangeApartment",apartment,httpOptions).pipe(
-      catchError(e => throwError(console.error("Eror in admin service:  " + e)))
+      catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
     );
 
   }
+
+  changeUserStatus(id : any) : any
+  {   
+     const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+     };
+
+    return this.http.patch(this.userUri+"ChangeUserStatus?id="+id,httpOptions).pipe(
+      catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
+    );
+
+  }
+
+  deleteApartmentComment(commentId : any) : any
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      params: new HttpParams().set('commentId' , commentId)
+     };
+
+     return this.http.delete(this.apartmentUri+"DeleteApartmentComment",httpOptions).pipe(
+      catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
+    );;
+  }
+
+  deleteApartment(apartmentId : any) : any
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      params: new HttpParams().set('apartmentId' , apartmentId)
+     };
+
+     return this.http.delete(this.apartmentUri+"DeleteApartment",httpOptions).pipe(
+      catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
+    );;
+  }
+
+  CreateHost(user : any) : any
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+     };
+
+    return this.http.put(this.userUri+"CreateHost",user,httpOptions).pipe(
+      catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
+    );
+  }
+
 }

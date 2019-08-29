@@ -1,5 +1,5 @@
 <div  class="login-form">
-  <form [formGroup]="editForm" (ngSubmit)="onChange()">
+  <form [formGroup]="editForm" >
     <table>
       <tr>
         <td colspan="2" align="center">
@@ -133,7 +133,7 @@
 
       <tr>
         <td colspan="1" align="right">
-          <button type="submit" class="registerbtn"  [disabled]="editForm.invalid">Change</button>
+          <button (click)="onChange()" class="registerbtn"  [disabled]="editForm.invalid">Change</button>
         </td>
         <td colspan="1" align="right">
           <button (click)="onDelete()" class="deletebtn"  >Delete</button>

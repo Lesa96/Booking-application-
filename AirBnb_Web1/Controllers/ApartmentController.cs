@@ -103,10 +103,32 @@ namespace AirBnb_Web1.Controllers
       return Ok();
     }
 
+    [HttpDelete]
+    [Route("DeleteApartmentComment")]
+    public IHttpActionResult DeleteApartmentComment(int commentId )
+    {
+      Comment comm = context.Comments.Where(x => x.ID == commentId).FirstOrDefault();
+      context.Comments.Remove(comm);
+      context.SaveChanges();
+
+      return Ok();
+    }
+
+    [HttpDelete]
+    [Route("DeleteApartment")]
+    public IHttpActionResult DeleteApartment(int apartmentId)
+    {
+      Apartman app = context.Apartmans.Where(x => x.ID == apartmentId).FirstOrDefault();
+      context.Apartmans.Remove(app);
+      context.SaveChanges();
+
+      return Ok();
+    }
+
     private bool SetApartment(Apartman apartman , ApartmentBM apartmentBM)
     {
       apartman.Type = (apartmentBM.Type == ApartmanType.FullApartman.ToString() ) ? ApartmanType.FullApartman : ApartmanType.Room;
-      apartman.Status = (apartmentBM.Type == ApartmanStatus.Active.ToString()) ? ApartmanStatus.Active : ApartmanStatus.NotActive;
+      apartman.Status = (apartmentBM.Status == ApartmanStatus.Active.ToString()) ? ApartmanStatus.Active : ApartmanStatus.NotActive;
 
       apartman.SingUpTime = new DateTime(apartmentBM.SingUpTime.Year, apartmentBM.SingUpTime.Month, apartmentBM.SingUpTime.Day, apartman.SingUpTime.Hour, apartman.SingUpTime.Minute, apartman.SingUpTime.Second) ;
       apartman.SingOutTime = new DateTime(apartmentBM.SingOutTime.Year, apartmentBM.SingOutTime.Month, apartmentBM.SingOutTime.Day, apartman.SingOutTime.Hour, apartman.SingOutTime.Minute, apartman.SingOutTime.Second);
@@ -186,7 +208,7 @@ namespace AirBnb_Web1.Controllers
       User Host = context.Users.Where(x => x.ID == apartman.HostID).FirstOrDefault();
       apartmentBM.HostID = Host.ID;
       apartmentBM.HostName = Host.Name;
-      apartmentBM.HostSurename = Host.Surename;
+      apartmentBM.HostSurename = Host.Surname;
 
 
       return apartmentBM;

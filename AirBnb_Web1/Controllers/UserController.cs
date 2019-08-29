@@ -32,6 +32,45 @@ namespace AirBnb_Web1.Controllers
             return Ok();
         }
 
+        [HttpPut]
+        [Route("Register")]
+        public IHttpActionResult Register(UserBM user)
+        {
+          User us = new User();
+          us.Blocked = false;
+          us.Name = user.Name;
+          us.Password = user.Password;
+          us.Role = Helper.Enums.Roles.Guest;
+          us.UserName = user.UserName;
+          us.Surname = user.Surname;
+          us.Gender = (user.Gender == "Male") ? Helper.Enums.Genders.Male : Helper.Enums.Genders.Famale;
+
+          context.Users.Add(us);
+          context.SaveChanges();
+
+          return Ok();
+        }
+
+    // admin
+    [HttpPut]
+    [Route("CreateHost")]
+    public IHttpActionResult CreateHost(UserBM user)
+    {
+      User us = new User();
+      us.Blocked = false;
+      us.Name = user.Name;
+      us.Password = user.Password;
+      us.Role = Helper.Enums.Roles.Host;
+      us.UserName = user.UserName;
+      us.Surname = user.Surname;
+      us.Gender = (user.Gender == "Male") ? Helper.Enums.Genders.Male : Helper.Enums.Genders.Famale;
+
+      context.Users.Add(us);
+      context.SaveChanges();
+
+      return Ok();
+    }
+
     [HttpGet]
     [Route("GetUsers")]
     public IHttpActionResult GetUsers()
@@ -41,19 +80,39 @@ namespace AirBnb_Web1.Controllers
 
       foreach (User user in users)
       {
-        UserBM userBM = new UserBM();
-        userBM.ID = user.ID;
-        userBM.Name = user.Name;
-        userBM.Password = user.Password;
-        userBM.Role = user.Role.ToString();
-        userBM.Surename = user.Surename;
-        userBM.UserName = user.UserName;
-        userBM.Gender = user.Gender.ToString();
+        if(user.Role != Helper.Enums.Roles.Admin)
+        {
+          UserBM userBM = new UserBM();
+          userBM.ID = user.ID;
+          userBM.Name = user.Name;
+          userBM.Password = user.Password;
+          userBM.Role = user.Role.ToString();
+          userBM.Surname = user.Surname;
+          userBM.UserName = user.UserName;
+          userBM.Gender = user.Gender.ToString();
+          userBM.Blocked = user.Blocked;
 
-        usersBM.Add(userBM);
+          usersBM.Add(userBM);
+        }
+        
       }
 
       return Ok(usersBM);
+    }
+
+    [HttpPatch]
+    [Route("ChangeUserStatus")]
+    public IHttpActionResult ChangeUserStatus(int id)
+    {
+      User user = context.Users.Where(x => x.ID == id).FirstOrDefault();
+      if (user.Blocked)
+        user.Blocked = false;
+      else
+        user.Blocked = true;
+
+      context.SaveChanges();
+
+      return Ok();
     }
 
   }

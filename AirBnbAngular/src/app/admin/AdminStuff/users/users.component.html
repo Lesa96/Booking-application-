@@ -1,5 +1,23 @@
 <app-admin></app-admin>
 <br><br><br>
-<p>
-  users works!
-</p>
+
+<h3>Users:</h3>
+
+<div >
+  <table >
+      <tr *ngFor="let user of AllUsers">
+        <td align="1">
+          <p class="p-table-home"> <i>Name:</i> {{user.Name}} , <i>Surname:</i> {{user.Surname}} ,  
+            <i>Username :</i>{{user.Username}}<i>, Gender :</i>{{user.Gender}},
+            <i>Role :</i>{{user.Role}},<i>Blocked :</i>{{user.Blocked}}
+
+          </p>           
+        </td>
+        <td align="1">
+          <button id="{{user.ID}}" (click)="changeStatus($event)" >Change Status</button>
+        </td>
+        
+      </tr>
+  </table>
+  
+</div>
