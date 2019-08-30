@@ -25,5 +25,5 @@ export class Apartment {
     //Host info:
     HostID : number;
     HostName : string;
-    HostSurename : string;
+    HostSurname : string;
 }

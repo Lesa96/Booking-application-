@@ -10,6 +10,8 @@ export class AdminService {
 
   private userUri = "http://localhost:8080/api/Users/";
   private apartmentUri = "http://localhost:8080/api/Apartment/";
+  private reservationUri = "http://localhost:8080/api/Reservation/";
+  private amenitieUri = "http://localhost:8080/api/Amenitie/";
   
 
   constructor(private http: HttpClient) { }
@@ -22,6 +24,17 @@ export class AdminService {
      };
 
     return this.http.get(this.userUri+"GetUsers",httpOptions).pipe(
+      catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
+    );
+  }
+  getAllReservations()
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      
+     };
+
+    return this.http.get(this.reservationUri+"GetAllReservations",httpOptions).pipe(
       catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
     );
   }
@@ -109,6 +122,43 @@ export class AdminService {
     return this.http.put(this.userUri+"CreateHost",user,httpOptions).pipe(
       catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
     );
+  }
+
+  GetAllAmenities() : Observable<any>
+  {   
+     const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })     
+     };
+
+    return this.http.get(this.amenitieUri+"GetAllAmenities",httpOptions).pipe(
+      catchError(e => throwError(alert("Eror in admin service:  " + e.error.Message)))
+    );
+
+  }
+
+  DeleteAmenitie(amenitieId: any) : any
+  {   
+     const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      params: new HttpParams().set('amenitieId' , amenitieId)     
+     };
+
+    return this.http.delete(this.amenitieUri+"DeleteAmenitie",httpOptions).pipe(
+      catchError(e => throwError(alert("Eror in admin service:  " + e.error.Message)))
+    );
+
+  }
+
+  AddAmenitie(amenitieName: string) : any
+  {   
+     const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })    
+     };
+
+    return this.http.put(this.amenitieUri+"AddAmenitie?amenitieName="+amenitieName,httpOptions).pipe(
+      catchError(e => throwError(alert("Eror in admin service:  " + e.error.Message)))
+    );
+
   }
 
 }

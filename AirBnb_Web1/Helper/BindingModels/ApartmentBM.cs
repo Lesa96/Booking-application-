@@ -34,7 +34,7 @@ namespace AirBnb_Web1.Helper.BindingModels
     //Host:
     public int HostID { get; set; }
     public string HostName { get; set; }
-    public string HostSurename { get; set; }
+    public string HostSurname { get; set; }
 
 
   }

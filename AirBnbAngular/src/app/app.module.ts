@@ -17,6 +17,7 @@ import { LogedUserComponent } from './loged-user/loged-user.component';
 import { HostComponent } from './host/host.component';
 import { GuestComponent } from './guest/guest.component';
 import { EditApartmentComponent } from './admin/AdminStuff/apartments/edit-apartment/edit-apartment.component';
+import { AmenitieComponent } from './admin/AdminStuff/amenitie/amenitie.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { EditApartmentComponent } from './admin/AdminStuff/apartments/edit-apart
     LogedUserComponent,
     HostComponent,
     GuestComponent,
-    EditApartmentComponent
+    EditApartmentComponent,
+    AmenitieComponent
   ],
   imports: [
     BrowserModule,

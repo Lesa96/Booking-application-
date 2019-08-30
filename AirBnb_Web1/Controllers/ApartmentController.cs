@@ -208,7 +208,7 @@ namespace AirBnb_Web1.Controllers
       User Host = context.Users.Where(x => x.ID == apartman.HostID).FirstOrDefault();
       apartmentBM.HostID = Host.ID;
       apartmentBM.HostName = Host.Name;
-      apartmentBM.HostSurename = Host.Surname;
+      apartmentBM.HostSurname = Host.Surname;
 
 
       return apartmentBM;

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from 'src/app/admin.service';
+import { Observable } from 'rxjs';
+import {Reservation} from '../../../Classes/Reservation';
 
 @Component({
   selector: 'app-reservations',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReservationsComponent implements OnInit {
 
-  constructor() { }
+  AllReservations : Observable<Reservation>
+  constructor(private adminService: AdminService) { }
 
   ngOnInit() {
+    this.adminService.getAllReservations().subscribe(data=> 
+      { 
+        this.AllReservations = data as Observable<Reservation>
+        console.log(this.AllReservations);
+      });
   }
 
 }

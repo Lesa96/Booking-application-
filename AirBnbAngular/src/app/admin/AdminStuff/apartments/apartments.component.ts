@@ -79,7 +79,7 @@ export class ApartmentsComponent implements OnInit {
         apartment.ZipCode = element.ZipCode;
         apartment.HostID = element.HostID;
         apartment.HostName = element.HostName;
-        apartment.HostSurename = element.HostSurename;
+        apartment.HostSurname = element.HostSurname;
 
         this.AllApartments.push(apartment);
   }

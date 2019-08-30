@@ -3,6 +3,7 @@ import { HomeService } from '../home.service';
 import {Apartment} from '../Classes/Apartment'
 import { Observable } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private homeService: HomeService , private fb: FormBuilder) { }
+  constructor(private homeService: HomeService ,private router : Router, private fb: FormBuilder) { }
 
   ActiveApartments : any[] = [];
   FiltredApartments : any[] = []; //bice nakon sto odradi filtriranje, pa ce se on bindovati
@@ -71,7 +72,7 @@ export class HomeComponent implements OnInit {
         apartment.ZipCode = element.ZipCode;
         apartment.HostID = element.HostID;
         apartment.HostName = element.HostName;
-        apartment.HostSurename = element.HostSurename;
+        apartment.HostSurname = element.HostSurname;
 
         this.ActiveApartments.push(apartment);
   }
@@ -79,6 +80,11 @@ export class HomeComponent implements OnInit {
   onSearch()
   {
     console.log(this.searchForm.value);
+  }
+
+  logIn()
+  {
+    this.router.navigate(["login"]);
   }
 
 }

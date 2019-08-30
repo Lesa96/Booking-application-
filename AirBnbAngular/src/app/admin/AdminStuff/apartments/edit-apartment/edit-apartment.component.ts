@@ -45,7 +45,7 @@ export class EditApartmentComponent implements OnInit {
       Settlement: [this.apartment.Settlement,Validators.required],
       ZipCode: [this.apartment.ZipCode,Validators.required],
       HostName: [this.apartment.HostName,Validators.required],
-      HostSurename: [this.apartment.HostSurename,Validators.required],
+      HostSurname: [this.apartment.HostSurname,Validators.required],
       
     });
     
@@ -67,6 +67,7 @@ export class EditApartmentComponent implements OnInit {
     this.apartment.StreatNumber = this.editForm.value.StreatNumber;
     this.apartment.Settlement = this.editForm.value.Settlement;
     this.apartment.ZipCode = this.editForm.value.ZipCode;
+    
     
 
     this.adminService.changeApartment(this.apartment).subscribe(data=>{
@@ -113,6 +114,11 @@ export class EditApartmentComponent implements OnInit {
 
       console.warn(this.apartmentComments);
     });
+  }
+
+  returnBack()
+  {
+    this.router.navigate(["/admin/apartments"]);
   }
 
   

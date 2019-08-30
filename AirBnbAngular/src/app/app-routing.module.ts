@@ -11,6 +11,7 @@ import { UsersComponent } from './admin/AdminStuff/users/users.component';
 import { GuestComponent } from './guest/guest.component';
 import { HostComponent } from './host/host.component';
 import { EditApartmentComponent } from './admin/AdminStuff/apartments/edit-apartment/edit-apartment.component';
+import { AmenitieComponent } from './admin/AdminStuff/amenitie/amenitie.component';
 
 const routes: Routes = [
   { 
@@ -55,6 +56,10 @@ const routes: Routes = [
     component: UsersComponent 
   },
   { 
+    path: 'admin/amenities', 
+    component: AmenitieComponent 
+  },
+  { 
     path: 'guest', 
     component: GuestComponent 
   },
@@ -62,6 +67,7 @@ const routes: Routes = [
     path: 'host', 
     component: HostComponent 
   },
+  
 ];
 
 @NgModule({
