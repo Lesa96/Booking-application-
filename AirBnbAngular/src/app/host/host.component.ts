@@ -13,10 +13,7 @@ export class HostComponent implements OnInit {
   constructor(private hostService : HostService) { }
 
   ngOnInit() {
-    this.hostService.getHostApartments(3).subscribe(data => {
-      var helpApp = data as Observable<Apartment>;
-      console.log(helpApp);
-    })
+    
   }
 
 }

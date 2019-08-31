@@ -1,0 +1,117 @@
+<app-host></app-host>
+
+<div  class="login-form">
+  <form [formGroup]="addForm" (ngSubmit)="createApartment()">
+    <table>
+      <tr>
+        <td colspan="2" align="center">
+          <h2>Add apartment</h2>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Type:
+        </td>
+        <td>
+          <select formControlName="Type">
+            <option *ngFor="let type of apartmentTypes" [value]="type">{{type}}</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Room Number:
+        </td>
+        <td>
+          <input type="number" min=1 formControlName="RoomNumber" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Guest Number:
+        </td>
+        <td>
+          <input type="number" min=1 formControlName="GuestNumber" required >
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Price Per Night:
+        </td>
+        <td>
+          <input type="number" formControlName="PricePerNight" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Sing Up Time:
+        </td>
+        <td>
+          <input type="time" formControlName="SingUpTime" required>          
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Sing Out Time:
+        </td>
+        <td>
+          <input type="time" formControlName="SingOutTime" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Latitude:
+        </td>
+        <td>
+          <input type="number" formControlName="Latitude" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Longitude:
+        </td>
+        <td>
+          <input type="number" formControlName="Longitude" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Streat:
+        </td>
+        <td>
+          <input type="text" formControlName="Streat" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Streat Number:
+        </td>
+        <td>
+          <input type="number" formControlName="StreatNumber" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Settlement:
+        </td>
+        <td>
+          <input type="text" formControlName="Settlement" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Zip Code:
+        </td>
+        <td>
+          <input type="number" formControlName="ZipCode" required>
+        </td>
+      </tr>
+      
+      <tr>
+        <td colspan="2" align="center">
+          <button type="submit" class="registerbtn"  [disabled]="addForm.invalid">Add apartment</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>

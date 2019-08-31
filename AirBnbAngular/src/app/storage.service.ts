@@ -7,6 +7,7 @@ import {Apartment } from '../app/Classes/Apartment'
 export class StorageService {
 
   public ApartmentStorage: Apartment ;
+  public HostApartmentStorage: Apartment ;
 
     constructor() {}
 
@@ -17,6 +18,14 @@ export class StorageService {
     public setApartment(app1: Apartment): void {
         this.ApartmentStorage = app1;
     }
+
+    public getHostApartment(): Apartment  {
+      return this.HostApartmentStorage;
+  }
+
+  public setHostApartment(app1: Apartment): void {
+      this.HostApartmentStorage = app1;
+  }
 
 
 }

@@ -1,0 +1,147 @@
+<button (click) = "returnBack()"> < Back</button>
+<div  class="login-form">
+  <form [formGroup]="editForm" >
+    <table>
+      <tr>
+        <td colspan="2" align="center">
+          <h2>Edit apartment</h2>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Type:
+        </td>
+        <td>
+          <select formControlName="Type">
+            <option *ngFor="let type of apartmentTypes" [value]="type">{{type}}</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Room Number:
+        </td>
+        <td>
+          <input type="number" min=1 formControlName="RoomNumber" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Guest Number:
+        </td>
+        <td>
+          <input type="number" min=1 formControlName="GuestNumber" required >
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Price Per Night:
+        </td>
+        <td>
+          <input type="number" formControlName="PricePerNight" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Sing Up Time:
+        </td>
+        <td>
+          <input type="date" formControlName="SingUpTime" required>          
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Sing Out Time:
+        </td>
+        <td>
+          <input type="date" formControlName="SingOutTime" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Status:
+        </td>
+        <td>
+          <select formControlName="Status">
+            <option *ngFor="let status of apartmentStatus" [value]="status">{{status}}</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Latitude:
+        </td>
+        <td>
+          <input type="number" formControlName="Latitude" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Longitude:
+        </td>
+        <td>
+          <input type="number" formControlName="Longitude" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Streat:
+        </td>
+        <td>
+          <input type="text" formControlName="Streat" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Streat Number:
+        </td>
+        <td>
+          <input type="number" formControlName="StreatNumber" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Settlement:
+        </td>
+        <td>
+          <input type="text" formControlName="Settlement" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Zip Code:
+        </td>
+        <td>
+          <input type="number" formControlName="ZipCode" required>
+        </td>
+      </tr>
+      
+      
+
+      <tr>
+        <td colspan="1" align="right">
+          <button (click)="onChange()" class="registerbtn"  [disabled]="editForm.invalid">Change</button>
+        </td>
+        <td colspan="1" align="right">
+          <button (click)="onDelete()" class="deletebtn"  >Delete</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+<div>
+  <table *ngFor="let comment of apartmentComments" class="comment-table">
+    <tr>
+      <td align="*">
+        <p><b>{{comment.UserName}}: </b> <i> {{comment.Rate}}*   </i></p>  
+
+        <p class="p-table-home">  {{comment.Text}} </p> 
+        <p>Blocked: {{comment.Blocked}} </p>
+        <button id="{{comment.Id}}" (click)="chageComment($event)" >Change status</button>
+      </td>
+      
+    </tr>
+    
+  </table>
+</div>

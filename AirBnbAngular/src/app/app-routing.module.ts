@@ -12,11 +12,16 @@ import { GuestComponent } from './guest/guest.component';
 import { HostComponent } from './host/host.component';
 import { EditApartmentComponent } from './admin/AdminStuff/apartments/edit-apartment/edit-apartment.component';
 import { AmenitieComponent } from './admin/AdminStuff/amenitie/amenitie.component';
+import { HostApartmentsComponent } from './host/HostStuff/host-apartments/host-apartments.component';
+import { HostCreateApartmentComponent } from './host/HostStuff/host-create-apartment/host-create-apartment.component';
+import { HostReservationsComponent } from './host/HostStuff/host-reservations/host-reservations.component';
+import { EditHostApartmentComponent } from './host/HostStuff/host-apartments/edit-host-apartment/edit-host-apartment.component';
+
 
 const routes: Routes = [
   { 
     path: '', 
-    redirectTo: '/home', 
+    redirectTo: '/home',
     pathMatch: 'full' 
   },
   { 
@@ -66,6 +71,22 @@ const routes: Routes = [
   { 
     path: 'host', 
     component: HostComponent 
+  },
+  { 
+    path: 'host/createapartment', 
+    component: HostCreateApartmentComponent 
+  },
+  { 
+    path: 'host/apartments', 
+    component: HostApartmentsComponent 
+  },
+  { 
+    path: 'host/reservations', 
+    component: HostReservationsComponent 
+  },
+  { 
+    path: 'host/apartments/edit', 
+    component: EditHostApartmentComponent 
   },
   
 ];
