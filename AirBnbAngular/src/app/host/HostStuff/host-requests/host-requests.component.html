@@ -1,0 +1,57 @@
+<app-host></app-host>
+<br>
+
+<h3>Reservation Requests:</h3>
+
+<div >
+  <table >
+      <tr *ngFor="let reservation of createdReservations">
+        <td align="1">
+          <p class="p-table-home"> <i>Stauts: </i> {{reservation.Stauts}} , <i>Sing Up Date: </i> {{reservation.SingUpDate}} ,  
+            <i>Number Of Nights :</i>{{reservation.NumberOfNights}}<i>, Total Price :</i>{{reservation.TotalPrice}},
+            <i>Guest : </i>{{reservation.GuestUserName}},<i>Host : </i>{{reservation.HostUserName}}
+            <br>
+            <b>Apartment : </b>
+            <br>
+            {{reservation.ApartmentStreat}} {{reservation.ApartmentStreatNumber}},
+            {{reservation.ApartmentSettlement}} {{reservation.ApartmentZipCode}}
+
+          </p>           
+        </td> 
+        <td align="1">
+          <button id="{{reservation.ID}}"  (click)="acceptRequest($event)" >Accept</button>         
+        </td>
+        <td align="1">            
+            <button id="{{reservation.ID}}"  (click)="rejectRequest($event)">Reject</button>
+          </td>                
+      </tr>
+  </table>
+  
+</div>
+
+<br>
+
+<h3>Accepted Reservations:</h3>
+
+<div >
+  <table >
+      <tr *ngFor="let reservation of acceptedReservations">
+        <td align="1">
+          <p class="p-table-home"> <i>Stauts: </i> {{reservation.Stauts}} , <i>Sing Up Date: </i> {{reservation.SingUpDate}} ,  
+            <i>Number Of Nights :</i>{{reservation.NumberOfNights}}<i>, Total Price :</i>{{reservation.TotalPrice}},
+            <i>Guest : </i>{{reservation.GuestUserName}},<i>Host : </i>{{reservation.HostUserName}}
+            <br>
+            <b>Apartment : </b>
+            <br>
+            {{reservation.ApartmentStreat}} {{reservation.ApartmentStreatNumber}},
+            {{reservation.ApartmentSettlement}} {{reservation.ApartmentZipCode}}
+
+          </p>           
+        </td>
+        <td>
+          <button id="{{reservation.ID}}" (click)="rejectRequest($event)">Reject</button>
+        </td>               
+      </tr>
+  </table>
+  
+</div>

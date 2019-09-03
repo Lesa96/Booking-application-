@@ -16,6 +16,7 @@ import { HostApartmentsComponent } from './host/HostStuff/host-apartments/host-a
 import { HostCreateApartmentComponent } from './host/HostStuff/host-create-apartment/host-create-apartment.component';
 import { HostReservationsComponent } from './host/HostStuff/host-reservations/host-reservations.component';
 import { EditHostApartmentComponent } from './host/HostStuff/host-apartments/edit-host-apartment/edit-host-apartment.component';
+import { HostRequestsComponent } from './host/HostStuff/host-requests/host-requests.component';
 
 
 const routes: Routes = [
@@ -87,6 +88,10 @@ const routes: Routes = [
   { 
     path: 'host/apartments/edit', 
     component: EditHostApartmentComponent 
+  },
+  { 
+    path: 'host/requests', 
+    component: HostRequestsComponent 
   },
   
 ];

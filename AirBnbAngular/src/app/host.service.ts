@@ -10,8 +10,48 @@ export class HostService {
 
   private apartmentUri = "http://localhost:8080/api/Apartment/";
   private amenitieUri = "http://localhost:8080/api/Amenitie/";
+  private reservationUri = "http://localhost:8080/api/Reservation/";
 
   constructor(private http: HttpClient) { }
+
+  getHostReservations(hostId : any) : Observable<any>
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      params: new HttpParams().set('hostId' , hostId)
+      
+     };
+
+    return this.http.get(this.reservationUri+"GetHostReservations",httpOptions).pipe(
+      catchError(e => throwError(console.error("Eror in host service:  " + e.error.Message)))
+    );
+  }
+
+  changeUserStatus(reservationId : any , status : any) : any
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      params: new HttpParams().set('reservationId' , reservationId).set('status',status)
+      
+     };
+
+     return this.http.delete(this.reservationUri+"ChageReservationRequests",httpOptions).pipe(
+      catchError(e => throwError(console.error("Eror in host service:  " + e.error.Message)))
+    );
+  }
+
+  GetReservationRequests(hostId : any , status : any) : Observable<any>
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      params: new HttpParams().set('hostId' , hostId).set('status',status)
+      
+     };
+
+    return this.http.get(this.reservationUri+"GetReservationRequests",httpOptions).pipe(
+      catchError(e => throwError(console.error("Eror in host service:  " + e.error.Message)))
+    );
+  }
 
   getHostApartments(hostId : any) : Observable<any>
   {    

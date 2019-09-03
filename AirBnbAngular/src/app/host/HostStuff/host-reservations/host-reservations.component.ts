@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Reservation } from 'src/app/Classes/Reservation';
+import { HostService } from 'src/app/host.service';
 
 @Component({
   selector: 'app-host-reservations',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HostReservationsComponent implements OnInit {
 
-  constructor() { }
+  hostReservations : Observable<Reservation>
+  constructor(private hostService: HostService) { }
 
   ngOnInit() {
+    this.hostService.getHostReservations(3).subscribe(data=> 
+      { 
+        this.hostReservations = data as Observable<Reservation>
+        console.log(this.hostReservations);
+      });
   }
 
 }
