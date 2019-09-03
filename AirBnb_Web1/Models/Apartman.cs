@@ -44,5 +44,7 @@ namespace AirBnb_Web1.Models
         public virtual ICollection<Amenitie> Amenities { get; set; }
 
         public virtual ICollection<Reservation> Reservations { get; set; }
+
+        public bool Deleted { get; set; }
     }
 }

@@ -46,7 +46,7 @@
           Sing Up Time:
         </td>
         <td>
-          <input type="date" formControlName="SingUpTime" required>          
+          <input type="time" formControlName="SingUpTime" required>          
         </td>
       </tr>
       <tr>
@@ -54,7 +54,7 @@
           Sing Out Time:
         </td>
         <td>
-          <input type="date" formControlName="SingOutTime" required>
+          <input type="time" formControlName="SingOutTime" required>
         </td>
       </tr>
       <tr>
@@ -115,7 +115,15 @@
           <input type="number" formControlName="ZipCode" required>
         </td>
       </tr>
-      
+      <tr>
+        <td colspan="2">
+          <label formArrayName="amNames" *ngFor="let name of editForm.controls.amNames.controls; let i = index">
+            <input type="checkbox" [formControlName]="i">
+            {{amNames[i]}}
+            <br>
+          </label>
+        </td>
+      </tr>
       
 
       <tr>

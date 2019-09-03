@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Apartment } from '../../../../../app/Classes/Apartment';
 import { StorageService } from '../../../../../app/storage.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import {Comment} from '../../../../Classes/Comment';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -24,8 +24,12 @@ export class EditHostApartmentComponent implements OnInit {
   editForm : any;
   commentForm : any;
 
+  amNames = new Array();
+  selectedNames = new Array();
+
   ngOnInit() {
     this.apartment = this.storageService.getHostApartment();
+    this.GetAllStationNames()
     
     console.warn(this.apartment);
 
@@ -34,8 +38,8 @@ export class EditHostApartmentComponent implements OnInit {
       RoomNumber: [this.apartment.RoomNumber,Validators.required],
       GuestNumber: [this.apartment.GuestNumber,Validators.required],
       PricePerNight: [this.apartment.PricePerNight,Validators.required],
-      SingUpTime: [this.apartment.SingUpTime.split("T")[0],Validators.required],
-      SingOutTime: [this.apartment.SingOutTime.split("T")[0],Validators.required],
+      SingUpTime: [this.apartment.SingUpTime.split("T")[1],Validators.required],
+      SingOutTime: [this.apartment.SingOutTime.split("T")[1],Validators.required],
       Status: [this.apartment.Status,Validators.required],
   
       Latitude: [this.apartment.Latitude,Validators.required],
@@ -46,10 +50,11 @@ export class EditHostApartmentComponent implements OnInit {
       ZipCode: [this.apartment.ZipCode,Validators.required],
       HostName: [this.apartment.HostName,Validators.required],
       HostSurname: [this.apartment.HostSurname,Validators.required],
+      amNames:  new FormArray([])
       
     });
     
-    this.getAllComments();
+    //this.getAllComments();
   }
 
   onChange()
@@ -67,6 +72,14 @@ export class EditHostApartmentComponent implements OnInit {
     this.apartment.StreatNumber = this.editForm.value.StreatNumber;
     this.apartment.Settlement = this.editForm.value.Settlement;
     this.apartment.ZipCode = this.editForm.value.ZipCode;
+    this.apartment.Amenities = new Array();
+        for(var i=0; i < this.amNames.length; i++)
+        {
+          if(this.editForm.controls.amNames.value[i] == true)
+          {
+            this.apartment.Amenities.push(this.amNames[i]);
+          }
+        }
     
     
 
@@ -115,6 +128,36 @@ export class EditHostApartmentComponent implements OnInit {
   returnBack()
   {
     this.router.navigate(["/host/apartments"]);
+  }
+
+  
+
+  private GetAllStationNames()
+  {
+    this.hostService.GetAmenitieNames().subscribe(names => //all existing amenities
+      {
+        this.amNames = names;
+        this.addCheckboxes();
+
+        this.amNames.forEach(element => {
+          console.warn(element);
+        });
+      });
+
+      
+  }
+
+  private addCheckboxes()
+  {
+      this.amNames.map((o, i) => {  //o je trenutni element, i-index
+        
+        const control = new FormControl((this.apartment.Amenities.indexOf(o) != -1)); //
+        (this.editForm.controls.amNames as FormArray).push(control);
+      });
+
+      this.getAllComments()
+
+      
   }
 
 }

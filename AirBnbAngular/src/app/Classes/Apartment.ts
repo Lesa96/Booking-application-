@@ -14,6 +14,8 @@ export class Apartment {
 
     //coments:
     CommentIDs : Array<number>;
+    //Amenities:
+    Amenities : Array<any>;
     //Location info:
     Latitude : number;
     Longitude : number;

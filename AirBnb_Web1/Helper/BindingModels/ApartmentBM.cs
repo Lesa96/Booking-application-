@@ -23,6 +23,8 @@ namespace AirBnb_Web1.Helper.BindingModels
 
     //Coment ids:
     public ICollection<int> CommentIDs { get; set; }
+    //Amenities
+    public ICollection<string> Amenities { get; set; }
     //Location:
     public double Latitude { get; set; }
     public double Longitude { get; set; }

@@ -106,6 +106,20 @@
           <input type="number" formControlName="ZipCode" required>
         </td>
       </tr>
+      <tr>
+        <td>
+          Amenities:
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <label formArrayName="amNames" *ngFor="let name of addForm.controls.amNames.controls; let i = index">
+            <input type="checkbox" [formControlName]="i">
+            {{amNames[i]}}
+            <br>
+          </label>
+        </td>
+      </tr>
       
       <tr>
         <td colspan="2" align="center">

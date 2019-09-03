@@ -26,7 +26,7 @@ namespace AirBnb_Web1.Controllers
     public IHttpActionResult GetAllReservations()
     {
       List<ReservationBM> reservationInfo = new List<ReservationBM>();
-      ICollection<Reservation> reservations = context.Set<Reservation>().ToList();
+      ICollection<Reservation> reservations = context.Reservations.Where(x => x.Deleted == false).ToList(); ;
       foreach (var reservation in reservations)
       {
         ReservationBM reservationBM = GetReservationInfo(reservation);

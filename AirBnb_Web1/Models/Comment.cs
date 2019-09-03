@@ -23,5 +23,7 @@ namespace AirBnb_Web1.Models
         public double Rate { get; set; }
 
         public bool Blocked { get; set; }
+
+        public bool Deleted { get; set; }
     }
 }

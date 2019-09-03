@@ -1,4 +1,4 @@
-﻿using AirBnb_Web1.Helper.Enums;
+using AirBnb_Web1.Helper.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -26,5 +26,7 @@ namespace AirBnb_Web1.Models
         public virtual User Guest { get; set; }
 
         public ReservationStatus Stauts { get; set; }
+
+        public bool Deleted { get; set; }
     }
 }

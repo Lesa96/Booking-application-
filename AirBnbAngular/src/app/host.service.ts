@@ -9,6 +9,7 @@ import { catchError } from 'rxjs/operators';
 export class HostService {
 
   private apartmentUri = "http://localhost:8080/api/Apartment/";
+  private amenitieUri = "http://localhost:8080/api/Amenitie/";
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +22,7 @@ export class HostService {
      };
 
     return this.http.get(this.apartmentUri+"GetHostApartments",httpOptions).pipe(
-      catchError(e => throwError(console.error("Eror in home service:  " + e)))
+      catchError(e => throwError(console.error("Eror in host service:  " + e)))
     );
   }
 
@@ -32,7 +33,7 @@ export class HostService {
      };
 
      return this.http.patch(this.apartmentUri+"ChangeStatusApartmentComment?commentId="+commentId,httpOptions).pipe(
-      catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
+      catchError(e => throwError(console.error("Eror in host service:  " + e.error.Message)))
     );;
   }
 
@@ -43,7 +44,7 @@ export class HostService {
      };
 
     return this.http.patch(this.apartmentUri+"ChangeApartment",apartment,httpOptions).pipe(
-      catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
+      catchError(e => throwError(console.error("Eror in host service:  " + e.error.Message)))
     );
 
   }
@@ -56,7 +57,7 @@ export class HostService {
      };
 
     return this.http.get(this.apartmentUri+"GetCommentsForApartment",httpOptions).pipe(
-      catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
+      catchError(e => throwError(console.error("Eror in host service:  " + e.error.Message)))
     );
 
   }
@@ -69,7 +70,7 @@ export class HostService {
      };
 
      return this.http.delete(this.apartmentUri+"DeleteApartment",httpOptions).pipe(
-      catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
+      catchError(e => throwError(console.error("Eror in host service:  " + e.error.Message)))
     );;
   }
 
@@ -80,7 +81,20 @@ export class HostService {
      };
 
      return this.http.put(this.apartmentUri+"AddApartment",apartmentBM,httpOptions).pipe(
-      catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
+      catchError(e => throwError(console.error("Eror in host service:  " + e.error.Message)))
     );;
   }
+
+  GetAmenitieNames() : Observable<any>
+  {   
+     const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })     
+     };
+
+    return this.http.get(this.amenitieUri+"GetAmenitieNames",httpOptions).pipe(
+      catchError(e => throwError(alert("Eror in host service:  " + e.error.Message)))
+    );
+
+  }
+  
 }

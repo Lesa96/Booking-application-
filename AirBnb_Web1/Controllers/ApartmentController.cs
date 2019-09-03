@@ -29,7 +29,7 @@ namespace AirBnb_Web1.Controllers
     public IHttpActionResult GetAllApartments()
     {
       List<ApartmentBM> apartmentsInfo = new List<ApartmentBM>();
-      ICollection<Apartman> apartments = context.Set<Apartman>().ToList();
+      ICollection<Apartman> apartments = context.Apartmans.Where(x => x.Deleted == false).ToList();
       foreach (var apartment in apartments)
       {
           ApartmentBM apartmentBM = GetApartmentInfo(apartment);
@@ -46,7 +46,7 @@ namespace AirBnb_Web1.Controllers
     public IHttpActionResult GetActiveApartments()
     {
       List<ApartmentBM> apartmentsInfo = new List<ApartmentBM>();
-      ICollection<Apartman> apartments = context.Set<Apartman>().ToList();
+      ICollection<Apartman> apartments = context.Apartmans.Where(x => x.Deleted == false).ToList();
       foreach (var apartment in apartments)
       {
         if(apartment.Status == Helper.Enums.ApartmanStatus.Active)
@@ -66,7 +66,7 @@ namespace AirBnb_Web1.Controllers
     public IHttpActionResult GetHostApartments(int hostId)
     {
       List<ApartmentBM> apartmentsInfo = new List<ApartmentBM>();
-      ICollection<Apartman> apartments = context.Apartmans.Where(x => x.HostID == hostId).ToList();
+      ICollection<Apartman> apartments = context.Apartmans.Where(x => x.HostID == hostId && x.Deleted == false).ToList();
       foreach (var apartment in apartments)
       {
           ApartmentBM apartmentBM = GetApartmentInfo(apartment);
@@ -82,7 +82,7 @@ namespace AirBnb_Web1.Controllers
     public IHttpActionResult GetCommentsForApartment(int apartmentID)
     {
       List<CommentBM> commentInfos = new List<CommentBM>();
-      ICollection<Comment> comments = context.Comments.Where(x => x.ApartmanID == apartmentID).ToList();
+      ICollection<Comment> comments = context.Comments.Where(x => x.ApartmanID == apartmentID && x.Deleted == false).ToList();
 
       foreach (var comment in comments)
       {
@@ -97,7 +97,7 @@ namespace AirBnb_Web1.Controllers
     [Route("ChangeApartment")]
     public IHttpActionResult ChangeApartment(ApartmentBM apartment)
     {
-      Apartman app = context.Apartmans.Where(x => x.ID == apartment.ID).FirstOrDefault();
+      Apartman app = context.Apartmans.Where(x => x.ID == apartment.ID && x.Deleted== false).FirstOrDefault();
       SetApartment(app, apartment);
 
       return Ok();
@@ -108,7 +108,8 @@ namespace AirBnb_Web1.Controllers
     public IHttpActionResult DeleteApartmentComment(int commentId )
     {
       Comment comm = context.Comments.Where(x => x.ID == commentId).FirstOrDefault();
-      context.Comments.Remove(comm);
+      comm.Deleted = true;
+      //context.Comments.Remove(comm);
       context.SaveChanges();
 
       return Ok();
@@ -141,7 +142,8 @@ namespace AirBnb_Web1.Controllers
     public IHttpActionResult DeleteApartment(int apartmentId)
     {
       Apartman app = context.Apartmans.Where(x => x.ID == apartmentId).FirstOrDefault();
-      context.Apartmans.Remove(app);
+      app.Deleted = true;
+      //context.Apartmans.Remove(app);
       context.SaveChanges();
 
       return Ok();
@@ -155,8 +157,8 @@ namespace AirBnb_Web1.Controllers
       apartman.HostID = apartmentBM.HostID;
 
       //promeni ovaj datetype :
-      apartman.SingUpTime = new DateTime(apartmentBM.SingUpTime.Year, apartmentBM.SingUpTime.Month, apartmentBM.SingUpTime.Day, apartmentBM.SingUpTime.Hour, apartmentBM.SingUpTime.Minute, apartmentBM.SingUpTime.Second);
-      apartman.SingOutTime = new DateTime(apartmentBM.SingOutTime.Year, apartmentBM.SingOutTime.Month, apartmentBM.SingOutTime.Day, apartmentBM.SingOutTime.Hour, apartmentBM.SingOutTime.Minute, apartmentBM.SingOutTime.Second);
+      apartman.SingUpTime = apartmentBM.SingUpTime;
+      apartman.SingOutTime = apartmentBM.SingOutTime;
       apartman.RoomNumber = apartmentBM.RoomNumber;
       apartman.RentDates = apartmentBM.RentDates;
       apartman.PricePerNight = apartmentBM.PricePerNight;
@@ -181,6 +183,18 @@ namespace AirBnb_Web1.Controllers
       context.SaveChanges();
 
       apartman.LocationID = locationInfo.ID;
+
+      //Amenities:
+      apartman.Amenities = new List<Amenitie>();
+      foreach (string amm in apartmentBM.Amenities)
+      {
+        Amenitie amenitie = context.Amenities.Where(x => x.Name == amm).FirstOrDefault();
+        
+        apartman.Amenities.Add(amenitie);
+      }
+      context.SaveChanges();
+
+      apartman.Deleted = false;
       context.Apartmans.Add(apartman);
       context.SaveChanges();
 
@@ -192,8 +206,8 @@ namespace AirBnb_Web1.Controllers
       apartman.Type = (apartmentBM.Type == ApartmanType.FullApartman.ToString() ) ? ApartmanType.FullApartman : ApartmanType.Room;
       apartman.Status = (apartmentBM.Status == ApartmanStatus.Active.ToString()) ? ApartmanStatus.Active : ApartmanStatus.NotActive;
 
-      apartman.SingUpTime = new DateTime(apartmentBM.SingUpTime.Year, apartmentBM.SingUpTime.Month, apartmentBM.SingUpTime.Day, apartman.SingUpTime.Hour, apartman.SingUpTime.Minute, apartman.SingUpTime.Second) ;
-      apartman.SingOutTime = new DateTime(apartmentBM.SingOutTime.Year, apartmentBM.SingOutTime.Month, apartmentBM.SingOutTime.Day, apartman.SingOutTime.Hour, apartman.SingOutTime.Minute, apartman.SingOutTime.Second);
+      apartman.SingUpTime = apartmentBM.SingUpTime;
+      apartman.SingOutTime = apartmentBM.SingOutTime;
       apartman.RoomNumber = apartmentBM.RoomNumber;
       apartman.RentDates = apartmentBM.RentDates;
       apartman.PricePerNight = apartmentBM.PricePerNight;
@@ -214,6 +228,17 @@ namespace AirBnb_Web1.Controllers
       locationInfo.Adress.ZipCode = apartmentBM.ZipCode ;
       locationInfo.Adress.Settlement = apartmentBM.Settlement ;
       context.SaveChanges();
+
+      //Amenities
+      apartman.Amenities.Clear(); //brise sve postojece
+      foreach (string amm in apartmentBM.Amenities)
+      {
+        Amenitie amenitie = context.Amenities.Where(x => x.Name == amm).FirstOrDefault();
+
+        apartman.Amenities.Add(amenitie);
+      }
+      context.SaveChanges();
+
 
       return true;
     }
@@ -253,13 +278,21 @@ namespace AirBnb_Web1.Controllers
 
       //Coments into:
       apartmentBM.CommentIDs = new HashSet<int>();
-      ICollection<Comment> test = apartman.Comments; // wokrs
-      if(test != null)
-        foreach (var comment in test)
+      ICollection<Comment> comms = apartman.Comments; // wokrs
+      if(comms != null)
+        foreach (var comment in comms)
         {
           apartmentBM.CommentIDs.Add(comment.ID);
         }
-      
+      //Amenities into:
+      apartmentBM.Amenities = new HashSet<string>();
+      ICollection<Amenitie> amms = apartman.Amenities; // wokrs
+      if (amms != null)
+        foreach (var amm in amms)
+        {
+          apartmentBM.Amenities.Add(amm.Name);
+        }
+
 
       //Adress
       apartmentBM.Streat = locationInfo.Adress.Streat;

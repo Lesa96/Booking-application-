@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { HostService } from 'src/app/host.service';
 import { Router } from '@angular/router';
 import { Apartment } from 'src/app/Classes/Apartment';
@@ -14,11 +14,24 @@ export class HostCreateApartmentComponent implements OnInit {
   addForm : any;
   apartmentTypes = ['FullApartman','Room'];
   apartment : any;
+  amNames = new Array();
   
 
   constructor(private hostService: HostService , private fb: FormBuilder,private router: Router) { }
 
   ngOnInit() {
+
+    this.hostService.GetAmenitieNames().subscribe(names => 
+      {
+        this.amNames = names;
+        this.addCheckboxes();
+
+        this.amNames.forEach(element => {
+          console.warn(element);
+        });
+      });
+
+
     this.addForm = this.fb.group({
       Type: ["", Validators.required],
       RoomNumber: [,Validators.required],
@@ -33,6 +46,7 @@ export class HostCreateApartmentComponent implements OnInit {
       StreatNumber: [,Validators.required],
       Settlement: [,Validators.required],
       ZipCode: [,Validators.required],
+      amNames : new FormArray([])
       
     });
   }
@@ -72,7 +86,24 @@ export class HostCreateApartmentComponent implements OnInit {
         this.apartment.HostName = element.HostName;
         this.apartment.HostSurname = element.HostSurname;
 
+        this.apartment.Amenities = new Array();
+        for(var i=0; i < this.amNames.length; i++)
+        {
+          if(this.addForm.controls.amNames.value[i] == true)
+          {
+            this.apartment.Amenities.push(this.amNames[i]);
+          }
+        }
+
         
   }
+
+  private addCheckboxes()
+  {
+      this.amNames.map((o, i) => {
+        const control = new FormControl(); 
+        (this.addForm.controls.amNames as FormArray).push(control);
+      });
+  } 
 
 }
