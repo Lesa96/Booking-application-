@@ -96,7 +96,7 @@ export class HostService {
       params: new HttpParams().set('apartmentID' , apartmentID)
      };
 
-    return this.http.get(this.apartmentUri+"GetCommentsForApartment",httpOptions).pipe(
+    return this.http.get(this.apartmentUri+"GetAllCommentsForApartment",httpOptions).pipe(
       catchError(e => throwError(console.error("Eror in host service:  " + e.error.Message)))
     );
 

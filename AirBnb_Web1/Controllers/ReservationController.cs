@@ -59,6 +59,46 @@ namespace AirBnb_Web1.Controllers
     }
 
     [HttpGet]
+    [Route("GetGuestReservations")]
+    public IHttpActionResult GetGuestReservations(int guestId)
+    {
+      List<ReservationBM> reservationInfo = new List<ReservationBM>();
+      List<Reservation> ress = context.Reservations.Where(x => x.GuestID == guestId && x.Deleted != true).ToList();
+           
+      foreach (var reservation in ress)
+      {
+        ReservationBM reservationBM = GetReservationInfo(reservation);
+        reservationInfo.Add(reservationBM);
+
+      }
+      
+
+      return Ok(reservationInfo);
+
+    }
+
+    [HttpGet]
+    [Route("GetGuestReservationRequest")]
+    public IHttpActionResult GetGuestReservationRequest(int guestId, Helper.Enums.ReservationStatus status)
+    {
+      List<ReservationBM> reservationInfo = new List<ReservationBM>();
+      List<Reservation> ress = context.Reservations.Where(x => x.GuestID == guestId && x.Deleted != true).ToList();
+
+      foreach (var reservation in ress)
+      {
+        if(reservation.Stauts == status)
+        {
+          ReservationBM reservationBM = GetReservationInfo(reservation);
+          reservationInfo.Add(reservationBM);
+        }
+        
+
+      }
+      return Ok(reservationInfo);
+
+    }
+
+    [HttpGet]
     [Route("GetReservationRequests")]
     public IHttpActionResult GetReservationRequests(int hostId, Helper.Enums.ReservationStatus status)
     {

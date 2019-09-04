@@ -1,0 +1,150 @@
+<button (click) = "returnBack()"> < Back</button>
+<div  class="normal-form">
+  <form [formGroup]="editForm" >
+    <table>
+      <tr>
+        <td colspan="2" align="center">
+          <h2>Selected apartment:</h2>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Type:
+        </td>
+        <td>
+          <input type="text" formControlName="Type" readonly>           
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Room Number:
+        </td>
+        <td>
+          <input type="number" min=1 formControlName="RoomNumber" required readonly>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Guest Number:
+        </td>
+        <td>
+          <input type="number" min=1 formControlName="GuestNumber" required readonly>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Price Per Night:
+        </td>
+        <td>
+          <input type="number" formControlName="PricePerNight" required readonly>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Sing Up Time:
+        </td>
+        <td>
+          <input type="time" formControlName="SingUpTime" required readonly>          
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Sing Out Time:
+        </td>
+        <td>
+          <input type="time" formControlName="SingOutTime" required readonly>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Status:
+        </td>
+        <td>
+          <input type="text" formControlName="Status" readonly>            
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Latitude:
+        </td>
+        <td>
+          <input type="number" formControlName="Latitude" required readonly>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Longitude:
+        </td>
+        <td>
+          <input type="number" formControlName="Longitude" required readonly>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Streat:
+        </td>
+        <td>
+          <input type="text" formControlName="Streat" required readonly>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Streat Number:
+        </td>
+        <td>
+          <input type="number" formControlName="StreatNumber" required readonly>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Settlement:
+        </td>
+        <td>
+          <input type="text" formControlName="Settlement" required readonly>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Zip Code:
+        </td>
+        <td>
+          <input type="number" formControlName="ZipCode" required readonly>
+        </td>
+      </tr>            
+    </table>
+  </form>
+</div>
+<br>
+<!--Pictures-->
+
+<!--Amenities-->
+<div>
+  <table >
+    <tr>
+      <td>
+        Apartment Amenities:
+      </td>
+    </tr>
+    <tr *ngFor="let amenitie of amNames">
+      <td >
+        <b>{{amenitie}}</b> ;  
+      </td>
+    </tr>
+  </table>
+</div>
+<br>
+<!--Map with location-->
+
+<h4>Comments:</h4>
+<!--Comments-->
+<div>
+  <table *ngFor="let comment of apartmentComments" class="comment-table">
+    <tr>
+      <td align="*">
+        <p><b>{{comment.UserName}}: </b> <i> {{comment.Rate}}*   </i></p>  
+        <p class="p-table-home">  {{comment.Text}} </p> 
+      </td>      
+    </tr>
+    
+  </table>
+</div>

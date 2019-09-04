@@ -78,11 +78,43 @@ namespace AirBnb_Web1.Controllers
     }
 
     [HttpGet]
+    [Route("GetAllCommentsForApartment")]
+    public IHttpActionResult GetAllCommentsForApartment(int apartmentID)
+    {
+      List<CommentBM> commentInfos = new List<CommentBM>();
+      ICollection<Comment> comments = context.Comments.Where(x => x.ApartmanID == apartmentID && x.Deleted == false).ToList();
+
+      foreach (var comment in comments)
+      {
+        CommentBM commentBM = GetCommentInfo(comment);
+        commentInfos.Add(commentBM);
+      }
+
+      return Ok(commentInfos);
+    }
+
+    [HttpGet]
+    [Route("GetApartmentAmenitieNames")]
+    public IHttpActionResult GetApartmentAmenitieNames(int apartmentID)
+    {
+      Apartman apartman = context.Apartmans.Where(x => x.ID == apartmentID && x.Deleted == false).FirstOrDefault();
+      List<string> amm = new List<string>();
+
+      foreach (Amenitie item in apartman.Amenities)
+      {
+        amm.Add(item.Name);
+      }
+
+      return Ok(amm);
+
+    }
+
+    [HttpGet]
     [Route("GetCommentsForApartment")]
     public IHttpActionResult GetCommentsForApartment(int apartmentID)
     {
       List<CommentBM> commentInfos = new List<CommentBM>();
-      ICollection<Comment> comments = context.Comments.Where(x => x.ApartmanID == apartmentID && x.Deleted == false).ToList();
+      ICollection<Comment> comments = context.Comments.Where(x => x.ApartmanID == apartmentID && x.Deleted == false && x.Blocked == false).ToList();
 
       foreach (var comment in comments)
       {

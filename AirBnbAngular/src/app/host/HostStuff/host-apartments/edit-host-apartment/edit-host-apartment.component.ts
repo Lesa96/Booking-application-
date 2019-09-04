@@ -29,7 +29,7 @@ export class EditHostApartmentComponent implements OnInit {
 
   ngOnInit() {
     this.apartment = this.storageService.getHostApartment();
-    this.GetAllStationNames()
+    this.GetAllAmenitiNames()
     
     console.warn(this.apartment);
 
@@ -132,7 +132,7 @@ export class EditHostApartmentComponent implements OnInit {
 
   
 
-  private GetAllStationNames()
+  private GetAllAmenitiNames()
   {
     this.hostService.GetAmenitieNames().subscribe(names => //all existing amenities
       {

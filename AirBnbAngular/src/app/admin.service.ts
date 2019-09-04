@@ -59,7 +59,7 @@ export class AdminService {
       params: new HttpParams().set('apartmentID' , apartmentID)
      };
 
-    return this.http.get(this.apartmentUri+"GetCommentsForApartment",httpOptions).pipe(
+    return this.http.get(this.apartmentUri+"GetAllCommentsForApartment",httpOptions).pipe(
       catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
     );
 

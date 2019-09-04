@@ -23,6 +23,11 @@ import { HostReservationsComponent } from './host/HostStuff/host-reservations/ho
 import { HostCreateApartmentComponent } from './host/HostStuff/host-create-apartment/host-create-apartment.component';
 import { EditHostApartmentComponent } from './host/HostStuff/host-apartments/edit-host-apartment/edit-host-apartment.component';
 import { HostRequestsComponent } from './host/HostStuff/host-requests/host-requests.component';
+import { GuestReservationsComponent } from './guest/guest-reservations/guest-reservations.component';
+import { GuestApartmentsComponent } from './guest/guest-apartments/guest-apartments.component';
+import {ApartmentDetailsComponent} from './guest/guest-apartments/apartment-details/apartment-details.component';
+import { GuestRequestsComponent } from './guest/guest-requests/guest-requests.component'
+
 
 
 @NgModule({
@@ -46,6 +51,10 @@ import { HostRequestsComponent } from './host/HostStuff/host-requests/host-reque
     HostCreateApartmentComponent,
     EditHostApartmentComponent,
     HostRequestsComponent,
+    GuestReservationsComponent,
+    GuestApartmentsComponent,
+    ApartmentDetailsComponent,
+    GuestRequestsComponent,
   ],
   imports: [
     BrowserModule,

@@ -17,6 +17,10 @@ import { HostCreateApartmentComponent } from './host/HostStuff/host-create-apart
 import { HostReservationsComponent } from './host/HostStuff/host-reservations/host-reservations.component';
 import { EditHostApartmentComponent } from './host/HostStuff/host-apartments/edit-host-apartment/edit-host-apartment.component';
 import { HostRequestsComponent } from './host/HostStuff/host-requests/host-requests.component';
+import { GuestApartmentsComponent } from './guest/guest-apartments/guest-apartments.component';
+import { GuestReservationsComponent } from './guest/guest-reservations/guest-reservations.component';
+import { ApartmentDetailsComponent } from './guest/guest-apartments/apartment-details/apartment-details.component';
+import { GuestRequestsComponent } from './guest/guest-requests/guest-requests.component';
 
 
 const routes: Routes = [
@@ -92,6 +96,26 @@ const routes: Routes = [
   { 
     path: 'host/requests', 
     component: HostRequestsComponent 
+  },
+  { 
+    path: 'guest', 
+    component: GuestComponent
+  },
+  { 
+    path: 'guest/apartments', 
+    component: GuestApartmentsComponent
+  },
+  { 
+    path: 'guest/apartments/details', 
+    component: ApartmentDetailsComponent
+  },
+  { 
+    path: 'guest/reservations', 
+    component: GuestReservationsComponent
+  },
+  { 
+    path: 'guest/requests', 
+    component: GuestRequestsComponent
   },
   
 ];
