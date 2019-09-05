@@ -1,0 +1,23 @@
+<br><br><br>
+<table>
+  <tr>
+    <td colspan="2" align="center">
+      <h2>Please select document image</h2>
+    </td>
+  </tr>
+  <tr *ngIf="url">
+    <td colspan="2" align="center">
+      <img [src]="url" height="200">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <button  (click)="onDone()">Done</button>
+    </td>
+    <td align="right">
+      <input type="file" id="selectedFile"  (change)="onSelectFile($event)" accept="image/*" />
+      &nbsp;
+      <button  (click)="onConfirm()">Confirm</button>
+    </td>
+  </tr>
+</table>

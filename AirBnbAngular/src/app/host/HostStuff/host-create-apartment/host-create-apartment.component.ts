@@ -3,6 +3,7 @@ import { Validators, FormBuilder, FormArray, FormControl } from '@angular/forms'
 import { HostService } from 'src/app/host.service';
 import { Router } from '@angular/router';
 import { Apartment } from 'src/app/Classes/Apartment';
+import { StorageService } from 'src/app/storage.service';
 
 @Component({
   selector: 'app-host-create-apartment',
@@ -16,8 +17,7 @@ export class HostCreateApartmentComponent implements OnInit {
   apartment : any;
   amNames = new Array();
   
-
-  constructor(private hostService: HostService , private fb: FormBuilder,private router: Router) { }
+  constructor(private hostService: HostService , private fb: FormBuilder,private router: Router, private storageService: StorageService) { }
 
   ngOnInit() {
 
@@ -56,7 +56,10 @@ export class HostCreateApartmentComponent implements OnInit {
     this.AddApartmentInfos(this.addForm.value);
 
     this.hostService.addApartment(this.apartment).subscribe(data=>{
-      alert("Succsesfuly added apartment");
+      var apartmentID = data as number;
+      this.storageService.setApartmentID(apartmentID);
+      
+      this.router.navigate(['guest/apartments/pictures']);
     });
   }
 

@@ -5,6 +5,7 @@ import { Apartment } from 'src/app/Classes/Apartment';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/storage.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-host-apartments',
@@ -14,15 +15,22 @@ import { StorageService } from 'src/app/storage.service';
 export class HostApartmentsComponent implements OnInit {
 
   HostApartmants : any[] = [];
+  apartmentPictures : any;
 
-  constructor(private hostService : HostService,private fb: FormBuilder, private router: Router,private storageService: StorageService) { }
+  constructor(private _sanitizer: DomSanitizer , private hostService : HostService,private fb: FormBuilder, private router: Router,private storageService: StorageService) { }
 
 
   ngOnInit() {
-    this.hostService.getHostApartments(3).subscribe(data => {
-       this.HostApartmants = data as Apartment[];
-      console.log(this.HostApartmants);
-    })
+     this.hostService.getHostApartments(3).subscribe(data => {
+        this.HostApartmants = data as Apartment[];
+       
+       console.log(this.HostApartmants);
+     })
+
+    //  this.hostService.getTest().subscribe(img=>{
+    //    this.apartmentPictures = img;
+    //    console.log(img);
+    //  });
   }
 
   editApartment(event) {

@@ -226,9 +226,9 @@
     <Compile Include="Helper\BindingModels\ReservationBM.cs" />
     <Compile Include="Helper\BindingModels\UserBM.cs" />
     <Compile Include="Helper\Enums\EnumHelper.cs" />
-    <Compile Include="Migrations\201909031714495_AirBnb.cs" />
-    <Compile Include="Migrations\201909031714495_AirBnb.Designer.cs">
-      <DependentUpon>201909031714495_AirBnb.cs</DependentUpon>
+    <Compile Include="Migrations\201909051631169_Airbnb.cs" />
+    <Compile Include="Migrations\201909051631169_Airbnb.Designer.cs">
+      <DependentUpon>201909051631169_Airbnb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Adress.cs" />
@@ -330,6 +330,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Resource\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -372,8 +373,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201909031714495_AirBnb.resx">
-      <DependentUpon>201909031714495_AirBnb.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201909051631169_Airbnb.resx">
+      <DependentUpon>201909051631169_Airbnb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

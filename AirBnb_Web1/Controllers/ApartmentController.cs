@@ -4,9 +4,11 @@ using AirBnb_Web1.Helper.Enums;
 using AirBnb_Web1.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -166,7 +168,22 @@ namespace AirBnb_Web1.Controllers
        GetApartmentFromBM(apartmentBM);
       
 
-      return Ok();
+      return Ok(apartmentBM.ID);
+    }
+
+    [HttpGet]
+    [Route("test")]
+    public IHttpActionResult GetImageTest()
+    {
+      var stream = File.OpenRead(@"D:\Fax\6.Semestar\Web\Projekat\AirBnb_Web1\AirBnb_Web1\Resource\Images\BodyPart_ae1d3ad9-2b71-4222-8517-4821aa41f3ef.jpg");
+
+      var response = new HttpResponseMessage(HttpStatusCode.OK);
+      var res = new StreamContent(stream);
+
+      response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+      response.Content.Headers.ContentLength = stream.Length;
+
+      return ResponseMessage(response);
     }
 
     [HttpDelete]
@@ -194,7 +211,14 @@ namespace AirBnb_Web1.Controllers
       apartman.RoomNumber = apartmentBM.RoomNumber;
       apartman.RentDates = apartmentBM.RentDates;
       apartman.PricePerNight = apartmentBM.PricePerNight;
-      apartman.Pictures = apartmentBM.Pictures;
+      //pics
+      apartman.Pictures = "";
+      if(apartmentBM.Pictures != null)
+        foreach (string pic in apartmentBM.Pictures)
+        {
+          apartman.Pictures = pic + ';';
+        }
+
       apartman.AvailableDates = apartmentBM.AvailableDates;
       apartman.GuestNumber = apartmentBM.GuestNumber;
 
@@ -229,6 +253,8 @@ namespace AirBnb_Web1.Controllers
       apartman.Deleted = false;
       context.Apartmans.Add(apartman);
       context.SaveChanges();
+      //zbog slike mi treba ID:
+      apartmentBM.ID = apartman.ID;
 
       return true;
     }
@@ -243,7 +269,13 @@ namespace AirBnb_Web1.Controllers
       apartman.RoomNumber = apartmentBM.RoomNumber;
       apartman.RentDates = apartmentBM.RentDates;
       apartman.PricePerNight = apartmentBM.PricePerNight;
-      apartman.Pictures = apartmentBM.Pictures;
+      //pic
+      apartman.Pictures = "";
+      foreach (string pic in apartmentBM.Pictures)
+      {
+        apartman.Pictures = pic + ';';
+      }
+      
       apartman.AvailableDates = apartmentBM.AvailableDates;
       apartman.GuestNumber = apartmentBM.GuestNumber;
       context.SaveChanges();
@@ -299,7 +331,7 @@ namespace AirBnb_Web1.Controllers
       apartmentBM.RoomNumber = apartman.RoomNumber;
       apartmentBM.RentDates = apartman.RentDates;
       apartmentBM.PricePerNight = apartman.PricePerNight;
-      apartmentBM.Pictures = apartman.Pictures;
+      
       apartmentBM.AvailableDates = apartman.AvailableDates;
       apartmentBM.GuestNumber = apartman.GuestNumber;
 
@@ -338,6 +370,20 @@ namespace AirBnb_Web1.Controllers
       apartmentBM.HostName = Host.Name;
       apartmentBM.HostSurname = Host.Surname;
 
+      //pictures
+      
+      if(apartman.Pictures != null && apartman.Pictures != "")
+      {
+        apartmentBM.Pictures = new List<string>();
+        string[] pictures = apartman.Pictures.Split(';');
+        for (int i=0; i<pictures.Length; i++)
+        {
+          byte[] imageBits = System.IO.File.ReadAllBytes(@"D:\Fax\6.Semestar\Web\Projekat\AirBnb_Web1\AirBnb_Web1\Resource\Images\BodyPart_ae1d3ad9-2b71-4222-8517-4821aa41f3ef.jpg");
+          string imageBase64 = Convert.ToBase64String(imageBits);
+          apartmentBM.Pictures.Add(imageBase64);
+        }
+      }
+        
 
       return apartmentBM;
     }

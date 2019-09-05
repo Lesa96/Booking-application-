@@ -26,7 +26,8 @@ import { HostRequestsComponent } from './host/HostStuff/host-requests/host-reque
 import { GuestReservationsComponent } from './guest/guest-reservations/guest-reservations.component';
 import { GuestApartmentsComponent } from './guest/guest-apartments/guest-apartments.component';
 import {ApartmentDetailsComponent} from './guest/guest-apartments/apartment-details/apartment-details.component';
-import { GuestRequestsComponent } from './guest/guest-requests/guest-requests.component'
+import { GuestRequestsComponent } from './guest/guest-requests/guest-requests.component';
+import { UploadPictureComponent } from './host/HostStuff/upload-picture/upload-picture.component'
 
 
 
@@ -55,6 +56,7 @@ import { GuestRequestsComponent } from './guest/guest-requests/guest-requests.co
     GuestApartmentsComponent,
     ApartmentDetailsComponent,
     GuestRequestsComponent,
+    UploadPictureComponent,
   ],
   imports: [
     BrowserModule,

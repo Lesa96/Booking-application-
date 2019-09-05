@@ -3,9 +3,12 @@ using AirBnb_Web1.Helper.BindingModels;
 using AirBnb_Web1.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -115,7 +118,54 @@ namespace AirBnb_Web1.Controllers
       return Ok();
     }
 
+    [AllowAnonymous]
+    [HttpPost]
+    [Route("UploadPictures")]
+    public async Task<HttpResponseMessage> UploadPictures(int apartmentID)
+    {
+      // Check if the request contains multipart/form-data.
+      if (!Request.Content.IsMimeMultipartContent())
+      {
+        throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+      }
 
+      string root = HttpContext.Current.Server.MapPath("~/Resource/Images");
+      var provider = new MultipartFormDataStreamProvider(root);
+
+      try
+      {
+        // Read the form data.
+        await Request.Content.ReadAsMultipartAsync(provider);
+
+        // This illustrates how to get the file names.
+        foreach (MultipartFileData file in provider.FileData)
+        {
+          string filename = file.LocalFileName;
+          string realName = file.Headers.ContentDisposition.FileName.Split('\"')[1];
+          realName = realName.Split('.').Last();
+          realName = filename + "." + realName;
+          File.Move(filename, realName);
+
+          Apartman apartment = context.Apartmans.Where(x => x.ID == apartmentID).FirstOrDefault();
+          if (apartment.Pictures == null || apartment.Pictures == "")
+            apartment.Pictures = "";
+
+          var nameParts = realName.Split('\\').SkipWhile(p => !p.Equals("Resource"));
+          var relativePath = "";
+          foreach (var part in nameParts)
+            relativePath += part + "\\";
+          relativePath = relativePath.Remove(relativePath.Length - 1); // brise zadnje '//' linije
+          apartment.Pictures = relativePath + ';';
+          context.SaveChanges();
+         
+        }
+        return Request.CreateResponse(HttpStatusCode.OK);
+      }
+      catch (System.Exception e)
+      {
+        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+      }
+    }
 
   }
 }

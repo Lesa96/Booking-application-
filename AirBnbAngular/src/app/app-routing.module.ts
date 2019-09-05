@@ -21,6 +21,7 @@ import { GuestApartmentsComponent } from './guest/guest-apartments/guest-apartme
 import { GuestReservationsComponent } from './guest/guest-reservations/guest-reservations.component';
 import { ApartmentDetailsComponent } from './guest/guest-apartments/apartment-details/apartment-details.component';
 import { GuestRequestsComponent } from './guest/guest-requests/guest-requests.component';
+import { UploadPictureComponent } from './host/HostStuff/upload-picture/upload-picture.component';
 
 
 const routes: Routes = [
@@ -116,6 +117,10 @@ const routes: Routes = [
   { 
     path: 'guest/requests', 
     component: GuestRequestsComponent
+  },
+  { 
+    path: 'guest/apartments/pictures', 
+    component: UploadPictureComponent
   },
   
 ];

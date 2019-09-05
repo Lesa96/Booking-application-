@@ -31,7 +31,7 @@ namespace AirBnb_Web1.Models
 
         public virtual ICollection<Comment> Comments { get; set; }
 
-        public  ICollection<string> Pictures { get; set; }
+        public string Pictures { get; set; }
 
         public double PricePerNight { get; set; }
 

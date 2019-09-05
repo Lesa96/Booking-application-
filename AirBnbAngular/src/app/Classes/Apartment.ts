@@ -6,7 +6,7 @@ export class Apartment {
     GuestNumber : number;
     RentDates : Array<any>;
     AvailableDates : Array<any>;
-    Pictures : Array<string>;
+    Pictures : Array<any>;
     PricePerNight : number;
     SingUpTime : any;
     SingOutTime : any;

@@ -11,8 +11,21 @@ export class HostService {
   private apartmentUri = "http://localhost:8080/api/Apartment/";
   private amenitieUri = "http://localhost:8080/api/Amenitie/";
   private reservationUri = "http://localhost:8080/api/Reservation/";
+  private userUri = "http://localhost:8080/api/Users/";
 
   constructor(private http: HttpClient) { }
+
+  getTest() : any
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      
+     };
+
+    return this.http.get(this.apartmentUri+"test",httpOptions).pipe(
+      catchError(e => throwError(console.error("Eror in host service:  " + e.error.Message)))
+    );
+  }
 
   getHostReservations(hostId : any) : Observable<any>
   {
@@ -135,6 +148,16 @@ export class HostService {
       catchError(e => throwError(alert("Eror in host service:  " + e.error.Message)))
     );
 
+  }
+
+  uploadDocument(document, apartmentID) : Observable<any> 
+  { 
+    let httpOptions = {
+      params: new HttpParams().append("apartmentID", apartmentID)
+  };
+    return this.http.post(this.userUri + "UploadPictures", document, httpOptions).pipe(
+      catchError(e => throwError(alert("Eror in host service, pictures problem :  " + e.error.Message)))
+    );
   }
   
 }

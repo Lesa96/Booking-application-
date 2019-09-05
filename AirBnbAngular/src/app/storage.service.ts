@@ -9,6 +9,7 @@ export class StorageService {
   public ApartmentStorage: Apartment ;
   public HostApartmentStorage: Apartment ;
   public GuestApartmentStorage: Apartment ;
+  public apartmentID: number ;
 
     constructor() {}
 
@@ -34,6 +35,14 @@ export class StorageService {
 
 public setGuestApartment(app1: Apartment): void {
     this.GuestApartmentStorage = app1;
+}
+
+public getApartmentID(): number  {
+  return this.apartmentID;
+}
+
+public setApartmentID(app1: number): void {
+  this.apartmentID = app1;
 }
 
 
