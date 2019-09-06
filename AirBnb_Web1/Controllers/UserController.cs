@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -26,13 +27,22 @@ namespace AirBnb_Web1.Controllers
         }
 
         // Get api/users/
+        [BasicAuthentication]
         [HttpGet]
         [Route("Login")]
         public IHttpActionResult Login()
         {
-            string streat = context.Adresss.Where(x => x.ID == 1).FirstOrDefault().Streat; //radi kako treba
+            string username = Thread.CurrentPrincipal.Identity.Name;
+            User user = context.Users.Where(x => x.UserName == username).FirstOrDefault();
 
-            return Ok();
+            if (user != null)
+            {
+              LogBM logBM = new LogBM() { ID = user.ID, Role = user.Role.ToString() };
+              return Ok(logBM);
+            }
+
+            else
+              return BadRequest();
         }
 
         [HttpPut]

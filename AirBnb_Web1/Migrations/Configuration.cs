@@ -1,7 +1,8 @@
 namespace AirBnb_Web1.Migrations
 {
     using AirBnb_Web1.Models;
-    using System;
+  using Microsoft.AspNet.Identity;
+  using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -15,12 +16,14 @@ namespace AirBnb_Web1.Migrations
 
         protected override void Seed(AirBnb_Web1.DataAccessLayer.AirBnbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+      //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+      //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+      //  to avoid creating duplicate seed data.
 
-            Adress adress1 = new Adress();
+            
+
+      Adress adress1 = new Adress();
             adress1.ID = 1;
             adress1.Streat = "Bulevar Oslobodjenja";
             adress1.StreatNumber = 30;

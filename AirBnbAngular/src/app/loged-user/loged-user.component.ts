@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-loged-user',
@@ -7,14 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogedUserComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router) { }
 
   ngOnInit() {
   }
 
   logOut()
   {
-    alert("Log out"); //for now
+    localStorage.removeItem('Role');
+    localStorage.removeItem('ID');
+
+    this.router.navigate(['/home']);
   }
 
   changeProfil()

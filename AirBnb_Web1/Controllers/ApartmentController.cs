@@ -378,9 +378,9 @@ namespace AirBnb_Web1.Controllers
         string[] pictures = apartman.Pictures.Split(';');
         for (int i=0; i<pictures.Length; i++)
         {
-          byte[] imageBits = System.IO.File.ReadAllBytes(@"D:\Fax\6.Semestar\Web\Projekat\AirBnb_Web1\AirBnb_Web1\Resource\Images\BodyPart_ae1d3ad9-2b71-4222-8517-4821aa41f3ef.jpg");
-          string imageBase64 = Convert.ToBase64String(imageBits);
-          apartmentBM.Pictures.Add(imageBase64);
+         // byte[] imageBits = System.IO.File.ReadAllBytes(@"D:\Fax\6.Semestar\Web\Projekat\AirBnb_Web1\AirBnb_Web1\Resource\Images\BodyPart_ae1d3ad9-2b71-4222-8517-4821aa41f3ef.jpg");
+          //string imageBase64 = Convert.ToBase64String(imageBits);
+          apartmentBM.Pictures.Add("http://localhost:8080/" +pictures[i]);
         }
       }
         
