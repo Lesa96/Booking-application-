@@ -1,0 +1,97 @@
+<button (click) = "returnBack()"> < Back</button>
+<div class="login-form">
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <table>
+        <tr>
+            <td colspan="2" align="center">
+              <h2>Profile</h2>
+            </td>
+          </tr>
+        <tr>
+          <td>
+            Name:
+          </td>
+          <td>
+            <input type="text" formControlName="role" readonly required>
+          </td>
+        </tr>
+      <tr>
+        <td>
+          Name:
+        </td>
+        <td>
+          <input type="text" formControlName="name" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Surname:
+        </td>
+        <td>
+          <input type="text" formControlName="surname" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Gender:
+        </td>
+        <td>
+          <select formControlName="gender">
+              <option *ngFor="let gender of genders" [value]="gender">{{gender}}</option> 
+            </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Username:
+        </td>
+        <td>
+          <input type="text" formControlName="username" required>
+        </td>
+      </tr>
+      
+        <tr>
+          <td colspan="2" align="right">
+            <button type="submit" class="registerbtn"  [disabled]="userForm.invalid">Change profile</button>
+          </td>
+        </tr>
+    </table>
+  </form>
+</div>
+
+<div class="login-form">
+  <form [formGroup]="passForm" (ngSubmit)="onChange()">
+    <table>
+        <tr>
+            <td colspan="2" align="center">
+              <h2>Change Password</h2>
+            </td>
+          </tr>
+        <tr>
+            <td>
+              New Password:
+            </td>
+            <td>
+              <input type="password" formControlName="password" required>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Confirm Password:
+            </td>
+            <td>
+              <input type="password" formControlName="confirmPassword" required>
+              <br />
+              <font *ngIf="invalidPass" color="red" size="2">
+              Passwords must be equal
+              </font> 
+            </td>
+          </tr>
+          <tr>
+              <td colspan="2" align="right">
+                <button type="submit" class="registerbtn"  [disabled]="passForm.invalid">Change password</button>
+              </td>
+            </tr>
+    </table>
+  </form>
+</div>

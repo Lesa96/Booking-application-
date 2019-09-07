@@ -23,7 +23,7 @@ export class LogedUserComponent implements OnInit {
 
   changeProfil()
   {
-    alert("Change profil"); //for now
+    this.router.navigate(['profile'])
   }
 
 }

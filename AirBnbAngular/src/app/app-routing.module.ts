@@ -22,6 +22,7 @@ import { GuestReservationsComponent } from './guest/guest-reservations/guest-res
 import { ApartmentDetailsComponent } from './guest/guest-apartments/apartment-details/apartment-details.component';
 import { GuestRequestsComponent } from './guest/guest-requests/guest-requests.component';
 import { UploadPictureComponent } from './host/HostStuff/upload-picture/upload-picture.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
@@ -122,6 +123,10 @@ const routes: Routes = [
     path: 'host/apartments/pictures', 
     component: UploadPictureComponent
   },
+  {
+    path: 'profile',
+    component: ProfileComponent
+  }
   
 ];
 

@@ -1,5 +1,6 @@
 using AirBnb_Web1.DataAccessLayer;
 using AirBnb_Web1.Helper.BindingModels;
+using AirBnb_Web1.Helper.Enums;
 using AirBnb_Web1.Models;
 using System;
 using System.Collections.Generic;
@@ -91,6 +92,40 @@ namespace AirBnb_Web1.Controllers
     }
 
     [HttpGet]
+    [Route("GetUser")]
+    public IHttpActionResult GetUser(int userId)
+    {
+      if (CheckRole("Admin"))
+      {
+        if(CheckRole("Host"))
+        {
+          if (CheckRole("Guest"))
+            return StatusCode(HttpStatusCode.Unauthorized);
+        }
+        
+      }
+
+      User user = context.Users.Where(x => x.ID == userId).FirstOrDefault();
+      if(user == null)
+      {
+        return NotFound();
+      }
+
+      UserBM userBM = new UserBM();
+      userBM.ID = user.ID;
+      userBM.Name = user.Name;
+      userBM.Password = user.Password;
+      userBM.Role = user.Role.ToString();
+      userBM.Surname = user.Surname;
+      userBM.UserName = user.UserName;
+      userBM.Gender = user.Gender.ToString();
+      userBM.Blocked = user.Blocked;
+
+      
+      return Ok(userBM);
+    }
+
+    [HttpGet]
     [Route("GetUsers")]
     public IHttpActionResult GetUsers()
     {
@@ -137,6 +172,32 @@ namespace AirBnb_Web1.Controllers
         user.Blocked = false;
       else
         user.Blocked = true;
+
+      context.SaveChanges();
+
+      return Ok();
+    }
+
+    [HttpPatch]
+    [Route("ChangeUser")]
+    public IHttpActionResult ChangeUser(UserBM user)
+    {
+      if (CheckRole("Admin"))
+      {
+        if (CheckRole("Host"))
+        {
+          if (CheckRole("Guest"))
+            return StatusCode(HttpStatusCode.Unauthorized);
+        }
+
+      }
+
+      User user1 = context.Users.Where(x => x.ID == user.ID).FirstOrDefault();
+      user1.Name = user.Name;
+      user1.Password = user.Password;
+      user1.Surname = user.Surname;
+      user1.UserName = user.UserName;
+      user1.Gender =  (user.Gender == Genders.Male.ToString()) ? Genders.Male : Genders.Famale;
 
       context.SaveChanges();
 
