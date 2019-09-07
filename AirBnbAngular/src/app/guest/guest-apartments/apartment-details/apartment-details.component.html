@@ -116,6 +116,18 @@
 </div>
 <br>
 <!--Pictures-->
+<div>
+    <table>
+      <tr align="center">
+        <b>Apartment pictures : </b>
+      </tr>
+      <tr>
+        <td *ngFor="let picture of apartment.Pictures; let i = index">
+          <img id="{{picture}}" src="{{picture}}" width="250px" height="250px"  />
+        </td>
+      </tr>
+    </table>
+  </div>
 
 <!--Amenities-->
 <div>

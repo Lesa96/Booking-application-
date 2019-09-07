@@ -28,10 +28,10 @@ export class GuestApartmentsComponent implements OnInit {
     }); 
   }
 
-  moreDetails(event) {
-    const target = event.target || event.srcElement || event.currentTarget;
-    const idAttr = target.attributes.id;
-    const id = idAttr.nodeValue; //id kliknutog button-a
+  moreDetails(id) {
+    // const target = event.target || event.srcElement || event.currentTarget;
+    // const idAttr = target.attributes.id;
+    // const id = idAttr.nodeValue; //id kliknutog button-a
 
     
 

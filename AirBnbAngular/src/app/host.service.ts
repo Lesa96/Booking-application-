@@ -139,10 +139,23 @@ export class HostService {
 
   }
 
+  DeltePicture(apartmentId : any , picture : any) : any
+  {   
+     const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
+      params: new HttpParams().set('apartmentId' , apartmentId).set('picture',picture)     
+     };
+
+    return this.http.delete(this.apartmentUri+"DeletePicture",httpOptions).pipe(
+      catchError(e => throwError(alert("Eror in host service:  " + e.error.Message)))
+    );
+
+  }
+
   uploadDocument(document, apartmentID) : Observable<any> 
   { 
     let httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
+     // headers: new HttpHeaders({'Content-Type': 'application/json', 'Role' : localStorage.Role }),
       params: new HttpParams().append("apartmentID", apartmentID)
   };
     return this.http.post(this.userUri + "UploadPictures", document, httpOptions).pipe(

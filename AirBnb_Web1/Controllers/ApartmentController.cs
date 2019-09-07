@@ -228,6 +228,33 @@ namespace AirBnb_Web1.Controllers
       return Ok();
     }
 
+    [HttpDelete]
+    [Route("DeletePicture")]
+    public IHttpActionResult DeletePicture(int apartmentId, string picture)
+    {
+      if (CheckRole("Admin"))
+      {
+        if (CheckRole("Host"))
+          return StatusCode(HttpStatusCode.Unauthorized);
+      }
+      Apartman app = context.Apartmans.Where(x => x.ID == apartmentId).FirstOrDefault();
+      string[] picutres = app.Pictures.Split(';');
+      app.Pictures = "";
+      for (int i = 0; i < picutres.Length; i++)
+      {
+        if(picutres[i] == picture)
+        {
+          picutres[i] = "";
+        }
+        app.Pictures += picutres[i];
+      }
+      
+      //context.Apartmans.Remove(app);
+      context.SaveChanges();
+
+      return Ok();
+    }
+
     private bool GetApartmentFromBM( ApartmentBM apartmentBM)
     {
       Apartman apartman = new Apartman();

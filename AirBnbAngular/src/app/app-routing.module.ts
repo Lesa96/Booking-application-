@@ -119,7 +119,7 @@ const routes: Routes = [
     component: GuestRequestsComponent
   },
   { 
-    path: 'guest/apartments/pictures', 
+    path: 'host/apartments/pictures', 
     component: UploadPictureComponent
   },
   

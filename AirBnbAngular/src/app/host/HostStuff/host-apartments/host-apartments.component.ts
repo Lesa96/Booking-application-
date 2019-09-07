@@ -33,10 +33,10 @@ export class HostApartmentsComponent implements OnInit {
     //  });
   }
 
-  editApartment(event) {
-    const target = event.target || event.srcElement || event.currentTarget;
-    const idAttr = target.attributes.id;
-    const id = idAttr.nodeValue; //id kliknutog button-a
+  editApartment(id) {
+    // const target = event.target || event.srcElement || event.currentTarget;
+    // const idAttr = target.attributes.id;
+    // const id = idAttr.nodeValue; //id kliknutog button-a
 
     var apartment = this.HostApartmants.find(x => x.ID == id);
 

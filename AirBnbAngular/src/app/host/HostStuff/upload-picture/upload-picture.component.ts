@@ -32,6 +32,7 @@ export class UploadPictureComponent implements OnInit {
 
   ngOnInit() {
     this.apartmantID = this.storageService.getApartmentID();
+    console.log(this.apartmantID);
   }
 
   onDone()

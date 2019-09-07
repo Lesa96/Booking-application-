@@ -148,16 +148,17 @@ namespace AirBnb_Web1.Controllers
     [Route("UploadPictures")]
     public async Task<HttpResponseMessage> UploadPictures(int apartmentID)
     {
-      if (CheckRole("Host"))
-      {
-        return Request.CreateResponse(HttpStatusCode.Unauthorized);
-      }
+      //if (CheckRole("Host"))
+      //{
+      //  return Request.CreateResponse(HttpStatusCode.Unauthorized);
+      //}
 
       // Check if the request contains multipart/form-data.
       if (!Request.Content.IsMimeMultipartContent())
       {
         throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
       }
+
 
       string root = HttpContext.Current.Server.MapPath("~/Resource/Images");
       var provider = new MultipartFormDataStreamProvider(root);
@@ -185,7 +186,7 @@ namespace AirBnb_Web1.Controllers
           foreach (var part in nameParts)
             relativePath += part + "\\";
           relativePath = relativePath.Remove(relativePath.Length - 1); // brise zadnje '//' linije
-          apartment.Pictures = relativePath + ';';
+          apartment.Pictures += relativePath + ';';
           context.SaveChanges();
          
         }

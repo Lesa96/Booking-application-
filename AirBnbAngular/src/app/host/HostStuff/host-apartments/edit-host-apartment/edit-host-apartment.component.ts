@@ -160,4 +160,27 @@ export class EditHostApartmentComponent implements OnInit {
       
   }
 
+  deletePicture(event) {
+    const target = event.target || event.srcElement || event.currentTarget;
+    const idAttr = target.attributes.id;
+    const id = idAttr.nodeValue; //id kliknutog button-a 
+
+    var picture = id;
+    var idx = this.apartment.Pictures.indexOf(picture);
+    var sendPicture = picture.split("localhost:8080/")[1];
+    console.log(sendPicture);
+    this.hostService.DeltePicture(this.apartment.ID,sendPicture).subscribe(data=>{
+      this.apartment.Pictures.splice(idx,1);
+    });
+
+    
+
+  }
+
+  addNewPicutres()
+  {
+    this.storageService.setApartmentID(this.apartment.ID);
+    this.router.navigate(['host/apartments/pictures']);
+  }
+
 }
