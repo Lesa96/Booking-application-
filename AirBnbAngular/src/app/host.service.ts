@@ -15,22 +15,11 @@ export class HostService {
 
   constructor(private http: HttpClient) { }
 
-  getTest() : any
-  {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-      
-     };
-
-    return this.http.get(this.apartmentUri+"test",httpOptions).pipe(
-      catchError(e => throwError(console.error("Eror in host service:  " + e.error.Message)))
-    );
-  }
 
   getHostReservations(hostId : any) : Observable<any>
   {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json','Role' : localStorage.Role }),
       params: new HttpParams().set('hostId' , hostId)
       
      };
@@ -43,7 +32,7 @@ export class HostService {
   changeUserStatus(reservationId : any , status : any) : any
   {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json','Role' : localStorage.Role }),
       params: new HttpParams().set('reservationId' , reservationId).set('status',status)
       
      };
@@ -56,7 +45,7 @@ export class HostService {
   GetReservationRequests(hostId : any , status : any) : Observable<any>
   {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json','Role' : localStorage.Role }),
       params: new HttpParams().set('hostId' , hostId).set('status',status)
       
      };
@@ -69,7 +58,7 @@ export class HostService {
   getHostApartments(hostId : any) : Observable<any>
   {    
      const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json','Role' : localStorage.Role }),
       params: new HttpParams().set('hostId' , hostId)
       
      };
@@ -82,7 +71,7 @@ export class HostService {
   ChangeStatusApartmentComment(commentId : any) : any
   {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json','Role' : localStorage.Role }),
      };
 
      return this.http.patch(this.apartmentUri+"ChangeStatusApartmentComment?commentId="+commentId,httpOptions).pipe(
@@ -93,7 +82,7 @@ export class HostService {
   changeApartment(apartment : any) : any
   {   
      const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json','Role' : localStorage.Role }),
      };
 
     return this.http.patch(this.apartmentUri+"ChangeApartment",apartment,httpOptions).pipe(
@@ -105,7 +94,7 @@ export class HostService {
   getCommentsForApartment(apartmentID : any) : Observable<any>
   {   
      const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json','Role' : localStorage.Role }),
       params: new HttpParams().set('apartmentID' , apartmentID)
      };
 
@@ -118,7 +107,7 @@ export class HostService {
   deleteApartment(apartmentId : any) : any
   {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json','Role' : localStorage.Role }),
       params: new HttpParams().set('apartmentId' , apartmentId)
      };
 
@@ -130,7 +119,7 @@ export class HostService {
   addApartment(apartmentBM : any) : any
   {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json','Role' : localStorage.Role }),
      };
 
      return this.http.put(this.apartmentUri+"AddApartment",apartmentBM,httpOptions).pipe(
@@ -141,7 +130,7 @@ export class HostService {
   GetAmenitieNames() : Observable<any>
   {   
      const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })     
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role })     
      };
 
     return this.http.get(this.amenitieUri+"GetAmenitieNames",httpOptions).pipe(
@@ -153,6 +142,7 @@ export class HostService {
   uploadDocument(document, apartmentID) : Observable<any> 
   { 
     let httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
       params: new HttpParams().append("apartmentID", apartmentID)
   };
     return this.http.post(this.userUri + "UploadPictures", document, httpOptions).pipe(

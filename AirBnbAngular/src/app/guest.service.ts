@@ -15,7 +15,7 @@ export class GuestService {
   GetGuestReservations(guestId : any) : Observable<any>
   {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
       params: new HttpParams().set('guestId' , guestId).set('status',status)
       
      };
@@ -28,7 +28,7 @@ export class GuestService {
   cancelReservationRequest(reservationId : any , status : any) : any
   {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
       params: new HttpParams().set('reservationId' , reservationId).set('status',status)
       
      };
@@ -41,7 +41,7 @@ export class GuestService {
   GetGuestReservationRequest(guestId : any , status : any) : Observable<any>
   {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
       params: new HttpParams().set('guestId' , guestId).set('status',status)
       
      };

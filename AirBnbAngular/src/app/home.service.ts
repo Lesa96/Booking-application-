@@ -16,7 +16,7 @@ export class HomeService {
   getActiveApartments() : Observable<any>
   {    
      const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role })
       
      };
 
@@ -28,7 +28,7 @@ export class HomeService {
   getCommentsForApartment(apartmentID : any) : Observable<any>
   {   
      const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' , 'Role' : localStorage.Role}),
       params: new HttpParams().set('apartmentID' , apartmentID)
      };
 
@@ -41,7 +41,7 @@ export class HomeService {
   GetApartmentAmenitieNames(apartmentID : any) : Observable<any>
   {   
      const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
       params: new HttpParams().set('apartmentID' , apartmentID)     
      };
 

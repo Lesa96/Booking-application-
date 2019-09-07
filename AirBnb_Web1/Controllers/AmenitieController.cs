@@ -6,7 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Permissions;
+using System.Threading;
 using System.Web.Http;
+using System.Web.Http.Controllers;
+using System.Web.Security;
 
 namespace AirBnb_Web1.Controllers
 {
@@ -20,10 +24,13 @@ namespace AirBnb_Web1.Controllers
       context = AirBnbContext.Instance;
     }
 
+    
     [HttpGet]
     [Route("GetAllAmenities")]
     public IHttpActionResult GetAllAmenities()
     {
+     
+
       ICollection<Amenitie> Amenities = context.Amenities.Where(x => x.Deleted == false).ToList();
       ICollection<AmenitieBM> amms = new HashSet<AmenitieBM>();
       foreach (Amenitie item in Amenities)
@@ -58,6 +65,11 @@ namespace AirBnb_Web1.Controllers
     [Route("DeleteAmenitie")]
     public IHttpActionResult DeleteAmenitie(int amenitieId)
     {
+      if(CheckRole("Admin"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
+
       Amenitie amm = context.Amenities.Where(x => x.ID == amenitieId).FirstOrDefault();
       amm.Deleted = true;
       //context.Amenities.Remove(amm);
@@ -71,6 +83,11 @@ namespace AirBnb_Web1.Controllers
     [Route("AddAmenitie")]
     public IHttpActionResult AddAmenitie(string amenitieName)
     {
+      if (CheckRole("Admin"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
+
       Amenitie amm = context.Amenities.Where(x => x.Name == amenitieName && x.Deleted == false).FirstOrDefault();
       if (amm == null)
       {
@@ -87,6 +104,18 @@ namespace AirBnb_Web1.Controllers
         return BadRequest("Amenitie already exists");
       
 
+    }
+
+    public bool CheckRole(string role)
+    {
+      var headers = Request.Headers;
+      string token = headers.GetValues("Role").First();
+      if (token != role)
+      {
+        return true;
+      }
+
+      return false;
     }
 
   }

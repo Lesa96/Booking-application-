@@ -54,6 +54,7 @@ export class HostCreateApartmentComponent implements OnInit {
   createApartment()
   {
     this.AddApartmentInfos(this.addForm.value);
+    this.apartment.HostID = localStorage.ID;
 
     this.hostService.addApartment(this.apartment).subscribe(data=>{
       var apartmentID = data as number;

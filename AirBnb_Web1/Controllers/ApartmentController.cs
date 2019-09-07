@@ -30,6 +30,11 @@ namespace AirBnb_Web1.Controllers
     [Route("GetAllApartments")]
     public IHttpActionResult GetAllApartments()
     {
+      if (CheckRole("Admin"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
+
       List<ApartmentBM> apartmentsInfo = new List<ApartmentBM>();
       ICollection<Apartman> apartments = context.Apartmans.Where(x => x.Deleted == false).ToList();
       foreach (var apartment in apartments)
@@ -67,6 +72,10 @@ namespace AirBnb_Web1.Controllers
     [Route("GetHostApartments")]
     public IHttpActionResult GetHostApartments(int hostId)
     {
+      if (CheckRole("Host"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
       List<ApartmentBM> apartmentsInfo = new List<ApartmentBM>();
       ICollection<Apartman> apartments = context.Apartmans.Where(x => x.HostID == hostId && x.Deleted == false).ToList();
       foreach (var apartment in apartments)
@@ -81,8 +90,17 @@ namespace AirBnb_Web1.Controllers
 
     [HttpGet]
     [Route("GetAllCommentsForApartment")]
-    public IHttpActionResult GetAllCommentsForApartment(int apartmentID)
+    public IHttpActionResult GetAllCommentsForApartment(int apartmentID, AirBnb_Web1.Helper.Enums.Roles role)
     {
+      if (CheckRole("Admin"))
+      {
+        if(CheckRole("Host"))
+        {
+          return StatusCode(HttpStatusCode.Unauthorized);
+        }
+          
+      }
+
       List<CommentBM> commentInfos = new List<CommentBM>();
       ICollection<Comment> comments = context.Comments.Where(x => x.ApartmanID == apartmentID && x.Deleted == false).ToList();
 
@@ -131,6 +149,13 @@ namespace AirBnb_Web1.Controllers
     [Route("ChangeApartment")]
     public IHttpActionResult ChangeApartment(ApartmentBM apartment)
     {
+      if (CheckRole("Admin"))
+      {
+        if (CheckRole("Host"))
+        {
+          return StatusCode(HttpStatusCode.Unauthorized);
+        }
+      }
       Apartman app = context.Apartmans.Where(x => x.ID == apartment.ID && x.Deleted== false).FirstOrDefault();
       SetApartment(app, apartment);
 
@@ -141,6 +166,10 @@ namespace AirBnb_Web1.Controllers
     [Route("DeleteApartmentComment")]
     public IHttpActionResult DeleteApartmentComment(int commentId )
     {
+      if (CheckRole("Admin"))
+      {        
+          return StatusCode(HttpStatusCode.Unauthorized);
+      }
       Comment comm = context.Comments.Where(x => x.ID == commentId).FirstOrDefault();
       comm.Deleted = true;
       //context.Comments.Remove(comm);
@@ -153,6 +182,10 @@ namespace AirBnb_Web1.Controllers
     [Route("ChangeStatusApartmentComment")]
     public IHttpActionResult ChangeStatusApartmentComment(int commentId)
     {
+      if (CheckRole("Host"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
       Comment comm = context.Comments.Where(x => x.ID == commentId).FirstOrDefault();
       comm.Blocked = (comm.Blocked == true) ? false : true;
       context.SaveChanges();
@@ -160,36 +193,33 @@ namespace AirBnb_Web1.Controllers
       return Ok();
     }
 
+    
     [HttpPut]
     [Route("AddApartment")]
     public IHttpActionResult AddApartment(ApartmentBM apartmentBM)
     {
-      apartmentBM.HostID = 3; //ovo menjas kad uradis logovanje 
-       GetApartmentFromBM(apartmentBM);
+      if (CheckRole("Host"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
+      // apartmentBM.HostID = 3; //ovo menjas kad uradis logovanje 
+      GetApartmentFromBM(apartmentBM);
       
 
       return Ok(apartmentBM.ID);
     }
 
-    [HttpGet]
-    [Route("test")]
-    public IHttpActionResult GetImageTest()
-    {
-      var stream = File.OpenRead(@"D:\Fax\6.Semestar\Web\Projekat\AirBnb_Web1\AirBnb_Web1\Resource\Images\BodyPart_ae1d3ad9-2b71-4222-8517-4821aa41f3ef.jpg");
-
-      var response = new HttpResponseMessage(HttpStatusCode.OK);
-      var res = new StreamContent(stream);
-
-      response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
-      response.Content.Headers.ContentLength = stream.Length;
-
-      return ResponseMessage(response);
-    }
+    
 
     [HttpDelete]
     [Route("DeleteApartment")]
     public IHttpActionResult DeleteApartment(int apartmentId)
     {
+      if (CheckRole("Admin"))
+      {
+        if (CheckRole("Host"))
+          return StatusCode(HttpStatusCode.Unauthorized);
+      }
       Apartman app = context.Apartmans.Where(x => x.ID == apartmentId).FirstOrDefault();
       app.Deleted = true;
       //context.Apartmans.Remove(app);
@@ -386,6 +416,18 @@ namespace AirBnb_Web1.Controllers
         
 
       return apartmentBM;
+    }
+
+    public bool CheckRole(string role)
+    {
+      var headers = Request.Headers;
+      string token = headers.GetValues("Role").First();
+      if (token != role)
+      {
+        return true;
+      }
+
+      return false;
     }
 
 

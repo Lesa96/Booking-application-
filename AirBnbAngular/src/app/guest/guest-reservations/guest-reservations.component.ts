@@ -14,7 +14,7 @@ export class GuestReservationsComponent implements OnInit {
   constructor(private guestService: GuestService) { }
 
   ngOnInit() {
-    this.guestService.GetGuestReservations(2).subscribe(data=> 
+    this.guestService.GetGuestReservations(localStorage.ID).subscribe(data=> 
       { 
         this.guestReservations = data as Observable<Reservation>
         console.log(this.guestReservations);

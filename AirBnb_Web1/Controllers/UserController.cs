@@ -45,6 +45,7 @@ namespace AirBnb_Web1.Controllers
               return BadRequest();
         }
 
+        [AllowAnonymous]
         [HttpPut]
         [Route("Register")]
         public IHttpActionResult Register(UserBM user)
@@ -69,6 +70,11 @@ namespace AirBnb_Web1.Controllers
     [Route("CreateHost")]
     public IHttpActionResult CreateHost(UserBM user)
     {
+      if (CheckRole("Admin"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
+
       User us = new User();
       us.Blocked = false;
       us.Name = user.Name;
@@ -88,6 +94,11 @@ namespace AirBnb_Web1.Controllers
     [Route("GetUsers")]
     public IHttpActionResult GetUsers()
     {
+      if (CheckRole("Admin"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
+
       ICollection<User> users = context.Set<User>().ToList();
       ICollection<UserBM> usersBM = new List<UserBM>();
 
@@ -117,6 +128,10 @@ namespace AirBnb_Web1.Controllers
     [Route("ChangeUserStatus")]
     public IHttpActionResult ChangeUserStatus(int id)
     {
+      if (CheckRole("Admin"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
       User user = context.Users.Where(x => x.ID == id).FirstOrDefault();
       if (user.Blocked)
         user.Blocked = false;
@@ -133,6 +148,11 @@ namespace AirBnb_Web1.Controllers
     [Route("UploadPictures")]
     public async Task<HttpResponseMessage> UploadPictures(int apartmentID)
     {
+      if (CheckRole("Host"))
+      {
+        return Request.CreateResponse(HttpStatusCode.Unauthorized);
+      }
+
       // Check if the request contains multipart/form-data.
       if (!Request.Content.IsMimeMultipartContent())
       {
@@ -175,6 +195,18 @@ namespace AirBnb_Web1.Controllers
       {
         return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
       }
+    }
+
+    public bool CheckRole(string role)
+    {
+      var headers = Request.Headers;
+      string token = headers.GetValues("Role").First();
+      if (token != role)
+      {
+        return true;
+      }
+
+      return false;
     }
 
   }

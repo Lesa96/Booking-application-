@@ -25,6 +25,11 @@ namespace AirBnb_Web1.Controllers
     [Route("GetAllReservations")]
     public IHttpActionResult GetAllReservations()
     {
+      if (CheckRole("Admin"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
+
       List<ReservationBM> reservationInfo = new List<ReservationBM>();
       ICollection<Reservation> reservations = context.Reservations.Where(x => x.Deleted == false).ToList(); 
       foreach (var reservation in reservations)
@@ -42,6 +47,11 @@ namespace AirBnb_Web1.Controllers
     [Route("GetHostReservations")]
     public IHttpActionResult GetHostReservations(int hostId)
     {
+      if (CheckRole("Host"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
+
       List<ReservationBM> reservationInfo = new List<ReservationBM>();
       List<Apartman> apps = context.Apartmans.Where(x => x.HostID == hostId && x.Deleted != true).ToList();
       foreach (var apartment in apps)
@@ -62,6 +72,10 @@ namespace AirBnb_Web1.Controllers
     [Route("GetGuestReservations")]
     public IHttpActionResult GetGuestReservations(int guestId)
     {
+      if (CheckRole("Guest"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
       List<ReservationBM> reservationInfo = new List<ReservationBM>();
       List<Reservation> ress = context.Reservations.Where(x => x.GuestID == guestId && x.Deleted != true).ToList();
            
@@ -81,6 +95,10 @@ namespace AirBnb_Web1.Controllers
     [Route("GetGuestReservationRequest")]
     public IHttpActionResult GetGuestReservationRequest(int guestId, Helper.Enums.ReservationStatus status)
     {
+      if (CheckRole("Guest"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
       List<ReservationBM> reservationInfo = new List<ReservationBM>();
       List<Reservation> ress = context.Reservations.Where(x => x.GuestID == guestId && x.Deleted != true).ToList();
 
@@ -102,6 +120,10 @@ namespace AirBnb_Web1.Controllers
     [Route("GetReservationRequests")]
     public IHttpActionResult GetReservationRequests(int hostId, Helper.Enums.ReservationStatus status)
     {
+      if (CheckRole("Host"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
       List<ReservationBM> reservationInfo = new List<ReservationBM>();
       List<Apartman> apps = context.Apartmans.Where(x => x.HostID == hostId && x.Deleted != true).ToList();
       foreach (var apartment in apps)
@@ -122,7 +144,11 @@ namespace AirBnb_Web1.Controllers
     [Route("ChageReservationRequests")]
     public IHttpActionResult ChageReservationRequests(int reservationId, Helper.Enums.ReservationStatus status)
     {
-      
+      if (CheckRole("Host"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
+
       Reservation reservation = context.Reservations.Where(x => x.ID == reservationId && x.Deleted != true ).FirstOrDefault();
       reservation.Stauts = status;
       context.SaveChanges();
@@ -151,6 +177,18 @@ namespace AirBnb_Web1.Controllers
       reservationBM.ApartmentZipCode = reservation.Apartman.Location.Adress.ZipCode;
 
       return reservationBM;
+    }
+
+    public bool CheckRole(string role)
+    {
+      var headers = Request.Headers;
+      string token = headers.GetValues("Role").First();
+      if (token != role)
+      {
+        return true;
+      }
+
+      return false;
     }
   }
 }

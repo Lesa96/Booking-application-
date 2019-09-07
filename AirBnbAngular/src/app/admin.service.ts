@@ -19,7 +19,7 @@ export class AdminService {
   getAllUsers() : Observable<any>
   {    
      const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' , 'Role' : localStorage.Role}),
       
      };
 
@@ -30,7 +30,7 @@ export class AdminService {
   getAllReservations()
   {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }), 
       
      };
 
@@ -42,7 +42,8 @@ export class AdminService {
   getAllApartments() : Observable<any>
   {   
      const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
+
       
      };
 
@@ -55,7 +56,7 @@ export class AdminService {
   getCommentsForApartment(apartmentID : any) : Observable<any>
   {   
      const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
       params: new HttpParams().set('apartmentID' , apartmentID)
      };
 
@@ -68,7 +69,8 @@ export class AdminService {
   changeApartment(apartment : any) : any
   {   
      const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
+
      };
 
     return this.http.patch(this.apartmentUri+"ChangeApartment",apartment,httpOptions).pipe(
@@ -80,7 +82,7 @@ export class AdminService {
   changeUserStatus(id : any) : any
   {   
      const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
      };
 
     return this.http.patch(this.userUri+"ChangeUserStatus?id="+id,httpOptions).pipe(
@@ -92,7 +94,7 @@ export class AdminService {
   deleteApartmentComment(commentId : any) : any
   {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
       params: new HttpParams().set('commentId' , commentId)
      };
 
@@ -104,7 +106,7 @@ export class AdminService {
   deleteApartment(apartmentId : any) : any
   {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
       params: new HttpParams().set('apartmentId' , apartmentId)
      };
 
@@ -116,7 +118,7 @@ export class AdminService {
   CreateHost(user : any) : any
   {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' , 'Role' : localStorage.Role}),
      };
 
     return this.http.put(this.userUri+"CreateHost",user,httpOptions).pipe(
@@ -127,7 +129,8 @@ export class AdminService {
   GetAllAmenities() : Observable<any>
   {   
      const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })     
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' , 'Role' : localStorage.Role}),
+         
      };
 
     return this.http.get(this.amenitieUri+"GetAllAmenities",httpOptions).pipe(
@@ -139,7 +142,7 @@ export class AdminService {
   DeleteAmenitie(amenitieId: any) : any
   {   
      const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
       params: new HttpParams().set('amenitieId' , amenitieId)     
      };
 
@@ -152,7 +155,7 @@ export class AdminService {
   AddAmenitie(amenitieName: string) : any
   {   
      const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })    
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' , 'Role' : localStorage.Role})    
      };
 
     return this.http.put(this.amenitieUri+"AddAmenitie?amenitieName="+amenitieName,httpOptions).pipe(
