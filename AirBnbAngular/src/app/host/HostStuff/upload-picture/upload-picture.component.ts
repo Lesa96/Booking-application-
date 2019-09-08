@@ -38,7 +38,10 @@ export class UploadPictureComponent implements OnInit {
   onDone()
   {
     alert("Apartment is added");
-    this.router.navigate(['host/apartments']);
+    if(localStorage.Role == "Host")
+      this.router.navigate(['host/apartments']);
+    else if(localStorage.Role == "Admin")
+      this.router.navigate(['admin/apartments']);
     
   }
 

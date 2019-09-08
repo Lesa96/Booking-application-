@@ -35,11 +35,9 @@ export class ApartmentsComponent implements OnInit {
     
     
     this.adminService.getAllApartments().subscribe(data=> {
-      var helpApp = data as Observable<Apartment>;
-      console.log(helpApp);
-      helpApp.forEach(element => {
-        this.AddApartmentInfos(element);
-        });
+     this.AllApartments = data as Apartment[];
+      console.log(this.AllApartments);
+      
     }); 
   }
 
@@ -47,6 +45,7 @@ export class ApartmentsComponent implements OnInit {
     // const target = event.target || event.srcElement || event.currentTarget;
     // const idAttr = target.attributes.id;
     // const id = idAttr.nodeValue; //id kliknutog button-a
+    console.log(id);
 
     var apartment = this.AllApartments.find(x => x.ID == id);
 

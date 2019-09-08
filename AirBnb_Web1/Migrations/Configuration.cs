@@ -53,7 +53,7 @@ namespace AirBnb_Web1.Migrations
             context.Users.Add(user3);
             context.SaveChanges();
 
-            Apartman apartman1 = new Apartman { ID = 1, SingUpTime = DateTime.Now , SingOutTime = DateTime.Now.AddDays(2), Status= Helper.Enums.ApartmanStatus.Active, GuestNumber = 3, HostID = user3.ID, LocationID = location1.ID, PricePerNight = 20, RoomNumber = 2 };
+            Apartman apartman1 = new Apartman { ID = 1, SingUpTime = new DateTime( DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,8,0,0), SingOutTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 0, 0), Status= Helper.Enums.ApartmanStatus.Active, GuestNumber = 3, HostID = user3.ID, LocationID = location1.ID, PricePerNight = 20, RoomNumber = 2 };
             context.Apartmans.Add(apartman1);
             context.SaveChanges();
 

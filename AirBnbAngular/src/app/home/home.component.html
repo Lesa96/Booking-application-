@@ -18,13 +18,13 @@
           CHECK-IN: 
         </td>
         <td>
-          <input type="date" formControlName="checkIn">
+          <input type="time" formControlName="checkIn">
         </td>
         <td>
           CHECKOUT: 
         </td>
         <td>
-          <input type="date" formControlName="checkOut">
+          <input type="time" formControlName="checkOut">
         </td>
         <td>
           GUEST NUMBER: 
@@ -74,10 +74,10 @@
           </p>           
         </td>
         <td align="3">
-            <img src="apartment.Pictures[0]" alt="No pictures available" height="50px" width="50px"/>
+            <img src="{{apartment.Pictures[0]}}" alt="No pictures available" height="100px" width="150px"/>
         </td>
         <td align="1">
-          <button id="{{apartment.ID}}" (click)="moreDetails($event)" >More details</button>
+          <button id="{{apartment.ID}}" (click)="moreDetails(apartment.ID)" >More details</button>
         </td>
       </tr>
   </table>

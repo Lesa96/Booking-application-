@@ -1,3 +1,5 @@
+
+
 <button (click) = "returnBack()"> < Back</button>
 <div  class="login-form">
   <form [formGroup]="editForm" >
@@ -46,7 +48,7 @@
           Sing Up Time:
         </td>
         <td>
-          <input type="date" formControlName="SingUpTime" required>          
+          <input type="time" formControlName="SingUpTime" required>          
         </td>
       </tr>
       <tr>
@@ -54,7 +56,7 @@
           Sing Out Time:
         </td>
         <td>
-          <input type="date" formControlName="SingOutTime" required>
+          <input type="time" formControlName="SingOutTime" required>
         </td>
       </tr>
       <tr>
@@ -130,7 +132,17 @@
         <td>
           <input type="text" formControlName="HostSurname" readonly required>
         </td>
+    </tr> 
+      <tr>
+        <td colspan="2">
+          <label formArrayName="amNames" *ngFor="let name of editForm.controls.amNames.controls; let i = index">
+            <input type="checkbox" [formControlName]="i">
+            {{amNames[i]}}
+            <br>
+          </label>
+        </td>
       </tr>
+      
 
       <tr>
         <td colspan="1" align="right">
@@ -145,13 +157,30 @@
 </div>
 
 <div>
+  <table>
+    <tr align="center">
+      <b>Click on the picture to delete it : </b>
+    </tr>
+    <tr>
+      <td *ngFor="let picture of apartment.Pictures; let i = index">
+        <img id="{{picture}}" src="{{picture}}" width="250px" height="250px" (click)="deletePicture($event)" />
+      </td>
+    </tr>
+    <tr colspan="*" align="left">
+      <button (click)="addNewPicutres()">Add new picture</button>
+    </tr>
+  </table>
+</div>
+
+<div>
   <table *ngFor="let comment of apartmentComments" class="comment-table">
     <tr>
       <td align="*">
         <p><b>{{comment.UserName}}: </b> <i> {{comment.Rate}}*   </i></p>  
 
         <p class="p-table-home">  {{comment.Text}} </p> 
-        <button id="{{comment.Id}}" (click)="deleteComment($event)" >Delete</button>
+        <p>Blocked: {{comment.Blocked}} </p>
+        <button id="{{comment.Id}}" (click)="deleteComment(comment.Id)" >Change status</button>
       </td>
       
     </tr>

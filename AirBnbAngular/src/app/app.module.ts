@@ -28,7 +28,8 @@ import { GuestApartmentsComponent } from './guest/guest-apartments/guest-apartme
 import {ApartmentDetailsComponent} from './guest/guest-apartments/apartment-details/apartment-details.component';
 import { GuestRequestsComponent } from './guest/guest-requests/guest-requests.component';
 import { UploadPictureComponent } from './host/HostStuff/upload-picture/upload-picture.component';
-import { ProfileComponent } from './profile/profile.component'
+import { ProfileComponent } from './profile/profile.component';
+import { HomeApartmentDetailsComponent } from './home-apartment-details/home-apartment-details.component'
 
 
 
@@ -59,6 +60,7 @@ import { ProfileComponent } from './profile/profile.component'
     GuestRequestsComponent,
     UploadPictureComponent,
     ProfileComponent,
+    HomeApartmentDetailsComponent,
   ],
   imports: [
     BrowserModule,

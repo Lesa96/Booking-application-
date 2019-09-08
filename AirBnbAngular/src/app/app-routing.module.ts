@@ -23,6 +23,7 @@ import { ApartmentDetailsComponent } from './guest/guest-apartments/apartment-de
 import { GuestRequestsComponent } from './guest/guest-requests/guest-requests.component';
 import { UploadPictureComponent } from './host/HostStuff/upload-picture/upload-picture.component';
 import { ProfileComponent } from './profile/profile.component';
+import { HomeApartmentDetailsComponent } from './home-apartment-details/home-apartment-details.component';
 
 
 const routes: Routes = [
@@ -45,7 +46,7 @@ const routes: Routes = [
   },
   { 
     path: 'admin', 
-    component: AdminComponent 
+    component: ApartmentsComponent 
   },
   { 
     path: 'admin/createhost', 
@@ -72,12 +73,8 @@ const routes: Routes = [
     component: AmenitieComponent 
   },
   { 
-    path: 'guest', 
-    component: GuestComponent 
-  },
-  { 
     path: 'host', 
-    component: HostComponent 
+    component: HostApartmentsComponent 
   },
   { 
     path: 'host/createapartment', 
@@ -101,7 +98,7 @@ const routes: Routes = [
   },
   { 
     path: 'guest', 
-    component: GuestComponent
+    component: GuestApartmentsComponent
   },
   { 
     path: 'guest/apartments', 
@@ -126,6 +123,10 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent
+  },
+  {
+    path: 'home/details',
+    component: HomeApartmentDetailsComponent
   }
   
 ];

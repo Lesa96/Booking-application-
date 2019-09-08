@@ -241,6 +241,11 @@ namespace AirBnb_Web1.Controllers
           Apartman apartment = context.Apartmans.Where(x => x.ID == apartmentID).FirstOrDefault();
           if (apartment.Pictures == null || apartment.Pictures == "")
             apartment.Pictures = "";
+          else if (apartment.Pictures.Last() != ';')
+          {
+            apartment.Pictures += ';';
+          }
+
 
           var nameParts = realName.Split('\\').SkipWhile(p => !p.Equals("Resource"));
           var relativePath = "";

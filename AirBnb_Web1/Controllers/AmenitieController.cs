@@ -79,7 +79,7 @@ namespace AirBnb_Web1.Controllers
 
     }
 
-    [HttpPut]
+    [HttpDelete]
     [Route("AddAmenitie")]
     public IHttpActionResult AddAmenitie(string amenitieName)
     {

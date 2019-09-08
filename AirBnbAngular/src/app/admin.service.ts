@@ -155,10 +155,11 @@ export class AdminService {
   AddAmenitie(amenitieName: string) : any
   {   
      const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' , 'Role' : localStorage.Role})    
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' , 'Role' : localStorage.Role}),
+      params: new HttpParams().set('amenitieName' , amenitieName)      
      };
 
-    return this.http.put(this.amenitieUri+"AddAmenitie?amenitieName="+amenitieName,httpOptions).pipe(
+    return this.http.delete(this.amenitieUri+"AddAmenitie",httpOptions).pipe(
       catchError(e => throwError(alert("Eror in admin service:  " + e.error.Message)))
     );
 

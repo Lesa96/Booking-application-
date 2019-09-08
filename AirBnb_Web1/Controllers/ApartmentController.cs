@@ -106,8 +106,12 @@ namespace AirBnb_Web1.Controllers
 
       foreach (var comment in comments)
       {
-        CommentBM commentBM = GetCommentInfo(comment);
-        commentInfos.Add(commentBM);
+        if(comment.Deleted == false)
+        {
+          CommentBM commentBM = GetCommentInfo(comment);
+          commentInfos.Add(commentBM);
+        }
+        
       }
 
       return Ok(commentInfos);
@@ -122,7 +126,8 @@ namespace AirBnb_Web1.Controllers
 
       foreach (Amenitie item in apartman.Amenities)
       {
-        amm.Add(item.Name);
+        if(item.Deleted == false)
+          amm.Add(item.Name);
       }
 
       return Ok(amm);
@@ -246,6 +251,10 @@ namespace AirBnb_Web1.Controllers
         {
           picutres[i] = "";
         }
+        if(picutres[i] != "") //kad brisemo sliku, mora staviti ; tamo gde je slika nestala
+        {
+          picutres[i] += ';';
+        }
         app.Pictures += picutres[i];
       }
       
@@ -326,12 +335,12 @@ namespace AirBnb_Web1.Controllers
       apartman.RoomNumber = apartmentBM.RoomNumber;
       apartman.RentDates = apartmentBM.RentDates;
       apartman.PricePerNight = apartmentBM.PricePerNight;
-      //pic
-      apartman.Pictures = "";
-      foreach (string pic in apartmentBM.Pictures)
-      {
-        apartman.Pictures = pic + ';';
-      }
+      ////pic
+      //apartman.Pictures = "";
+      //foreach (string pic in apartmentBM.Pictures)
+      //{
+      //  apartman.Pictures = pic + ';';
+      //}
       
       apartman.AvailableDates = apartmentBM.AvailableDates;
       apartman.GuestNumber = apartmentBM.GuestNumber;
@@ -437,7 +446,11 @@ namespace AirBnb_Web1.Controllers
         {
          // byte[] imageBits = System.IO.File.ReadAllBytes(@"D:\Fax\6.Semestar\Web\Projekat\AirBnb_Web1\AirBnb_Web1\Resource\Images\BodyPart_ae1d3ad9-2b71-4222-8517-4821aa41f3ef.jpg");
           //string imageBase64 = Convert.ToBase64String(imageBits);
-          apartmentBM.Pictures.Add("http://localhost:8080/" +pictures[i]);
+          if(pictures[i] != "")
+          {
+            apartmentBM.Pictures.Add("http://localhost:8080/" + pictures[i]);
+          }
+            
         }
       }
         

@@ -4,6 +4,7 @@ import {Apartment} from '../Classes/Apartment'
 import { Observable } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private homeService: HomeService ,private router : Router, private fb: FormBuilder) { }
+  constructor(private storageService : StorageService, private homeService: HomeService ,private router : Router, private fb: FormBuilder) { }
 
   ActiveApartments : any[] = [];
   FiltredApartments : any[] = []; //bice nakon sto odradi filtriranje, pa ce se on bindovati
@@ -40,12 +41,16 @@ export class HomeComponent implements OnInit {
     }); 
   }
 
-  moreDetails(event) {
-    const target = event.target || event.srcElement || event.currentTarget;
-    const idAttr = target.attributes.id;
-    const value = idAttr.nodeValue; //id kliknutog button-a
+  moreDetails(id) {
+    // const target = event.target || event.srcElement || event.currentTarget;
+    // const idAttr = target.attributes.id;
+    // const value = idAttr.nodeValue; //id kliknutog button-a
 
-    console.log(value); // id
+    console.log(id); // id
+    var apartment = this.ActiveApartments.find(x => x.ID == id);
+
+    this.storageService.setGuestApartment(apartment);
+    this.router.navigate(['home/details']);
   }
 
   AddApartmentInfos(element : any)
