@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit {
 
   onSearch()
   {
-    console.log(this.searchForm.value);
+    //To DO
   }
 
   logIn()

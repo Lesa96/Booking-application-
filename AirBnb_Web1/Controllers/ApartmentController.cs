@@ -72,19 +72,8 @@ namespace AirBnb_Web1.Controllers
     [Route("GetSearchApartments")]
     public IHttpActionResult GetSearchApartments()
     {
-      List<ApartmentBM> apartmentsInfo = new List<ApartmentBM>();
-      ICollection<Apartman> apartments = context.Apartmans.Where(x => x.Deleted == false).ToList();
-      foreach (var apartment in apartments)
-      {
-        if (apartment.Status == Helper.Enums.ApartmanStatus.Active)
-        {
-          ApartmentBM apartmentBM = GetApartmentInfo(apartment);
-          apartmentsInfo.Add(apartmentBM);
-        }
-
-      }
-
-      return Ok(apartmentsInfo);
+      //TO DO
+      return Ok();
 
     }
 
