@@ -60,7 +60,8 @@ export class HostCreateApartmentComponent implements OnInit {
       var apartmentID = data as number;
       this.storageService.setApartmentID(apartmentID);
       
-      this.router.navigate(['host/apartments/pictures']);
+      this.router.navigate(['apartment/dates']);
+      
     });
   }
 

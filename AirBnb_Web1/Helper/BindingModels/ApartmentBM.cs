@@ -11,7 +11,6 @@ namespace AirBnb_Web1.Helper.BindingModels
   {
     public int ID { get; set; }
     public ICollection<DateTime> RentDates { get; set; }
-    public ICollection<DateTime> AvailableDates { get; set; }
     public ICollection<string> Pictures { get; set; }
     public double PricePerNight { get; set; }
     public DateTime SingUpTime { get; set; }

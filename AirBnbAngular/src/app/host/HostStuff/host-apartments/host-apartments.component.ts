@@ -21,16 +21,13 @@ export class HostApartmentsComponent implements OnInit {
 
 
   ngOnInit() {
-     this.hostService.getHostApartments(3).subscribe(data => {
+     this.hostService.getHostApartments(localStorage.ID).subscribe(data => {
         this.HostApartmants = data as Apartment[];
        
        console.log(this.HostApartmants);
      })
 
-    //  this.hostService.getTest().subscribe(img=>{
-    //    this.apartmentPictures = img;
-    //    console.log(img);
-    //  });
+    
   }
 
   editApartment(id) {

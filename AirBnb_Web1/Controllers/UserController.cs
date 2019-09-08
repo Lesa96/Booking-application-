@@ -159,9 +159,60 @@ namespace AirBnb_Web1.Controllers
       return Ok(usersBM);
     }
 
+    [HttpGet]
+    [Route("SearchUsers")]
+    public IHttpActionResult SearchUsers(string userRole , string userGender , string username)
+    {
+      
+      if (CheckRole("Admin"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
+
+      ICollection<User> users = context.Set<User>().ToList();
+      if (userRole != null && userRole != "")
+      {
+        Roles role = (Roles.Guest.ToString() == userRole) ? Roles.Guest : Roles.Host;
+        users = users.Where(x => x.Role == role).ToList();
+      }
+      if (userGender != null && userGender != "")
+      {
+        Genders gender = (Genders.Male.ToString() == userGender) ? Genders.Male : Genders.Famale;
+        users = users.Where(x => x.Gender == gender).ToList();
+      }
+      if (username != null && username != "")
+      {
+        users = users.Where(x => x.UserName == username).ToList();
+      }
+
+      ICollection<UserBM> usersBM = new List<UserBM>();
+
+      foreach (User user in users)
+      {
+        if (user.Role != Helper.Enums.Roles.Admin)
+        {
+          UserBM userBM = new UserBM();
+          userBM.ID = user.ID;
+          userBM.Name = user.Name;
+          userBM.Password = user.Password;
+          userBM.Role = user.Role.ToString();
+          userBM.Surname = user.Surname;
+          userBM.UserName = user.UserName;
+          userBM.Gender = user.Gender.ToString();
+          userBM.Blocked = user.Blocked;
+
+          usersBM.Add(userBM);
+        }
+
+      }
+
+      return Ok(usersBM);
+    }   
+
+
     [HttpPatch]
     [Route("ChangeUserStatus")]
-    public IHttpActionResult ChangeUserStatus(int id)
+    public IHttpActionResult ChangeUserStatus([FromBody]int id)
     {
       if (CheckRole("Admin"))
       {

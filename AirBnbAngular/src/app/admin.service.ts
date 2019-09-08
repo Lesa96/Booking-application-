@@ -16,6 +16,19 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
+  SearchUsers(userRole : any ,userGender : any , username : any) : Observable<any>
+  {   
+     const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
+      params: new HttpParams().set('userRole' , userRole).set('userGender' , userGender).set('username' , username)
+     };
+
+    return this.http.get(this.userUri+"SearchUsers",httpOptions).pipe(
+      catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
+    );
+
+  }
+
   getAllUsers() : Observable<any>
   {    
      const httpOptions = {
@@ -85,7 +98,7 @@ export class AdminService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
      };
 
-    return this.http.patch(this.userUri+"ChangeUserStatus?id="+id,httpOptions).pipe(
+    return this.http.patch(this.userUri+"ChangeUserStatus",id,httpOptions).pipe(
       catchError(e => throwError(console.error("Eror in admin service:  " + e.error.Message)))
     );
 

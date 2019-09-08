@@ -20,8 +20,8 @@ export class CreateHostComponent implements OnInit {
 
   registerForm = this.fb.group({
     username: ['', Validators.required],
-    password: ["", [Validators.required,Validators.minLength(6)]],
-    confirmPassword: [, [Validators.required , Validators.minLength(6)]],
+    password: ["", [Validators.required,Validators.minLength(1)]],
+    confirmPassword: [, [Validators.required , Validators.minLength(1)]],
     name: ['', Validators.required],
     surname: ['', Validators.required],
     gender: ['', Validators.required]

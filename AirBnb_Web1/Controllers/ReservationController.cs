@@ -162,7 +162,7 @@ namespace AirBnb_Web1.Controllers
       reservationBM.ID = reservation.ID;
       reservationBM.GuestID = (int)reservation.GuestID;
       reservationBM.ApartmanID = reservation.ApartmanID;
-      reservationBM.SingUpDate = reservation.SingUpDate;
+      reservationBM.SingUpDate = reservation.SingUpDate.RentDate;
       reservationBM.NumberOfNights = reservation.NumberOfNights;
       reservationBM.TotalPrice = reservation.TotalPrice;
       reservationBM.Stauts = reservation.Stauts.ToString();

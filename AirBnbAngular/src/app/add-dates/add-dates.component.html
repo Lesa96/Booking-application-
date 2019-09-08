@@ -1,0 +1,21 @@
+<h1>Add rent dates:</h1>
+<div>
+  <form [formGroup]="addForm">
+    <table >
+      <tr>
+        <td>
+          Choose date: 
+        </td>
+        <td>
+          <input type="date" formControlName="date" required>
+        </td>
+        <td>
+          <button (click)="onAdd()" [disabled]="addForm.invalid">Add date</button>
+        </td>
+        <td>
+          <button (click)="onDone()">Done</button>
+        </td>
+      </tr>   
+    </table>
+  </form>
+</div>

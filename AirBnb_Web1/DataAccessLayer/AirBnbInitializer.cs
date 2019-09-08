@@ -46,9 +46,9 @@ namespace AirBnb_Web1.DataAccessLayer
             context.Comments.Add(comment1);
             context.SaveChanges();
 
-            Reservation reservation1 = new Reservation { ID = 1, ApartmanID = 1, GuestID = 2, NumberOfNights = 10, SingUpDate = DateTime.Now, Stauts = Helper.Enums.ReservationStatus.Accepted, TotalPrice = 100 };
-            context.Reservations.Add(reservation1);
-            context.SaveChanges();
+            //Reservation reservation1 = new Reservation { ID = 1, ApartmanID = 1, GuestID = 2, NumberOfNights = 10, SingUpDate = DateTime.Now, Stauts = Helper.Enums.ReservationStatus.Accepted, TotalPrice = 100 };
+            //context.Reservations.Add(reservation1);
+            //context.SaveChanges();
         }
     }
 }

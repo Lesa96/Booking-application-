@@ -69,6 +69,26 @@ namespace AirBnb_Web1.Controllers
     }
 
     [HttpGet]
+    [Route("GetSearchApartments")]
+    public IHttpActionResult GetSearchApartments()
+    {
+      List<ApartmentBM> apartmentsInfo = new List<ApartmentBM>();
+      ICollection<Apartman> apartments = context.Apartmans.Where(x => x.Deleted == false).ToList();
+      foreach (var apartment in apartments)
+      {
+        if (apartment.Status == Helper.Enums.ApartmanStatus.Active)
+        {
+          ApartmentBM apartmentBM = GetApartmentInfo(apartment);
+          apartmentsInfo.Add(apartmentBM);
+        }
+
+      }
+
+      return Ok(apartmentsInfo);
+
+    }
+
+    [HttpGet]
     [Route("GetHostApartments")]
     public IHttpActionResult GetHostApartments(int hostId)
     {
@@ -90,7 +110,7 @@ namespace AirBnb_Web1.Controllers
 
     [HttpGet]
     [Route("GetAllCommentsForApartment")]
-    public IHttpActionResult GetAllCommentsForApartment(int apartmentID, AirBnb_Web1.Helper.Enums.Roles role)
+    public IHttpActionResult GetAllCommentsForApartment(int apartmentID)
     {
       if (CheckRole("Admin"))
       {
@@ -209,6 +229,8 @@ namespace AirBnb_Web1.Controllers
       }
       // apartmentBM.HostID = 3; //ovo menjas kad uradis logovanje 
       GetApartmentFromBM(apartmentBM);
+
+      
       
 
       return Ok(apartmentBM.ID);
@@ -264,7 +286,25 @@ namespace AirBnb_Web1.Controllers
       return Ok();
     }
 
-    private bool GetApartmentFromBM( ApartmentBM apartmentBM)
+    [HttpPut]
+    [Route("AddRentDates")]
+    public IHttpActionResult AddRentDates(DatesModelBM datesModelBM) //kad dodaje novi apartmant
+    {
+      foreach (DateTime item in datesModelBM.CheckedDates)
+      {
+        DatesModel datesModel = new DatesModel();
+        datesModel.ApartmanID = datesModelBM.ApartmanID;
+        datesModel.Available = true;
+        datesModel.RentDate = item;
+
+        context.DatesModels.Add(datesModel);
+        context.SaveChanges();
+      }
+
+      return Ok();
+    }
+
+    private bool GetApartmentFromBM( ApartmentBM apartmentBM) //add apartment
     {
       Apartman apartman = new Apartman();
       apartman.Type = (apartmentBM.Type == ApartmanType.FullApartman.ToString()) ? ApartmanType.FullApartman : ApartmanType.Room;
@@ -275,7 +315,7 @@ namespace AirBnb_Web1.Controllers
       apartman.SingUpTime = apartmentBM.SingUpTime;
       apartman.SingOutTime = apartmentBM.SingOutTime;
       apartman.RoomNumber = apartmentBM.RoomNumber;
-      apartman.RentDates = apartmentBM.RentDates;
+      
       apartman.PricePerNight = apartmentBM.PricePerNight;
       //pics
       apartman.Pictures = "";
@@ -284,8 +324,9 @@ namespace AirBnb_Web1.Controllers
         {
           apartman.Pictures = pic + ';';
         }
+      
 
-      apartman.AvailableDates = apartmentBM.AvailableDates;
+      
       apartman.GuestNumber = apartmentBM.GuestNumber;
 
       Adress adress1 = new Adress();
@@ -322,10 +363,11 @@ namespace AirBnb_Web1.Controllers
       //zbog slike mi treba ID:
       apartmentBM.ID = apartman.ID;
 
+
       return true;
     }
 
-    private bool SetApartment(Apartman apartman , ApartmentBM apartmentBM)
+    private bool SetApartment(Apartman apartman , ApartmentBM apartmentBM) //change apartmant
     {
       apartman.Type = (apartmentBM.Type == ApartmanType.FullApartman.ToString() ) ? ApartmanType.FullApartman : ApartmanType.Room;
       apartman.Status = (apartmentBM.Status == ApartmanStatus.Active.ToString()) ? ApartmanStatus.Active : ApartmanStatus.NotActive;
@@ -333,7 +375,7 @@ namespace AirBnb_Web1.Controllers
       apartman.SingUpTime = apartmentBM.SingUpTime;
       apartman.SingOutTime = apartmentBM.SingOutTime;
       apartman.RoomNumber = apartmentBM.RoomNumber;
-      apartman.RentDates = apartmentBM.RentDates;
+     // apartman.RentDates = apartmentBM.RentDates;
       apartman.PricePerNight = apartmentBM.PricePerNight;
       ////pic
       //apartman.Pictures = "";
@@ -342,7 +384,7 @@ namespace AirBnb_Web1.Controllers
       //  apartman.Pictures = pic + ';';
       //}
       
-      apartman.AvailableDates = apartmentBM.AvailableDates;
+      
       apartman.GuestNumber = apartmentBM.GuestNumber;
       context.SaveChanges();
 
@@ -386,7 +428,7 @@ namespace AirBnb_Web1.Controllers
       return commentBM;
     }
 
-    private ApartmentBM GetApartmentInfo(Apartman apartman)
+    private ApartmentBM GetApartmentInfo(Apartman apartman) //za sve GET Apartments
     {
       ApartmentBM apartmentBM = new ApartmentBM();
       apartmentBM.ID = apartman.ID;
@@ -395,10 +437,10 @@ namespace AirBnb_Web1.Controllers
       apartmentBM.SingUpTime = apartman.SingUpTime;
       apartmentBM.SingOutTime = apartman.SingOutTime;
       apartmentBM.RoomNumber = apartman.RoomNumber;
-      apartmentBM.RentDates = apartman.RentDates;
+     // apartmentBM.RentDates = apartman.RentDates;
       apartmentBM.PricePerNight = apartman.PricePerNight;
       
-      apartmentBM.AvailableDates = apartman.AvailableDates;
+      
       apartmentBM.GuestNumber = apartman.GuestNumber;
 
       //location info:

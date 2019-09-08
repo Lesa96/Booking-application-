@@ -1,20 +1,58 @@
 <app-admin></app-admin>
 <br><br><br>
+<div>
+  <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+    <table>
+      <tr>
+        <td>
+          Role: 
+        </td>
+        <td>
+          <select formControlName="Role">
+              <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+            </select>
+        </td>
+        <td>
+          Gender: 
+        </td>
+        <td>
+          <select formControlName="Gender">
+              <option *ngFor="let gender of genders" [value]="gender">{{gender}}</option>
+            </select>
+        </td>
+        <td>
+          Username: 
+        </td>
+        <td>
+          <input type="text" formControlName="Username">
+        </td>             
+        
+      <td align="2" >
+        <button type="submit" >Search</button>
+      </td>
+      
+    </tr>
+    </table>
+  </form>
+</div>
+<br><br>
 
-<h3>Users:</h3>
+<h3>Users:</h3> 
+<button  (click)="onReset()" >Show all</button>
+<br>
 
 <div >
   <table >
-      <tr *ngFor="let user of AllUsers">
+      <tr *ngFor="let user of SearchedUsers">
         <td align="1">
           <p class="p-table-home"> <i>Name:</i> {{user.Name}} , <i>Surname:</i> {{user.Surname}} ,  
-            <i>Username :</i>{{user.Username}}<i>, Gender :</i>{{user.Gender}},
+            <i>Username :</i>{{user.UserName}}<i>, Gender :</i>{{user.Gender}},
             <i>Role :</i>{{user.Role}},<i>Blocked :</i>{{user.Blocked}}
 
           </p>           
         </td>
         <td align="1">
-          <button id="{{user.ID}}" (click)="changeStatus($event)" >Change Status</button>
+          <button id="{{user.ID}}" (click)="changeStatus(user.ID)" >Change Status</button>
         </td>
         
       </tr>

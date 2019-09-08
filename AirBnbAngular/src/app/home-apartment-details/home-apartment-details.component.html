@@ -116,14 +116,14 @@
 </div>
 <br>
 <!--Pictures-->
-<div>
+<div style="overflow-x: scroll; height: 600px; width: 90%;" >
     <table>
       <tr align="center">
         <b>Apartment pictures : </b>
       </tr>
       <tr>
         <td *ngFor="let picture of apartment.Pictures; let i = index">
-          <img id="{{picture}}" src="{{picture}}" width="250px" height="250px"  />
+          <img id="{{picture}}" src="{{picture}}" width="500px" height="500px"  />
         </td>
       </tr>
     </table>

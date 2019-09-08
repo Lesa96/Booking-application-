@@ -13,7 +13,7 @@ namespace AirBnb_Web1.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201909051631169_Airbnb"; }
+            get { return "201909081530210_Airbnb"; }
         }
         
         string IMigrationMetadata.Source

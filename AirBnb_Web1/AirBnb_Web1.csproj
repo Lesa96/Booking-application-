@@ -224,19 +224,21 @@
     <Compile Include="Helper\BindingModels\AmenitieBM.cs" />
     <Compile Include="Helper\BindingModels\ApartmentBM.cs" />
     <Compile Include="Helper\BindingModels\CommentBM.cs" />
+    <Compile Include="Helper\BindingModels\DatesModelBM.cs" />
     <Compile Include="Helper\BindingModels\LogBM.cs" />
     <Compile Include="Helper\BindingModels\ReservationBM.cs" />
     <Compile Include="Helper\BindingModels\UserBM.cs" />
     <Compile Include="Helper\Enums\EnumHelper.cs" />
-    <Compile Include="Migrations\201909051631169_Airbnb.cs" />
-    <Compile Include="Migrations\201909051631169_Airbnb.Designer.cs">
-      <DependentUpon>201909051631169_Airbnb.cs</DependentUpon>
+    <Compile Include="Migrations\201909081530210_Airbnb.cs" />
+    <Compile Include="Migrations\201909081530210_Airbnb.Designer.cs">
+      <DependentUpon>201909081530210_Airbnb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Adress.cs" />
     <Compile Include="Models\Amenitie.cs" />
     <Compile Include="Models\Apartman.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\DatesModel.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\User.cs" />
@@ -376,8 +378,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201909051631169_Airbnb.resx">
-      <DependentUpon>201909051631169_Airbnb.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201909081530210_Airbnb.resx">
+      <DependentUpon>201909081530210_Airbnb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

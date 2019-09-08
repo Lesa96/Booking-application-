@@ -29,7 +29,8 @@ import {ApartmentDetailsComponent} from './guest/guest-apartments/apartment-deta
 import { GuestRequestsComponent } from './guest/guest-requests/guest-requests.component';
 import { UploadPictureComponent } from './host/HostStuff/upload-picture/upload-picture.component';
 import { ProfileComponent } from './profile/profile.component';
-import { HomeApartmentDetailsComponent } from './home-apartment-details/home-apartment-details.component'
+import { HomeApartmentDetailsComponent } from './home-apartment-details/home-apartment-details.component';
+import { AddDatesComponent } from './add-dates/add-dates.component'
 
 
 
@@ -61,6 +62,7 @@ import { HomeApartmentDetailsComponent } from './home-apartment-details/home-apa
     UploadPictureComponent,
     ProfileComponent,
     HomeApartmentDetailsComponent,
+    AddDatesComponent,
   ],
   imports: [
     BrowserModule,

@@ -15,6 +15,16 @@ export class HostService {
 
   constructor(private http: HttpClient) { }
 
+  addDates(dateModel : any ) : any
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json','Role' : localStorage.Role }),
+     };
+
+     return this.http.put(this.apartmentUri+"AddRentDates",dateModel,httpOptions).pipe(
+      catchError(e => throwError(console.error("Eror in host service:  " + e.error.Message)))
+    );;
+  }
 
   getHostReservations(hostId : any) : Observable<any>
   {

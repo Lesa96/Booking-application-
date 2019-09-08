@@ -4,8 +4,8 @@ export class User {
     Surname : string;
     UserName : string;
     Password : string;
-    Gender : string;
-    Role : string;
+    Gender : any;
+    Role : any;
     Blocked : boolean;
 
 }

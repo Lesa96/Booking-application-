@@ -1,4 +1,4 @@
-﻿using AirBnb_Web1.Models;
+using AirBnb_Web1.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -24,6 +24,7 @@ namespace AirBnb_Web1.DataAccessLayer
         public DbSet<Location> Locations { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<DatesModel> DatesModels { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) 
         {

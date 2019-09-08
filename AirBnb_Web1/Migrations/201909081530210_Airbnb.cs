@@ -98,7 +98,7 @@ namespace AirBnb_Web1.Migrations
                         ID = c.Int(nullable: false, identity: true),
                         ApartmanID = c.Int(nullable: false),
                         GuestID = c.Int(),
-                        SingUpDate = c.DateTime(nullable: false),
+                        DatesModelID = c.Int(),
                         NumberOfNights = c.Int(nullable: false),
                         TotalPrice = c.Double(nullable: false),
                         Stauts = c.Int(nullable: false),
@@ -107,8 +107,23 @@ namespace AirBnb_Web1.Migrations
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.Apartman", t => t.ApartmanID, cascadeDelete: true)
                 .ForeignKey("dbo.User", t => t.GuestID)
+                .ForeignKey("dbo.DatesModel", t => t.DatesModelID)
                 .Index(t => t.ApartmanID)
-                .Index(t => t.GuestID);
+                .Index(t => t.GuestID)
+                .Index(t => t.DatesModelID);
+            
+            CreateTable(
+                "dbo.DatesModel",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        ApartmanID = c.Int(),
+                        RentDate = c.DateTime(nullable: false),
+                        Available = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.Apartman", t => t.ApartmanID)
+                .Index(t => t.ApartmanID);
             
             CreateTable(
                 "dbo.Location",
@@ -143,6 +158,8 @@ namespace AirBnb_Web1.Migrations
             DropForeignKey("dbo.Apartman", "LocationID", "dbo.Location");
             DropForeignKey("dbo.Location", "AdressID", "dbo.Adress");
             DropForeignKey("dbo.Apartman", "HostID", "dbo.User");
+            DropForeignKey("dbo.Reservation", "DatesModelID", "dbo.DatesModel");
+            DropForeignKey("dbo.DatesModel", "ApartmanID", "dbo.Apartman");
             DropForeignKey("dbo.Reservation", "GuestID", "dbo.User");
             DropForeignKey("dbo.Reservation", "ApartmanID", "dbo.Apartman");
             DropForeignKey("dbo.Apartman", "User_ID1", "dbo.User");
@@ -154,6 +171,8 @@ namespace AirBnb_Web1.Migrations
             DropIndex("dbo.ApartmanAmenitie", new[] { "Amenitie_ID" });
             DropIndex("dbo.ApartmanAmenitie", new[] { "Apartman_ID" });
             DropIndex("dbo.Location", new[] { "AdressID" });
+            DropIndex("dbo.DatesModel", new[] { "ApartmanID" });
+            DropIndex("dbo.Reservation", new[] { "DatesModelID" });
             DropIndex("dbo.Reservation", new[] { "GuestID" });
             DropIndex("dbo.Reservation", new[] { "ApartmanID" });
             DropIndex("dbo.Comment", new[] { "ApartmanID" });
@@ -164,6 +183,7 @@ namespace AirBnb_Web1.Migrations
             DropIndex("dbo.Apartman", new[] { "LocationID" });
             DropTable("dbo.ApartmanAmenitie");
             DropTable("dbo.Location");
+            DropTable("dbo.DatesModel");
             DropTable("dbo.Reservation");
             DropTable("dbo.User");
             DropTable("dbo.Comment");

@@ -156,14 +156,14 @@
   </form>
 </div>
 
-<div>
+<div style="overflow-x: scroll; height: 600px; width: 90%;">
   <table>
     <tr align="center">
       <b>Click on the picture to delete it : </b>
     </tr>
     <tr>
       <td *ngFor="let picture of apartment.Pictures; let i = index">
-        <img id="{{picture}}" src="{{picture}}" width="250px" height="250px" (click)="deletePicture($event)" />
+        <img id="{{picture}}" src="{{picture}}" width="500px" height="500px" (click)="deletePicture($event)" />
       </td>
     </tr>
     <tr colspan="*" align="left">
@@ -180,7 +180,7 @@
 
         <p class="p-table-home">  {{comment.Text}} </p> 
         <p>Blocked: {{comment.Blocked}} </p>
-        <button id="{{comment.Id}}" (click)="deleteComment(comment.Id)" >Change status</button>
+        <button id="{{comment.Id}}" (click)="deleteComment(comment.Id)" >Delete comment</button>
       </td>
       
     </tr>

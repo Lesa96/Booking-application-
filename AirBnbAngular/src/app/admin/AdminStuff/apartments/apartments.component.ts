@@ -62,8 +62,6 @@ export class ApartmentsComponent implements OnInit {
         apartment.RoomNumber = element.RoomNumber;
         apartment.GuestNumber = element.GuestNumber;
         apartment.PricePerNight = element.PricePerNight;
-        apartment.RentDates = element.RentDates;
-        apartment.AvailableDates = element.AvailableDates;
         apartment.Pictures = element.Pictures;
         apartment.SingUpTime = element.SingUpTime;
         apartment.SingOutTime = element.SingOutTime;

@@ -4,13 +4,13 @@ export class Apartment {
     Type : string;
     RoomNumber : number;
     GuestNumber : number;
-    RentDates : Array<any>;
-    AvailableDates : Array<any>;
     Pictures : Array<any>;
     PricePerNight : number;
     SingUpTime : any;
     SingOutTime : any;
     Status : string;
+
+    RentDates: Array<any>;
 
     //coments:
     CommentIDs : Array<number>;

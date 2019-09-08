@@ -24,6 +24,7 @@ import { GuestRequestsComponent } from './guest/guest-requests/guest-requests.co
 import { UploadPictureComponent } from './host/HostStuff/upload-picture/upload-picture.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeApartmentDetailsComponent } from './home-apartment-details/home-apartment-details.component';
+import { AddDatesComponent } from './add-dates/add-dates.component';
 
 
 const routes: Routes = [
@@ -127,6 +128,10 @@ const routes: Routes = [
   {
     path: 'home/details',
     component: HomeApartmentDetailsComponent
+  },
+  {
+    path: 'apartment/dates',
+    component: AddDatesComponent
   }
   
 ];

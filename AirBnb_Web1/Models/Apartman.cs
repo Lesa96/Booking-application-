@@ -22,9 +22,9 @@ namespace AirBnb_Web1.Models
         [ForeignKey("LocationID")]
         public virtual Location Location { get; set; }
 
-        public ICollection<DateTime> RentDates { get; set; }        // ??
+        public virtual ICollection<DatesModel> RentDates { get; set; }        // ??
 
-        public ICollection<DateTime> AvailableDates { get; set; }      //potrebno je da sam generise
+      //  public ICollection<DateTime> AvailableDates { get; set; }      //potrebno je da sam generise
 
         [ForeignKey("HostID")]
         public virtual User Host { get; set; }
