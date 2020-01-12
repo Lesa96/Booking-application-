@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../home.service';
-import {Apartment} from '../Classes/Apartment'
+import {Apartment, SearchApartment} from '../Classes/Apartment'
 import { Observable } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
 
   ActiveApartments : any[] = [];
   FiltredApartments : any[] = []; //bice nakon sto odradi filtriranje, pa ce se on bindovati
+
 
   searchForm= this.fb.group({
     settlement: [],
@@ -36,7 +37,8 @@ export class HomeComponent implements OnInit {
       var helpApp = data as Observable<Apartment>;
       console.log(helpApp);
       helpApp.forEach(element => {
-        this.AddApartmentInfos(element);
+        this.AddApartmentInfos(element, this.ActiveApartments);
+        this.AddApartmentInfos(element, this.FiltredApartments);
         });
     }); 
   }
@@ -53,7 +55,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['home/details']);
   }
 
-  AddApartmentInfos(element : any)
+  AddApartmentInfos(element : any, App : any)
   {
     var apartment = new Apartment();
         apartment.ID = element.ID;
@@ -77,17 +79,41 @@ export class HomeComponent implements OnInit {
         apartment.HostName = element.HostName;
         apartment.HostSurname = element.HostSurname;
 
-        this.ActiveApartments.push(apartment);
+        App.push(apartment);
   }
 
   onSearch()
   {
-    //To DO
+
+    var searchApartment = new SearchApartment();
+    searchApartment.CheckIn = this.searchForm.value.checkIn;
+    searchApartment.CheckOut = this.searchForm.value.checkOut;
+    searchApartment.GuestNumber = this.searchForm.value.guestNumber;
+    searchApartment.MaxPrice = this.searchForm.value.maxPrice;
+    searchApartment.MaxRooms = this.searchForm.value.maxRooms;
+    searchApartment.MinRooms = this.searchForm.value.minRooms;
+    searchApartment.Settlement = this.searchForm.value.settlement;
+    
+    this.homeService.GetSearchApartments(searchApartment).subscribe(data=>{
+      var filtredAps = data as Observable<Apartment>;
+  //    console.warn(filtredAps);
+      this.FiltredApartments = [];
+      filtredAps.forEach(element => {
+        this.AddApartmentInfos(element, this.FiltredApartments);
+        });
+
+    });
+
   }
 
   logIn()
   {
     this.router.navigate(["login"]);
+  }
+
+  reset()
+  {
+    this.FiltredApartments = this.ActiveApartments;
   }
 
 }

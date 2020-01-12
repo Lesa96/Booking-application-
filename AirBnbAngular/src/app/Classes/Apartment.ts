@@ -29,3 +29,14 @@ export class Apartment {
     HostName : string;
     HostSurname : string;
 }
+
+export class SearchApartment {
+
+    Settlement: string;
+    CheckIn : any;
+    CheckOut: any;
+    GuestNumber: number;
+    MinRooms: number;
+    MaxRooms: number;
+    MaxPrice: number;
+}

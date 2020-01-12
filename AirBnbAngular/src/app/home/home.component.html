@@ -4,6 +4,7 @@
 
 <h1>Airbnb home page</h1>
 
+<!--Search-->
 <div>
   <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
     <table>
@@ -55,6 +56,7 @@
          <td align="2" >
            <button type="submit" >Search</button>
          </td>
+
       </tr>
     </table>
   </form>
@@ -62,10 +64,10 @@
 <br><br>
 <!--Active-->
 <h3>Active Apartments:</h3>
-
+<button (click)="reset()">Show all</button>
 <div >
   <table >
-      <tr *ngFor="let apartment of ActiveApartments">
+      <tr *ngFor="let apartment of FiltredApartments">
         <td align="1">
           <p class="p-table-home"> <i>Apartment type:</i> {{apartment.Type}} , <i>Number of rooms:</i> {{apartment.RoomNumber}} ,  
             <i>Guest Number :</i>{{apartment.GuestNumber}}<i>, Price per nigth :</i>{{apartment.PricePerNight}},

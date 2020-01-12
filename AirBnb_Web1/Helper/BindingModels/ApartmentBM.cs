@@ -39,4 +39,15 @@ namespace AirBnb_Web1.Helper.BindingModels
 
 
   }
+
+  public class SearchApartment
+  {
+    public string Settlement { get; set; }
+    public DateTime CheckIn { get; set; }
+    public DateTime CheckOut { get; set; }
+    public int GuestNumber { get; set; }
+    public int MinRooms { get; set; }
+    public int MaxRooms { get; set; }
+    public int MaxPrice { get; set; }
+  }
 }

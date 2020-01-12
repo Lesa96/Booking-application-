@@ -68,12 +68,21 @@ namespace AirBnb_Web1.Controllers
       
     }
 
-    [HttpGet]
+    [HttpPut]
     [Route("GetSearchApartments")]
-    public IHttpActionResult GetSearchApartments()
+    public IHttpActionResult GetSearchApartments(SearchApartment apartmentDetails)
     {
-      //TO DO
-      return Ok();
+      
+      List<ApartmentBM> apartmentsInfo = new List<ApartmentBM>();
+      ICollection<Apartman> apartments = GetFiltredApartments(apartmentDetails);
+      foreach (var apartment in apartments)
+      {
+          ApartmentBM apartmentBM = GetApartmentInfo(apartment);
+          apartmentsInfo.Add(apartmentBM);
+      }
+
+      return Ok(apartmentsInfo);
+      
 
     }
 
@@ -487,6 +496,44 @@ namespace AirBnb_Web1.Controllers
         
 
       return apartmentBM;
+    }
+
+    public ICollection<Apartman> GetFiltredApartments(SearchApartment searchApartment) //kada uradi search u home ulazi ovde
+    {
+      ICollection<Apartman> apartments = context.Apartmans.Where(x => x.Deleted == false && x.Status == ApartmanStatus.Active).ToList();
+
+      if(searchApartment.GuestNumber > 0)
+      {
+        apartments = apartments.Where(x => x.GuestNumber == searchApartment.GuestNumber).ToList();
+      }
+      if (searchApartment.MaxPrice > 0)
+      {
+        apartments = apartments.Where(x => x.PricePerNight <= searchApartment.MaxPrice).ToList();
+      }
+      if(searchApartment.MaxRooms > 0)
+      {
+        apartments = apartments.Where(x => x.RoomNumber <= searchApartment.MaxRooms).ToList();
+      }
+      if (searchApartment.MinRooms > 0)
+      {
+        apartments = apartments.Where(x => x.RoomNumber >= searchApartment.MinRooms).ToList();
+      }
+      if (searchApartment.Settlement != "" && searchApartment.Settlement != null)
+      {
+        apartments = apartments.Where(x => x.Location.Adress.Settlement == searchApartment.Settlement).ToList();
+      }
+      //To Do
+      //za datum dobija 0001 kao godinu ako nije odabrao
+      if(searchApartment.CheckIn.Year != DateTime.Now.Year)
+      {
+
+      }
+      if (searchApartment.CheckOut.Year != DateTime.Now.Year)
+      {
+
+      }
+
+      return apartments;
     }
 
     public bool CheckRole(string role)
