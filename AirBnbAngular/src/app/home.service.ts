@@ -11,6 +11,7 @@ export class HomeService {
 
   
   private apartmentUri = "http://localhost:8080/api/Apartment/";
+  private amenitieUri = "http://localhost:8080/api/Amenitie/";
 
   constructor(private http: HttpClient) { }
 
@@ -75,6 +76,18 @@ export class HomeService {
     return this.http.put(this.apartmentUri+"GetSearchApartments",apartmentDetails,httpOptions).pipe(
       catchError(e => throwError(alert("Eror in home service:  " + e.error.Message)))
     );
+  }
+
+  GetAmenitieNames() : Observable<any>
+  {   
+     const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json'})     
+     };
+
+    return this.http.get(this.amenitieUri+"GetAmenitieNames",httpOptions).pipe(
+      catchError(e => throwError(alert("Eror in host service:  " + e.error.Message)))
+    );
+
   }
 
 }

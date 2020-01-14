@@ -19,13 +19,13 @@
           CHECK-IN: 
         </td>
         <td>
-          <input type="time" formControlName="checkIn">
+          <input type="date" formControlName="checkIn">
         </td>
         <td>
           CHECKOUT: 
         </td>
         <td>
-          <input type="time" formControlName="checkOut">
+          <input type="date" formControlName="checkOut">
         </td>
         <td>
           GUEST NUMBER: 
@@ -53,10 +53,29 @@
          <td>
            <input type="number" formControlName="maxPrice" min="1">
          </td>
-         <td align="2" >
-           <button type="submit" >Search</button>
+         <td>
+          TYPE: 
          </td>
+         <td>
+          <select formControlName="apartmentType">
+            <option *ngFor="let type of ApartmentType" >{{type}}</option> 
+          </select>
+        </td>       
+      </tr>
 
+      <tr>
+        <td>
+          Amenities: 
+        </td>
+        <td colspan="6">
+          <label formArrayName="amNames" *ngFor="let name of searchForm.controls.amNames.controls; let i = index">
+            <input type="checkbox" [formControlName]="i">
+            {{amNames[i]}}  
+          </label>
+        </td>      
+        <td align="2" >
+          <button type="submit" >Search</button>
+        </td>
       </tr>
     </table>
   </form>

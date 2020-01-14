@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../home.service';
 import {Apartment, SearchApartment} from '../Classes/Apartment'
 import { Observable } from 'rxjs';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StorageService } from '../storage.service';
 
@@ -18,6 +18,9 @@ export class HomeComponent implements OnInit {
   ActiveApartments : any[] = [];
   FiltredApartments : any[] = []; //bice nakon sto odradi filtriranje, pa ce se on bindovati
 
+  ApartmentType = ["","FullApartman" , "Room"];
+  amNames = new Array();
+
 
   searchForm= this.fb.group({
     settlement: [],
@@ -27,12 +30,13 @@ export class HomeComponent implements OnInit {
     minRooms: [],
     maxRooms: [],
     maxPrice: [],
+    apartmentType: [],
+    amNames: new FormArray([]),
     
   });
 
   ngOnInit() {
-    
-    
+  
     this.homeService.getActiveApartments().subscribe(data=> {
       var helpApp = data as Observable<Apartment>;
       console.log(helpApp);
@@ -40,6 +44,18 @@ export class HomeComponent implements OnInit {
         this.AddApartmentInfos(element, this.ActiveApartments);
         this.AddApartmentInfos(element, this.FiltredApartments);
         });
+
+
+        //amenities for search:
+        this.homeService.GetAmenitieNames().subscribe(names => 
+          {
+            this.amNames = names;
+            this.addCheckboxes();
+    
+            this.amNames.forEach(element => {
+              console.warn(element);
+            });
+          });
     }); 
   }
 
@@ -93,6 +109,16 @@ export class HomeComponent implements OnInit {
     searchApartment.MaxRooms = this.searchForm.value.maxRooms;
     searchApartment.MinRooms = this.searchForm.value.minRooms;
     searchApartment.Settlement = this.searchForm.value.settlement;
+    searchApartment.ApartmentType = this.searchForm.value.apartmentType;
+    //amenities
+    searchApartment.Amenities = new Array();
+        for(var i=0; i < this.amNames.length; i++)
+        {
+          if(this.searchForm.controls.amNames.value[i] == true)
+          {
+            searchApartment.Amenities.push(this.amNames[i]);
+          }
+        }
     
     this.homeService.GetSearchApartments(searchApartment).subscribe(data=>{
       var filtredAps = data as Observable<Apartment>;
@@ -105,6 +131,14 @@ export class HomeComponent implements OnInit {
     });
 
   }
+
+  private addCheckboxes()
+  {
+      this.amNames.map((o, i) => {
+        const control = new FormControl(); 
+        (this.searchForm.controls.amNames as FormArray).push(control);
+      });
+  } 
 
   logIn()
   {

@@ -522,15 +522,83 @@ namespace AirBnb_Web1.Controllers
       {
         apartments = apartments.Where(x => x.Location.Adress.Settlement == searchApartment.Settlement).ToList();
       }
-      //To Do
-      //za datum dobija 0001 kao godinu ako nije odabrao
-      if(searchApartment.CheckIn.Year != DateTime.Now.Year)
+      if (searchApartment.ApartmentType != "" && searchApartment.ApartmentType != null)
       {
+        apartments = apartments.Where(x => x.Type.ToString() == searchApartment.ApartmentType).ToList();
+      }
+      if(searchApartment.Amenities.Count > 0)
+      {
+        ICollection<Apartman> helpApartments = new HashSet<Apartman>();
+        foreach (Apartman apartment in apartments)
+        {
+          helpApartments.Add(apartment);
+        }
+
+        foreach (string ammen in searchApartment.Amenities)
+        {
+          foreach (Apartman apar in helpApartments)
+          {
+            var helpApartment =  apar.Amenities.Where(x => x.Name == ammen).FirstOrDefault();
+            if (helpApartment == null && apartments.Contains(apar))
+              apartments.Remove(apar);
+          }
+        }
+        
+      }
+      //To Do
+      //za godinu dobija 0001 kao godinu ako nije odabrao
+      if(searchApartment.CheckIn.Year != DateTime.Now.Year && searchApartment.CheckOut.Year != DateTime.Now.Year)
+      {
+        ICollection<Apartman> helpApartments = new HashSet<Apartman>();
+        foreach (Apartman apartment in apartments)
+        {
+          helpApartments.Add(apartment);
+        }
+
+        foreach (Apartman apar in helpApartments)
+        {
+          DateTime currentDate = searchApartment.CheckIn;
+          
+          //if(searchApartment.CheckIn == searchApartment.CheckOut) //ako unese isti datum za checkIn i checkOut
+          //{
+          //  var helpApartment = apar.RentDates.Where(x => x.RentDate == currentDate && x.Available == true).FirstOrDefault();
+          //  if (helpApartment == null && apartments.Contains(apar))
+          //  {
+          //    apartments.Remove(apar);
+          //    continue;
+          //  }
+          //}
+
+          while(currentDate <= searchApartment.CheckOut)
+          {
+            var helpApartment = apar.RentDates.Where(x => x.RentDate == currentDate && x.Available == true).FirstOrDefault();
+            if (helpApartment == null && apartments.Contains(apar))
+            {
+              apartments.Remove(apar);
+              break;
+            }
+              
+            currentDate.AddDays(1);
+          }
+        }
 
       }
-      if (searchApartment.CheckOut.Year != DateTime.Now.Year)
+      else if (searchApartment.CheckIn.Year != DateTime.Now.Year)
       {
+        ICollection<Apartman> helpApartments = new HashSet<Apartman>();
+        foreach (Apartman apartment in apartments)
+        {
+          helpApartments.Add(apartment);
+        }
 
+        foreach (Apartman apar in helpApartments)
+        {
+          var helpApartment = apar.RentDates.Where(x => x.RentDate == searchApartment.CheckIn && x.Available == true).FirstOrDefault();
+          if (helpApartment == null && apartments.Contains(apar))
+          {
+            apartments.Remove(apar);
+          }
+        }
       }
 
       return apartments;
