@@ -40,5 +40,6 @@ export class SearchApartment {
     MaxRooms: number;
     MaxPrice: number;
     ApartmentType: string;
+    ApartmentStatus: string;
     Amenities: Array<any>;
 }

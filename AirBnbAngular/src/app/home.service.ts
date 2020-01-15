@@ -69,7 +69,7 @@ export class HomeService {
   GetSearchApartments(apartmentDetails : any) : Observable<any>
   {
     const httpOptions = {
-     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+     headers: new HttpHeaders({ 'Content-Type': 'application/json', }),
      // params: new HttpParams().set('apartmentDetails' , apartmentDetails)     
      };
 

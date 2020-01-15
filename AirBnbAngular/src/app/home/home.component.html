@@ -83,7 +83,12 @@
 <br><br>
 <!--Active-->
 <h3>Active Apartments:</h3>
-<button (click)="reset()">Show all</button>
+<div>
+  <button (click)="reset()">Show all</button>
+  <button (click)="sortLow()">Sort by the lowest price</button>
+  <button (click)="sortHigh()">Sort by the highest price</button>
+</div>
+
 <div >
   <table >
       <tr *ngFor="let apartment of FiltredApartments">

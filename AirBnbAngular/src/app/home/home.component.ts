@@ -38,13 +38,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   
     this.homeService.getActiveApartments().subscribe(data=> {
-      var helpApp = data as Observable<Apartment>;
-      console.log(helpApp);
-      helpApp.forEach(element => {
-        this.AddApartmentInfos(element, this.ActiveApartments);
-        this.AddApartmentInfos(element, this.FiltredApartments);
-        });
-
+      this.ActiveApartments = data as Apartment[];
+      this.FiltredApartments = data as Apartment[];
 
         //amenities for search:
         this.homeService.GetAmenitieNames().subscribe(names => 
@@ -71,33 +66,6 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['home/details']);
   }
 
-  AddApartmentInfos(element : any, App : any)
-  {
-    var apartment = new Apartment();
-        apartment.ID = element.ID;
-        apartment.Type = element.Type;
-        apartment.RoomNumber = element.RoomNumber;
-        apartment.GuestNumber = element.GuestNumber;
-        apartment.PricePerNight = element.PricePerNight;
-        apartment.Pictures = element.Pictures;
-        apartment.SingUpTime = element.SingUpTime;
-        apartment.SingOutTime = element.SingOutTime;
-        apartment.Status = element.Status;
-
-        apartment.CommentIDs = element.CommentIDs;
-        apartment.Latitude = element.Latitude;
-        apartment.Longitude = element.Longitude;
-        apartment.Streat = element.Streat;
-        apartment.StreatNumber = element.StreatNumber;
-        apartment.Settlement = element.Settlement;
-        apartment.ZipCode = element.ZipCode;
-        apartment.HostID = element.HostID;
-        apartment.HostName = element.HostName;
-        apartment.HostSurname = element.HostSurname;
-
-        App.push(apartment);
-  }
-
   onSearch()
   {
 
@@ -121,13 +89,7 @@ export class HomeComponent implements OnInit {
         }
     
     this.homeService.GetSearchApartments(searchApartment).subscribe(data=>{
-      var filtredAps = data as Observable<Apartment>;
-  //    console.warn(filtredAps);
-      this.FiltredApartments = [];
-      filtredAps.forEach(element => {
-        this.AddApartmentInfos(element, this.FiltredApartments);
-        });
-
+      this.FiltredApartments = data as Apartment[]; 
     });
 
   }
@@ -148,6 +110,16 @@ export class HomeComponent implements OnInit {
   reset()
   {
     this.FiltredApartments = this.ActiveApartments;
+  }
+
+  sortLow()
+  {
+    this.FiltredApartments.sort((a,b) => a.PricePerNight - b.PricePerNight);
+  }
+
+  sortHigh()
+  {
+    this.FiltredApartments.sort((a,b) => b.PricePerNight - a.PricePerNight);
   }
 
 }

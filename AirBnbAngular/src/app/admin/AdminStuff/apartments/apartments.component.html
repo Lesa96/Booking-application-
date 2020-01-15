@@ -1,11 +1,103 @@
 <app-admin></app-admin>
 <br><br><br>
 
+<!--Search-->
+<div>
+  <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+    <table>
+      <tr>
+        <td>
+          WHERE: 
+        </td>
+        <td>
+          <input type="text" formControlName="settlement">
+        </td>
+        <td>
+          CHECK-IN: 
+        </td>
+        <td>
+          <input type="date" formControlName="checkIn">
+        </td>
+        <td>
+          CHECKOUT: 
+        </td>
+        <td>
+          <input type="date" formControlName="checkOut">
+        </td>
+        <td>
+          GUEST NUMBER: 
+        </td>
+        <td>
+          <input type="number" formControlName="guestNumber" min="1">
+        </td>
+      </tr>
+      <tr>
+        <td>
+         MINIMUM ROOMS: 
+        </td>
+        <td>
+          <input type="number" formControlName="minRooms" min="1">
+        </td>
+        <td>
+          MAXIMUM ROOMS: 
+         </td>
+         <td>
+           <input type="number" formControlName="maxRooms" min="1">
+         </td>
+         <td>
+          MAXIMUM PRICE: 
+         </td>
+         <td>
+           <input type="number" formControlName="maxPrice" min="1">
+         </td>
+         <td>
+          TYPE: 
+         </td>
+         <td>
+          <select formControlName="apartmentType">
+            <option *ngFor="let type of ApartmentType" >{{type}}</option> 
+          </select>
+        </td>       
+      </tr>
+
+      <tr>
+        <td>
+          STATUS: 
+         </td>
+         <td>
+          <select formControlName="apartmentStatus">
+            <option *ngFor="let status of ApartmentStatus" >{{status}}</option> 
+          </select>
+        </td>  
+
+        <td>
+          Amenities: 
+        </td>
+        <td colspan="6">
+          <label formArrayName="amNames" *ngFor="let name of searchForm.controls.amNames.controls; let i = index">
+            <input type="checkbox" [formControlName]="i">
+            {{amNames[i]}}  
+          </label>
+        </td>      
+        <td align="2" >
+          <button type="submit" >Search</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+<br><br>
+
 <h3>Apartments:</h3>
+<div>
+  <button (click)="reset()">Show all</button>
+  <button (click)="sortLow()">Sort by the lowest price</button>
+  <button (click)="sortHigh()">Sort by the highest price</button>
+</div>
 
 <div >
   <table >
-      <tr *ngFor="let apartment of AllApartments">
+      <tr *ngFor="let apartment of FiltredApartments">
         <td align="1">
           <p class="p-table-home"> <i>Apartment type:</i> {{apartment.Type}} , <i>Number of rooms:</i> {{apartment.RoomNumber}} ,  
             <i>Guest Number :</i>{{apartment.GuestNumber}}<i>, Price per nigth :</i>{{apartment.PricePerNight}},

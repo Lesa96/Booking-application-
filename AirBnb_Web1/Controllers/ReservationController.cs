@@ -162,7 +162,10 @@ namespace AirBnb_Web1.Controllers
       reservationBM.ID = reservation.ID;
       reservationBM.GuestID = (int)reservation.GuestID;
       reservationBM.ApartmanID = reservation.ApartmanID;
-      reservationBM.SingUpDate = reservation.SingUpDate.RentDate;
+      //SingUpDate za rezervaciju:
+      DatesModel singUpDate = context.DatesModels.Where(x => x.ID == reservation.DatesModelID).FirstOrDefault();
+      reservationBM.SingUpDate = singUpDate.RentDate;  //ovde puca, proveri ovo kako treba
+
       reservationBM.NumberOfNights = reservation.NumberOfNights;
       reservationBM.TotalPrice = reservation.TotalPrice;
       reservationBM.Stauts = reservation.Stauts.ToString();

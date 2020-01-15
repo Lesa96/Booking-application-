@@ -50,6 +50,7 @@ namespace AirBnb_Web1.Helper.BindingModels
     public int MaxRooms { get; set; }
     public int MaxPrice { get; set; }
     public string ApartmentType { get; set; }
+    public string ApartmentStatus { get; set; }
     public ICollection<string> Amenities { get; set; }
   }
 }

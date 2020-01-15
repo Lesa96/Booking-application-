@@ -178,4 +178,16 @@ export class AdminService {
 
   }
 
+  GetSearchApartments(apartmentDetails : any) : Observable<any>
+  {
+    const httpOptions = {
+     headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role}),
+     // params: new HttpParams().set('apartmentDetails' , apartmentDetails)     
+     };
+
+    return this.http.put(this.apartmentUri+"GetSearchApartments",apartmentDetails,httpOptions).pipe(
+      catchError(e => throwError(alert("Eror in home service:  " + e.error.Message)))
+    );
+  }
+
 }

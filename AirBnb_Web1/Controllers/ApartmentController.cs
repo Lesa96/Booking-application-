@@ -72,14 +72,30 @@ namespace AirBnb_Web1.Controllers
     [Route("GetSearchApartments")]
     public IHttpActionResult GetSearchApartments(SearchApartment apartmentDetails)
     {
-      
+      ICollection<Apartman> apartments = null;
+
+      if (CheckRole("Host") || CheckRole("Admin"))
+      {
+        apartments = GetFiltredApartments(apartmentDetails, "Status");
+      }
+      else
+      {
+        apartments = GetFiltredApartments(apartmentDetails, "");
+      }
       List<ApartmentBM> apartmentsInfo = new List<ApartmentBM>();
-      ICollection<Apartman> apartments = GetFiltredApartments(apartmentDetails);
+      
+      //Za status:
+      if (apartmentDetails.ApartmentStatus != null && apartmentDetails.ApartmentStatus != "")
+      {
+        apartments = apartments.Where(x => x.Status.ToString() == apartmentDetails.ApartmentStatus).ToList();
+      }
+
       foreach (var apartment in apartments)
       {
-          ApartmentBM apartmentBM = GetApartmentInfo(apartment);
-          apartmentsInfo.Add(apartmentBM);
+        ApartmentBM apartmentBM = GetApartmentInfo(apartment);
+        apartmentsInfo.Add(apartmentBM);
       }
+
 
       return Ok(apartmentsInfo);
       
@@ -498,9 +514,21 @@ namespace AirBnb_Web1.Controllers
       return apartmentBM;
     }
 
-    public ICollection<Apartman> GetFiltredApartments(SearchApartment searchApartment) //kada uradi search u home ulazi ovde
+    public ICollection<Apartman> GetFiltredApartments(SearchApartment searchApartment , string user) //kada uradi search u home ulazi ovde
     {
-      ICollection<Apartman> apartments = context.Apartmans.Where(x => x.Deleted == false && x.Status == ApartmanStatus.Active).ToList();
+      ICollection<Apartman> apartments = context.Apartmans.Where(x => x.Deleted == false).ToList();
+
+      if(user != "Status") // ako nije admin 
+      {
+        apartments = context.Apartmans.Where(x => x.Status == ApartmanStatus.Active).ToList();
+      }
+
+      if ( searchApartment.ApartmentStatus != null && searchApartment.ApartmentStatus != "")
+      {
+        apartments = apartments.Where(x => x.Status.ToString() == searchApartment.ApartmentStatus).ToList();
+      }      
+
+       
 
       if(searchApartment.GuestNumber > 0)
       {
@@ -547,7 +575,7 @@ namespace AirBnb_Web1.Controllers
       }
       //To Do
       //za godinu dobija 0001 kao godinu ako nije odabrao
-      if(searchApartment.CheckIn.Year != DateTime.Now.Year && searchApartment.CheckOut.Year != DateTime.Now.Year)
+      if(searchApartment.CheckIn.Year == DateTime.Now.Year && searchApartment.CheckOut.Year == DateTime.Now.Year)
       {
         ICollection<Apartman> helpApartments = new HashSet<Apartman>();
         foreach (Apartman apartment in apartments)
@@ -559,15 +587,7 @@ namespace AirBnb_Web1.Controllers
         {
           DateTime currentDate = searchApartment.CheckIn;
           
-          //if(searchApartment.CheckIn == searchApartment.CheckOut) //ako unese isti datum za checkIn i checkOut
-          //{
-          //  var helpApartment = apar.RentDates.Where(x => x.RentDate == currentDate && x.Available == true).FirstOrDefault();
-          //  if (helpApartment == null && apartments.Contains(apar))
-          //  {
-          //    apartments.Remove(apar);
-          //    continue;
-          //  }
-          //}
+         
 
           while(currentDate <= searchApartment.CheckOut)
           {
@@ -577,13 +597,14 @@ namespace AirBnb_Web1.Controllers
               apartments.Remove(apar);
               break;
             }
-              
-            currentDate.AddDays(1);
+
+            currentDate =  currentDate.AddDays(1);
+            
           }
         }
 
       }
-      else if (searchApartment.CheckIn.Year != DateTime.Now.Year)
+      else if (searchApartment.CheckIn.Year == DateTime.Now.Year)
       {
         ICollection<Apartman> helpApartments = new HashSet<Apartman>();
         foreach (Apartman apartment in apartments)
@@ -607,13 +628,24 @@ namespace AirBnb_Web1.Controllers
     public bool CheckRole(string role)
     {
       var headers = Request.Headers;
-      string token = headers.GetValues("Role").First();
-      if (token != role)
+      string token = "";
+      try
       {
-        return true;
+        token = headers.GetValues("Role").First();
+        if (token != role)
+        {
+          return true;
+        }
+
+        return false;
+      }
+      catch (Exception)
+      {
+
+        return false;
       }
 
-      return false;
+      
     }
 
 

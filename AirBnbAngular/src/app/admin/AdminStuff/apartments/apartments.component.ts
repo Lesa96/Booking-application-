@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Apartment } from 'src/app/Classes/Apartment';
+import { Apartment, SearchApartment } from 'src/app/Classes/Apartment';
 import { HomeService } from 'src/app/home.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormArray } from '@angular/forms';
 import { AdminService } from 'src/app/admin.service';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/storage.service';
@@ -14,11 +14,15 @@ import { StorageService } from 'src/app/storage.service';
 })
 export class ApartmentsComponent implements OnInit {
 
-  constructor(private adminService: AdminService , private fb: FormBuilder, private router: Router,private storageService: StorageService) { }
+  constructor(private adminService: AdminService ,private homeService: HomeService, private fb: FormBuilder, private router: Router,private storageService: StorageService) { }
 
   AllApartments : any[] = [];
   FiltredApartments : any[] = []; //bice nakon sto odradi filtriranje, pa ce se on bindovati
   @Output() idOutput = new EventEmitter<number>();
+
+  ApartmentType = ["","FullApartman" , "Room"];
+  ApartmentStatus = ["" , "Active", "NotActive"];
+  amNames = new Array();
 
   searchForm= this.fb.group({
     settlement: [],
@@ -28,6 +32,9 @@ export class ApartmentsComponent implements OnInit {
     minRooms: [],
     maxRooms: [],
     maxPrice: [],
+    apartmentType: [],
+    amNames: new FormArray([]),
+    apartmentStatus: [],
     
   });
 
@@ -36,8 +43,19 @@ export class ApartmentsComponent implements OnInit {
     
     this.adminService.getAllApartments().subscribe(data=> {
      this.AllApartments = data as Apartment[];
+     this.FiltredApartments = data as Apartment[]; //
       console.log(this.AllApartments);
       
+      //amenities for search:
+      this.homeService.GetAmenitieNames().subscribe(names => 
+        {
+          this.amNames = names;
+          this.addCheckboxes();
+  
+          this.amNames.forEach(element => {
+            console.warn(element);
+          });
+        });
     }); 
   }
 
@@ -52,32 +70,59 @@ export class ApartmentsComponent implements OnInit {
     this.storageService.setApartment(apartment);
     this.router.navigate(['/admin/apartments/edit']);
 
+  } 
+
+  onSearch()
+  {
+
+    var searchApartment = new SearchApartment();
+    searchApartment.CheckIn = this.searchForm.value.checkIn;
+    searchApartment.CheckOut = this.searchForm.value.checkOut;
+    searchApartment.GuestNumber = this.searchForm.value.guestNumber;
+    searchApartment.MaxPrice = this.searchForm.value.maxPrice;
+    searchApartment.MaxRooms = this.searchForm.value.maxRooms;
+    searchApartment.MinRooms = this.searchForm.value.minRooms;
+    searchApartment.Settlement = this.searchForm.value.settlement;
+    searchApartment.ApartmentType = this.searchForm.value.apartmentType;
+    searchApartment.ApartmentStatus = this.searchForm.value.apartmentStatus;
+    //amenities
+    searchApartment.Amenities = new Array();
+        for(var i=0; i < this.amNames.length; i++)
+        {
+          if(this.searchForm.controls.amNames.value[i] == true)
+          {
+            searchApartment.Amenities.push(this.amNames[i]);
+          }
+        }
+    
+    this.adminService.GetSearchApartments(searchApartment).subscribe(data=>{
+      this.FiltredApartments = data as Apartment[];
+  
+
+    });
+
   }
 
-  AddApartmentInfos(element : any)
+  private addCheckboxes()
   {
-    var apartment = new Apartment();
-        apartment.ID = element.ID;
-        apartment.Type = element.Type;
-        apartment.RoomNumber = element.RoomNumber;
-        apartment.GuestNumber = element.GuestNumber;
-        apartment.PricePerNight = element.PricePerNight;
-        apartment.Pictures = element.Pictures;
-        apartment.SingUpTime = element.SingUpTime;
-        apartment.SingOutTime = element.SingOutTime;
-        apartment.Status = element.Status;
+      this.amNames.map((o, i) => {
+        const control = new FormControl(); 
+        (this.searchForm.controls.amNames as FormArray).push(control);
+      });
+  } 
 
-        apartment.CommentIDs = element.CommentIDs;
-        apartment.Latitude = element.Latitude;
-        apartment.Longitude = element.Longitude;
-        apartment.Streat = element.Streat;
-        apartment.StreatNumber = element.StreatNumber;
-        apartment.Settlement = element.Settlement;
-        apartment.ZipCode = element.ZipCode;
-        apartment.HostID = element.HostID;
-        apartment.HostName = element.HostName;
-        apartment.HostSurname = element.HostSurname;
+  reset()
+  {
+    this.FiltredApartments = this.AllApartments;
+  }
 
-        this.AllApartments.push(apartment);
+  sortLow()
+  {
+    this.FiltredApartments.sort((a,b) => a.PricePerNight - b.PricePerNight);
+  }
+
+  sortHigh()
+  {
+    this.FiltredApartments.sort((a,b) => b.PricePerNight - a.PricePerNight);
   }
 }
