@@ -74,7 +74,7 @@ namespace AirBnb_Web1.Controllers
     {
       ICollection<Apartman> apartments = null;
 
-      if (CheckRole("Host") || CheckRole("Admin"))
+      if (CheckRole("Admin"))
       {
         apartments = GetFiltredApartments(apartmentDetails, "Status");
       }
@@ -83,12 +83,6 @@ namespace AirBnb_Web1.Controllers
         apartments = GetFiltredApartments(apartmentDetails, "");
       }
       List<ApartmentBM> apartmentsInfo = new List<ApartmentBM>();
-      
-      //Za status:
-      if (apartmentDetails.ApartmentStatus != null && apartmentDetails.ApartmentStatus != "")
-      {
-        apartments = apartments.Where(x => x.Status.ToString() == apartmentDetails.ApartmentStatus).ToList();
-      }
 
       foreach (var apartment in apartments)
       {
@@ -100,6 +94,24 @@ namespace AirBnb_Web1.Controllers
       return Ok(apartmentsInfo);
       
 
+    }
+
+    [HttpPut]
+    [Route("GetSearchHostApartments")]
+    public IHttpActionResult GetSearchHostApartments(SearchApartment apartmentDetails)
+    {
+      ICollection<Apartman> apartments = GetFiltredHostApartments(apartmentDetails);
+
+      List<ApartmentBM> apartmentsInfo = new List<ApartmentBM>();
+
+      foreach (var apartment in apartments)
+      {
+        ApartmentBM apartmentBM = GetApartmentInfo(apartment);
+        apartmentsInfo.Add(apartmentBM);
+      }
+
+
+      return Ok(apartmentsInfo);
     }
 
     [HttpGet]
@@ -514,7 +526,7 @@ namespace AirBnb_Web1.Controllers
       return apartmentBM;
     }
 
-    public ICollection<Apartman> GetFiltredApartments(SearchApartment searchApartment , string user) //kada uradi search u home ulazi ovde
+    public ICollection<Apartman> GetFiltredApartments(SearchApartment searchApartment , string user) //kada uradi search u home i za admina ulazi ovde
     {
       ICollection<Apartman> apartments = context.Apartmans.Where(x => x.Deleted == false).ToList();
 
@@ -573,7 +585,6 @@ namespace AirBnb_Web1.Controllers
         }
         
       }
-      //To Do
       //za godinu dobija 0001 kao godinu ako nije odabrao
       if(searchApartment.CheckIn.Year == DateTime.Now.Year && searchApartment.CheckOut.Year == DateTime.Now.Year)
       {
@@ -600,6 +611,110 @@ namespace AirBnb_Web1.Controllers
 
             currentDate =  currentDate.AddDays(1);
             
+          }
+        }
+
+      }
+      else if (searchApartment.CheckIn.Year == DateTime.Now.Year)
+      {
+        ICollection<Apartman> helpApartments = new HashSet<Apartman>();
+        foreach (Apartman apartment in apartments)
+        {
+          helpApartments.Add(apartment);
+        }
+
+        foreach (Apartman apar in helpApartments)
+        {
+          var helpApartment = apar.RentDates.Where(x => x.RentDate == searchApartment.CheckIn && x.Available == true).FirstOrDefault();
+          if (helpApartment == null && apartments.Contains(apar))
+          {
+            apartments.Remove(apar);
+          }
+        }
+      }
+
+      return apartments;
+    }
+
+    public ICollection<Apartman> GetFiltredHostApartments(SearchApartment searchApartment) //kada uradi search u home i za admina ulazi ovde
+    {
+      ICollection<Apartman> apartments = context.Apartmans.Where(x => x.Deleted == false && x.HostID == searchApartment.HostID).ToList();
+      
+
+      if (searchApartment.ApartmentStatus != null && searchApartment.ApartmentStatus != "")
+      {
+        apartments = apartments.Where(x => x.Status.ToString() == searchApartment.ApartmentStatus).ToList();
+      }
+
+      if (searchApartment.GuestNumber > 0)
+      {
+        apartments = apartments.Where(x => x.GuestNumber == searchApartment.GuestNumber).ToList();
+      }
+      if (searchApartment.MaxPrice > 0)
+      {
+        apartments = apartments.Where(x => x.PricePerNight <= searchApartment.MaxPrice).ToList();
+      }
+      if (searchApartment.MaxRooms > 0)
+      {
+        apartments = apartments.Where(x => x.RoomNumber <= searchApartment.MaxRooms).ToList();
+      }
+      if (searchApartment.MinRooms > 0)
+      {
+        apartments = apartments.Where(x => x.RoomNumber >= searchApartment.MinRooms).ToList();
+      }
+      if (searchApartment.Settlement != "" && searchApartment.Settlement != null)
+      {
+        apartments = apartments.Where(x => x.Location.Adress.Settlement == searchApartment.Settlement).ToList();
+      }
+      if (searchApartment.ApartmentType != "" && searchApartment.ApartmentType != null)
+      {
+        apartments = apartments.Where(x => x.Type.ToString() == searchApartment.ApartmentType).ToList();
+      }
+      if (searchApartment.Amenities.Count > 0)
+      {
+        ICollection<Apartman> helpApartments = new HashSet<Apartman>();
+        foreach (Apartman apartment in apartments)
+        {
+          helpApartments.Add(apartment);
+        }
+
+        foreach (string ammen in searchApartment.Amenities)
+        {
+          foreach (Apartman apar in helpApartments)
+          {
+            var helpApartment = apar.Amenities.Where(x => x.Name == ammen).FirstOrDefault();
+            if (helpApartment == null && apartments.Contains(apar))
+              apartments.Remove(apar);
+          }
+        }
+
+      }
+      //za godinu dobija 0001 kao godinu ako nije odabrao
+      if (searchApartment.CheckIn.Year == DateTime.Now.Year && searchApartment.CheckOut.Year == DateTime.Now.Year)
+      {
+        ICollection<Apartman> helpApartments = new HashSet<Apartman>();
+        foreach (Apartman apartment in apartments)
+        {
+          helpApartments.Add(apartment);
+        }
+
+        foreach (Apartman apar in helpApartments)
+        {
+          DateTime currentDate = searchApartment.CheckIn;
+
+
+
+          while (currentDate <= searchApartment.CheckOut)
+          {
+            var helpApartment = apar.RentDates.Where(x => x.RentDate == currentDate && x.Available == true).FirstOrDefault();
+            if (helpApartment == null && apartments.Contains(apar))
+            {
+              apartments.Remove(apar);
+              break;
+            }
+
+            currentDate = currentDate.AddDays(1);
+
           }
         }
 

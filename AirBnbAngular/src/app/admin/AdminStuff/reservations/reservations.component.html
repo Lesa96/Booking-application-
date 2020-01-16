@@ -1,10 +1,42 @@
 <app-admin></app-admin>
 <br><br><br>
+
+<!--Search-->
+<div>
+  <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+    <table>
+      <tr>
+        <td>
+          USERNAME: 
+        </td>
+        <td>
+          <input type="text" formControlName="guestUsername">
+        </td>
+        <td>
+          STATUS: 
+         </td>
+         <td>
+          <select formControlName="reservationStatus">
+            <option *ngFor="let status of ReservationStatus" >{{status}}</option> 
+          </select>
+        </td> 
+        <td align="2" >
+          <button type="submit" >Search</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
 <h3>Reservations:</h3>
+<div>
+  <button (click)="reset()">Show all</button>
+  <button (click)="sortLow()">Sort by the lowest price</button>
+  <button (click)="sortHigh()">Sort by the highest price</button>
+</div>
 
 <div >
   <table >
-      <tr *ngFor="let reservation of AllReservations">
+      <tr *ngFor="let reservation of FiltredReservations">
         <td align="1">
           <p class="p-table-home"> <i>Stauts: </i> {{reservation.Stauts}} , <i>Sing Up Date: </i> {{reservation.SingUpDate}} ,  
             <i>Number Of Nights :</i>{{reservation.NumberOfNights}}<i>, Total Price :</i>{{reservation.TotalPrice}},

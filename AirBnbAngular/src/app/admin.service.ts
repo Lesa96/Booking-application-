@@ -190,4 +190,16 @@ export class AdminService {
     );
   }
 
+  GetSearchReservations(username : any, status : any ): Observable<any>
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role}),
+      params: new HttpParams().set('username' , username).set('status' , status)     
+      };
+ 
+     return this.http.get(this.reservationUri+"GetSearchReservations",httpOptions).pipe(
+       catchError(e => throwError(alert("Eror in host service:  " + e.error.Message)))
+     );
+  }
+
 }

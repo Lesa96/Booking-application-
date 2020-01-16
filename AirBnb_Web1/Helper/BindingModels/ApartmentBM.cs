@@ -52,5 +52,6 @@ namespace AirBnb_Web1.Helper.BindingModels
     public string ApartmentType { get; set; }
     public string ApartmentStatus { get; set; }
     public ICollection<string> Amenities { get; set; }
+    public int HostID { get; set; }
   }
 }

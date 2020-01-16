@@ -10,15 +10,27 @@ import {GuestService} from '../../guest.service';
 })
 export class GuestReservationsComponent implements OnInit {
 
-  guestReservations : Observable<Reservation>
+  guestReservations : any[] = [];
+  FiltredReservations : any[] = [];
   constructor(private guestService: GuestService) { }
 
   ngOnInit() {
     this.guestService.GetGuestReservations(localStorage.ID).subscribe(data=> 
       { 
-        this.guestReservations = data as Observable<Reservation>
-        console.log(this.guestReservations);
+        this.guestReservations = data as Reservation[];
+        this.FiltredReservations = data as Reservation[];
+        console.log(this.FiltredReservations);
       });
+  }
+
+  sortLow()
+  {
+    this.FiltredReservations.sort((a,b) => a.TotalPrice - b.TotalPrice);
+  }
+
+  sortHigh()
+  {
+    this.FiltredReservations.sort((a,b) => b.TotalPrice - a.TotalPrice);
   }
 
 }

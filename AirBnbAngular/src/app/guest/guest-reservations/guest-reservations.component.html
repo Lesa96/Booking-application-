@@ -1,10 +1,14 @@
 <app-guest></app-guest>
 <br>
 <h3>Reservations:</h3>
+<div>
+  <button (click)="sortLow()">Sort by the lowest price</button>
+  <button (click)="sortHigh()">Sort by the highest price</button>
+</div>
 
 <div >
   <table >
-      <tr *ngFor="let reservation of guestReservations">
+      <tr *ngFor="let reservation of FiltredReservations">
         <td align="1">
           <p class="p-table-home"> <i>Stauts: </i> {{reservation.Stauts}} , <i>Sing Up Date: </i> {{reservation.SingUpDate}} ,  
             <i>Number Of Nights :</i>{{reservation.NumberOfNights}}<i>, Total Price :</i>{{reservation.TotalPrice}},

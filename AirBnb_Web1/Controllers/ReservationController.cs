@@ -22,6 +22,113 @@ namespace AirBnb_Web1.Controllers
     }
 
     [HttpGet]
+    [Route("GetSearchHostReservations")]
+    public IHttpActionResult GetSearchHostReservations(int hostId,string username,string status)
+    {
+      if (CheckRole("Host"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
+
+      List<ReservationBM> reservationInfo = new List<ReservationBM>();
+      List<Apartman> apps = context.Apartmans.Where(x => x.HostID == hostId && x.Deleted != true).ToList();
+      ICollection<Reservation> reservations = null;
+      ICollection<Reservation> finalReservations = new HashSet<Reservation>();
+
+      //reservation logic:
+      if (apps != null)
+      {
+        foreach (Apartman apartment in apps)
+        {
+          reservations = apartment.Reservations.ToList();
+
+
+
+          if (username != "" && username != "null" && username != null && reservations != null && reservations.Count > 0)
+          {
+            User user = context.Users.Where(x => x.UserName == username && x.Blocked == false).FirstOrDefault();
+            if (user != null)
+              reservations = user.Reservations.ToList();
+            else
+              reservations = null;
+
+
+          }
+          if (status != "" && status != "null" && status != null && reservations != null && reservations.Count > 0)
+          {
+            reservations = reservations.Where(x => x.Stauts.ToString() == status && x.Deleted == false).ToList();
+          }
+
+          if (reservations != null && reservations.Count > 0)
+          {
+            foreach (Reservation res in reservations) //smesta u finalReservations jer host moze imati vise apartmana i za svaki apartman moze imati vise reservacija
+            {
+              finalReservations.Add(res);
+            }
+          }
+
+        }
+      }
+      //--------------------------------------
+
+      if (finalReservations != null && finalReservations.Count > 0)
+      {
+        foreach (Reservation res in finalReservations)
+        {
+          ReservationBM reservationBM = GetReservationInfo(res);
+          reservationInfo.Add(reservationBM);
+        }
+      }
+
+      return Ok(reservationInfo);
+
+    }
+
+    [HttpGet]
+    [Route("GetSearchReservations")]
+    public IHttpActionResult GetSearchReservations(string username, string status)
+    {
+      if (CheckRole("Admin"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
+
+      List<ReservationBM> reservationInfo = new List<ReservationBM>();      
+      ICollection<Reservation> reservations = context.Reservations.Where(x => x.Deleted == false).ToList();
+
+      //reservation logic:
+      if (reservations != null)
+      {       
+        if (username != "" && username != "null" && username != null && reservations != null && reservations.Count > 0)
+        {
+          User user = context.Users.Where(x => x.UserName == username && x.Blocked == false).FirstOrDefault();
+          if (user != null)
+            reservations = user.Reservations.Where(x=> x.Deleted == false).ToList();
+          else
+            reservations = null;
+        }
+
+        if (status != "" && status != "null" && status != null && reservations != null && reservations.Count > 0)
+        {
+          reservations = reservations.Where(x => x.Stauts.ToString() == status && x.Deleted == false).ToList();
+        }               
+      }
+      //--------------------------------------
+
+      if (reservations != null && reservations.Count > 0)
+      {
+        foreach (Reservation res in reservations)
+        {
+          ReservationBM reservationBM = GetReservationInfo(res);
+          reservationInfo.Add(reservationBM);
+        }
+      }
+
+      return Ok(reservationInfo);
+
+    }
+
+    [HttpGet]
     [Route("GetAllReservations")]
     public IHttpActionResult GetAllReservations()
     {

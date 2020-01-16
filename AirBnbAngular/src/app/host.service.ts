@@ -172,5 +172,29 @@ export class HostService {
       catchError(e => throwError(alert("Eror in host service, pictures problem :  " + e.error.Message)))
     );
   }
+
+  GetSearchHostApartments(apartmentDetails : any) : Observable<any>
+  {
+    const httpOptions = {
+     headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role}),
+     // params: new HttpParams().set('apartmentDetails' , apartmentDetails)     
+     };
+
+    return this.http.put(this.apartmentUri+"GetSearchHostApartments",apartmentDetails,httpOptions).pipe(
+      catchError(e => throwError(alert("Eror in host service:  " + e.error.Message)))
+    );
+  }
+
+  GetSearchHostReservations(username : any, status : any ): Observable<any>
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role}),
+      params: new HttpParams().set('hostId', localStorage.ID).set('username' , username).set('status' , status)     
+      };
+ 
+     return this.http.get(this.reservationUri+"GetSearchHostReservations",httpOptions).pipe(
+       catchError(e => throwError(alert("Eror in host service:  " + e.error.Message)))
+     );
+  }
   
 }

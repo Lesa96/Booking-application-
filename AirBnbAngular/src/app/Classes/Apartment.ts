@@ -42,4 +42,5 @@ export class SearchApartment {
     ApartmentType: string;
     ApartmentStatus: string;
     Amenities: Array<any>;
+    HostID : number;
 }
