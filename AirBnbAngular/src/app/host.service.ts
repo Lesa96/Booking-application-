@@ -196,5 +196,40 @@ export class HostService {
        catchError(e => throwError(alert("Eror in host service:  " + e.error.Message)))
      );
   }
+
+  addRentDate(rentDate: any)
+  {
+    let httpOptions = {
+       headers: new HttpHeaders({'Content-Type': 'application/json', 'Role' : localStorage.Role }),
+      // params: new HttpParams().set("apartmentID", apartmentID).set("rentDate",rentDate)
+   };
+     return this.http.put(this.apartmentUri + "AddHostRentDate",rentDate, httpOptions).pipe(
+       catchError(e => throwError(alert("Eror in host service, rent date problem :  " + e.error.Message)))
+     );
+  }
+
+  GetHostApartmentRentDates(apartmanID : any ): Observable<any>
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role}),
+      params: new HttpParams().set('apartmanID', apartmanID)     
+      };
+ 
+     return this.http.get(this.apartmentUri+"GetHostApartmentRentDates",httpOptions).pipe(
+       catchError(e => throwError(alert("Eror in host service, rent date problem :   " + e.error.Message)))
+     );
+  }
+
+  DeleteHostRentDate(dateID : any) : any
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
+      params: new HttpParams().set('dateID' , dateID)    
+     };
+
+    return this.http.delete(this.apartmentUri+"DeleteHostRentDate",httpOptions).pipe(
+      catchError(e => throwError(alert("Eror in host service, delete rent date:  " + e.error.Message)))
+    );
+  }
   
 }

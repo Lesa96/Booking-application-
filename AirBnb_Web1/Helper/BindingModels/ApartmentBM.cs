@@ -54,4 +54,10 @@ namespace AirBnb_Web1.Helper.BindingModels
     public ICollection<string> Amenities { get; set; }
     public int HostID { get; set; }
   }
+
+  public class AddRentDate
+  {
+    public int ApartmentID { get; set; }
+    public DateTime RentDate { get; set; }
+  }
 }

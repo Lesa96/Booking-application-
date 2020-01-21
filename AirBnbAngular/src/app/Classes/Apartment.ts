@@ -44,3 +44,8 @@ export class SearchApartment {
     Amenities: Array<any>;
     HostID : number;
 }
+
+export class AddRentDate{
+    ApartmentID: number;
+    RentDate : any;
+}

@@ -312,9 +312,71 @@ namespace AirBnb_Web1.Controllers
       return Ok();
     }
 
+    [HttpGet]
+    [Route("GetHostApartmentRentDates")]
+    public IHttpActionResult GetHostApartmentRentDates(int apartmanID)
+    {
+      if (CheckRole("Host"))
+        return StatusCode(HttpStatusCode.Unauthorized);
+
+      ICollection<DatesModel> datesModels = context.DatesModels.Where(x => x.ApartmanID == apartmanID && x.Deleted == false).ToList();
+      ICollection<DatesModelBM> returnDates = new HashSet<DatesModelBM>();
+      if(datesModels != null && datesModels.Count > 0)
+      {
+        foreach (DatesModel date in datesModels)
+        {
+          DatesModelBM retDate = new DatesModelBM();
+          retDate.ApartmanID = apartmanID;
+          retDate.ID = date.ID;
+          retDate.CheckedDate = date.RentDate;
+
+          returnDates.Add(retDate);
+        }
+      }
+
+      return Ok(returnDates);
+    }
+
+    [HttpPut]
+    [Route("AddHostRentDate")]
+    public IHttpActionResult AddHostRentDate(AddRentDate rentDate)
+    {
+
+      if (CheckRole("Host"))
+        return StatusCode(HttpStatusCode.Unauthorized);
+
+
+      DatesModel datesModel = new DatesModel();
+      datesModel.ApartmanID = rentDate.ApartmentID;
+      datesModel.Available = true;
+      datesModel.RentDate = rentDate.RentDate;
+
+      context.DatesModels.Add(datesModel);
+      context.SaveChanges();
+
+      return Ok();
+    }
+
+    [HttpDelete]
+    [Route("DeleteHostRentDate")]
+    public IHttpActionResult DeleteHostRentDate(int dateID)
+    {
+      if (CheckRole("Host"))
+        return StatusCode(HttpStatusCode.Unauthorized);
+
+      DatesModel datesModel = context.DatesModels.Where(x => x.ID == dateID && x.Deleted == false).FirstOrDefault();
+      if(datesModel != null)
+      {
+        datesModel.Deleted = true;
+        context.SaveChanges();
+      }
+
+      return Ok();
+    }
+
     [HttpPut]
     [Route("AddRentDates")]
-    public IHttpActionResult AddRentDates(DatesModelBM datesModelBM) //kad dodaje novi apartmant
+    public IHttpActionResult AddRentDates(DatesModelFirstAdd datesModelBM) //kad dodaje novi apartmant
     {
       foreach (DateTime item in datesModelBM.CheckedDates)
       {
@@ -521,8 +583,19 @@ namespace AirBnb_Web1.Controllers
             
         }
       }
-        
 
+      //RentDates:
+      ICollection<DatesModel> datesModels = context.DatesModels.Where(x => x.ApartmanID == apartman.ID && x.Available == true && x.Deleted == false).ToList();  
+      if(datesModels != null && datesModels.Count > 0)
+      {
+        if (apartmentBM.RentDates == null)
+          apartmentBM.RentDates = new HashSet<DateTime>();
+
+        foreach (DatesModel dateModel in datesModels)
+        {
+          apartmentBM.RentDates.Add(dateModel.RentDate);
+        }
+      }
       return apartmentBM;
     }
 

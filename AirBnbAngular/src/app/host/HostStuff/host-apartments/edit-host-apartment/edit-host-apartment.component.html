@@ -169,3 +169,33 @@
     
   </table>
 </div>
+
+<!--Rent Dates-->
+<br>
+<h4>Rent Dates: </h4>
+
+<form [formGroup]="rentDateForm" (ngSubmit)="addRentDate()">
+  <table>
+    <tr>
+      <td align="2">
+        <input type="date" formControlName="rentDate">
+      </td>
+      <td >
+        <button type="submit" >Add Date </button>
+      </td>
+    </tr>
+  </table>
+</form>
+
+<div>
+<table>
+  <tr *ngFor="let rentDate of apartmentDates">
+    <td align="2">
+      <p><i> {{rentDate.CheckedDate.split('T')[0]}}; </i></p>
+    </td>
+    <td >
+      <button id="{{rentDate.ID}}" (click)="deleteRentDate(rentDate.ID)">Delete</button>
+    </td>
+  </tr>
+</table>
+</div>

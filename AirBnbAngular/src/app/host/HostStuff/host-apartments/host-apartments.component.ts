@@ -44,7 +44,7 @@ export class HostApartmentsComponent implements OnInit {
      this.hostService.getHostApartments(localStorage.ID).subscribe(data => {
         this.HostApartmants = data as Apartment[];
         this.FiltredApartments = data as Apartment[]; //
-        
+        console.warn(this.FiltredApartments);
         //amenities for search:
         this.homeService.GetAmenitieNames().subscribe(names => 
           {

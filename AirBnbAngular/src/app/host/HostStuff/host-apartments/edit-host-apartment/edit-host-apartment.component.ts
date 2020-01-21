@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Apartment } from '../../../../../app/Classes/Apartment';
+import { Apartment, AddRentDate } from '../../../../../app/Classes/Apartment';
 import { StorageService } from '../../../../../app/storage.service';
 import { FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import {Comment} from '../../../../Classes/Comment';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { HostService } from 'src/app/host.service';
+import { DateModelBM } from 'src/app/Classes/DateModel';
 
 @Component({
   selector: 'app-edit-host-apartment',
@@ -14,7 +15,7 @@ import { HostService } from 'src/app/host.service';
 })
 export class EditHostApartmentComponent implements OnInit {
 
-  constructor(private hostService: HostService ,private storageService: StorageService, private fb: FormBuilder,private router: Router) { }
+  constructor(private hostService: HostService ,private storageService: StorageService, private fb: FormBuilder,private fb2: FormBuilder,private router: Router) { }
   apartment : Apartment;
   apartmentComments : Observable<Comment>;
   appReady = false;
@@ -24,13 +25,21 @@ export class EditHostApartmentComponent implements OnInit {
   editForm : any;
   commentForm : any;
 
+  rentDateForm = this.fb2.group({
+    rentDate: [],
+  });
+ 
+
   amNames = new Array();
   selectedNames = new Array();
+  apartmentDates : any[] = [];
+  apartmentDatesString = new Array();
 
   ngOnInit() {
     this.apartment = this.storageService.getHostApartment();
-    this.GetAllAmenitiNames()
-    
+
+    this.GetAllAmenitiNames();
+
     console.warn(this.apartment);
 
     this.editForm = this.fb.group({
@@ -56,6 +65,8 @@ export class EditHostApartmentComponent implements OnInit {
     
     //this.getAllComments();
   }
+
+  
 
   onChange()
   {
@@ -122,6 +133,8 @@ export class EditHostApartmentComponent implements OnInit {
       
 
       console.warn(this.apartmentComments);
+
+      this.getDateModels(); //vraca rentDates za apartment
     });
   }
 
@@ -181,6 +194,37 @@ export class EditHostApartmentComponent implements OnInit {
   {
     this.storageService.setApartmentID(this.apartment.ID);
     this.router.navigate(['host/apartments/pictures']);
+  }
+
+  getDateModels()
+  {
+    this.hostService.GetHostApartmentRentDates(this.apartment.ID).subscribe(data=>{
+      this.apartmentDates = data as DateModelBM[];
+    
+    });
+  }
+
+  addRentDate()
+  {
+    console.log(this.rentDateForm.value.rentDate); 
+    var rentDate = new AddRentDate();
+    rentDate.ApartmentID = this.apartment.ID;
+    rentDate.RentDate = this.rentDateForm.value.rentDate;
+
+    this.hostService.addRentDate(rentDate).subscribe(data=>{
+      this.getDateModels();
+    });
+  }  
+
+  deleteRentDate(id)
+  {
+    console.warn(id);
+    this.hostService.DeleteHostRentDate(id).subscribe(data=>{
+      this.getDateModels();
+      // var idx = this.apartmentDates.indexOf(id);
+
+      // this.apartmentDates.splice(idx,1);
+    });
   }
 
 }

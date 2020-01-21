@@ -18,5 +18,7 @@ namespace AirBnb_Web1.Models
     [ForeignKey("ApartmanID")]
     public virtual Apartman Apartman { get; set; }
 
+    public bool Deleted { get; set; }
+
   }
 }

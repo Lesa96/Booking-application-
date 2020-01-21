@@ -233,6 +233,10 @@
     <Compile Include="Migrations\201909081530210_Airbnb.Designer.cs">
       <DependentUpon>201909081530210_Airbnb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001211902478_FinalMigrationAdd.cs" />
+    <Compile Include="Migrations\202001211902478_FinalMigrationAdd.Designer.cs">
+      <DependentUpon>202001211902478_FinalMigrationAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Adress.cs" />
     <Compile Include="Models\Amenitie.cs" />
@@ -380,6 +384,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201909081530210_Airbnb.resx">
       <DependentUpon>201909081530210_Airbnb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001211902478_FinalMigrationAdd.resx">
+      <DependentUpon>202001211902478_FinalMigrationAdd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

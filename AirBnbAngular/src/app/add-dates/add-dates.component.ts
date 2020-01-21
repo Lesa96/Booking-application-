@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { HostService } from '../host.service';
 import { StorageService } from '../storage.service';
 import { Observable } from 'rxjs';
-import {DateModel} from '../Classes/DateModel';
+import { DatesModelFirstAdd} from '../Classes/DateModel';
 
 @Component({
   selector: 'app-add-dates',
@@ -13,12 +13,12 @@ import {DateModel} from '../Classes/DateModel';
 })
 export class AddDatesComponent implements OnInit {
 
-  dateModel : DateModel;
+  dateModel : DatesModelFirstAdd;
   addForm : any;
   constructor(private hostService: HostService,private fb: FormBuilder,private router: Router, private storageService: StorageService) { }
 
   ngOnInit() {
-    this.dateModel = new DateModel();
+    this.dateModel = new DatesModelFirstAdd();
     this.dateModel.ApartmanID = this.storageService.getApartmentID();
     this.dateModel.CheckedDates  = [];
 
