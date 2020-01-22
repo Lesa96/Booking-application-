@@ -1,5 +1,6 @@
 using AirBnb_Web1.DataAccessLayer;
 using AirBnb_Web1.Helper.BindingModels;
+using AirBnb_Web1.Helper.Enums;
 using AirBnb_Web1.Models;
 using System;
 using System.Collections.Generic;
@@ -233,15 +234,18 @@ namespace AirBnb_Web1.Controllers
       }
       List<ReservationBM> reservationInfo = new List<ReservationBM>();
       List<Apartman> apps = context.Apartmans.Where(x => x.HostID == hostId && x.Deleted != true).ToList();
-      foreach (var apartment in apps)
-      {
-        foreach (var reservation in apartment.Reservations.Where(x=> x.Stauts == status))
-        {
-          ReservationBM reservationBM = GetReservationInfo(reservation);
-          reservationInfo.Add(reservationBM);
 
+      if(apps != null)
+        foreach (var apartment in apps)
+        {
+          if(apartment.Reservations != null)
+            foreach (var reservation in apartment.Reservations.Where(x=> x.Stauts == status))
+            {
+              ReservationBM reservationBM = GetReservationInfo(reservation);
+              reservationInfo.Add(reservationBM);
+
+            }
         }
-      }
 
       return Ok(reservationInfo);
 
@@ -253,14 +257,92 @@ namespace AirBnb_Web1.Controllers
     {
       if (CheckRole("Host"))
       {
-        return StatusCode(HttpStatusCode.Unauthorized);
+        if(CheckRole("Guest"))
+          return StatusCode(HttpStatusCode.Unauthorized);
       }
 
-      Reservation reservation = context.Reservations.Where(x => x.ID == reservationId && x.Deleted != true ).FirstOrDefault();
+      Reservation reservation = context.Reservations.Where(x => x.ID == reservationId && x.Deleted == false ).FirstOrDefault();
+      if (reservation == null)
+        return NotFound();
+
+      DateTime currentDate = reservation.SingUpDate;
+      if (status == ReservationStatus.Rejected || status == ReservationStatus.Canceled)
+      {
+        for (int i = 0; i < reservation.NumberOfNights; i++)
+        {
+          DatesModel datesModel = context.DatesModels.Where(x => x.ApartmanID == reservation.ApartmanID && x.RentDate == currentDate && x.Deleted == false).FirstOrDefault();
+          if (datesModel == null)
+          {
+            continue;
+          }
+          datesModel.Available = true;
+          context.SaveChanges();
+          currentDate = currentDate.AddDays(1);
+        }
+
+
+      }
+
       reservation.Stauts = status;
       context.SaveChanges();
+
+      
       return Ok();
 
+    }
+
+    [HttpPut]
+    [Route("RequestApartmentRentDates")]
+    public IHttpActionResult RequestApartmentRentDates(RentDateModelBM rentD)
+    {
+
+      if (CheckRole("Guest"))
+        return StatusCode(HttpStatusCode.Unauthorized);
+
+      Apartman apartman = context.Apartmans.Where(x => x.Deleted == false && x.ID == rentD.ApartmanID).FirstOrDefault();
+      if (apartman == null)
+        return BadRequest("Apartmant doesn't exist");
+
+      bool Available = true;
+      DateTime currentDate = rentD.RentDate;
+      for (int i = 0; i < rentD.RentDays; i++)
+      {
+        DatesModel datesModel = context.DatesModels.Where(x => x.ApartmanID == rentD.ApartmanID && x.RentDate == currentDate && x.Available == true && x.Deleted == false).FirstOrDefault();
+        if (datesModel == null)
+        {
+          Available = false;
+          break;
+        }
+        currentDate = currentDate.AddDays(1);
+      }
+
+      if (!Available)
+      {
+        return BadRequest("The dates you entered are not available");
+      }
+
+      Reservation reservation = new Reservation();
+      reservation.ApartmanID = rentD.ApartmanID;
+      reservation.GuestID = rentD.GuestID;
+      reservation.SingUpDate = rentD.RentDate;
+      reservation.NumberOfNights = rentD.RentDays;
+      reservation.Stauts = ReservationStatus.Created;
+      reservation.TotalPrice = rentD.RentDays * apartman.PricePerNight;
+
+      context.Reservations.Add(reservation);
+      context.SaveChanges();
+
+      currentDate = rentD.RentDate;
+      for (int i = 0; i < rentD.RentDays; i++)
+      {
+        DatesModel datesModel = context.DatesModels.Where(x => x.ApartmanID == rentD.ApartmanID && x.RentDate == currentDate && x.Available == true && x.Deleted == false).FirstOrDefault();
+        datesModel.Available = false;
+        context.SaveChanges();
+
+        currentDate = currentDate.AddDays(1);
+      }
+
+      return Ok("Request sent");
     }
 
     private ReservationBM GetReservationInfo(Reservation reservation)
@@ -270,8 +352,8 @@ namespace AirBnb_Web1.Controllers
       reservationBM.GuestID = (int)reservation.GuestID;
       reservationBM.ApartmanID = reservation.ApartmanID;
       //SingUpDate za rezervaciju:
-      DatesModel singUpDate = context.DatesModels.Where(x => x.ID == reservation.DatesModelID).FirstOrDefault();
-      reservationBM.SingUpDate = singUpDate.RentDate;  //ovde puca, proveri ovo kako treba
+      //DatesModel singUpDate = context.DatesModels.Where(x => x.ID == reservation.DatesModelID).FirstOrDefault();
+      reservationBM.SingUpDate = reservation.SingUpDate;  //ovde puca, proveri ovo kako treba
 
       reservationBM.NumberOfNights = reservation.NumberOfNights;
       reservationBM.TotalPrice = reservation.TotalPrice;

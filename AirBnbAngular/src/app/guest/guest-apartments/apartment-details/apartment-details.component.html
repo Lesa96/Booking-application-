@@ -160,3 +160,39 @@
     
   </table>
 </div>
+
+<!--Rent Dates-->
+<br>
+<h4>Rent Dates: </h4>
+
+<form [formGroup]="rentDateForm" (ngSubmit)="RentDates()">
+  <table>
+    <tr>
+      <td>
+       <b>RENT DATE: </b>
+      </td>
+      <td align="2">
+        <input type="date" formControlName="rentDate" required>
+      </td>
+      <td>
+       <b>NUMBER OF DAYS: </b> 
+      </td>
+      <td>
+        <input type="number" formControlName="rentDays" min="1" required>
+      </td>
+      <td >
+        <button type="submit"  [disabled]="rentDateForm.invalid" >Send request </button>
+      </td>
+    </tr>
+  </table>
+</form>
+
+<div>
+  <table>
+    <tr *ngFor="let rentDate of apartmentDates">
+      <td align="2">
+        <p><i> {{rentDate.CheckedDate.split('T')[0]}}; </i></p>
+      </td>
+    </tr>
+  </table>
+  </div>

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Apartment } from 'src/app/Classes/Apartment';
 import { Observable } from 'rxjs';
 import { HomeService } from 'src/app/home.service';
+import { DateModelBM, RentDateModelBM } from 'src/app/Classes/DateModel';
 
 @Component({
   selector: 'app-apartment-details',
@@ -19,6 +20,12 @@ export class ApartmentDetailsComponent implements OnInit {
 
   editForm : any;
   commentForm : any;
+  apartmentDates : any[] = [];
+
+  rentDateForm = this.fb.group({
+    rentDate: ["",Validators.required],
+    rentDays: ["",Validators.required],
+  });
 
   constructor(private homeService: HomeService ,private storageService: StorageService, private fb: FormBuilder,private router: Router) { }
 
@@ -72,7 +79,30 @@ export class ApartmentDetailsComponent implements OnInit {
       this.apartmentComments = data as Observable<Comment>;
       
 
-      console.warn(this.apartmentComments);
+      //console.warn(this.apartmentComments);
+      this.getDateModels();
+    });
+  }
+
+  getDateModels()
+  {
+    this.homeService.GetApartmentRentDates(this.apartment.ID).subscribe(data=>{
+      this.apartmentDates = data as DateModelBM[];
+      this.apartmentDates.sort((a,b)=> new Date(a.CheckedDate).getTime() - new Date(b.CheckedDate).getTime());
+    
+    });
+  }
+
+  RentDates()
+  {
+    var rentD = new RentDateModelBM();
+    rentD.ApartmanID = this.apartment.ID;
+    rentD.RentDate = this.rentDateForm.value.rentDate;
+    rentD.RentDays = this.rentDateForm.value.rentDays;
+    rentD.GuestID = localStorage.ID;
+    this.homeService.RequestApartmentRentDates(rentD).subscribe(data=>{
+      alert(data);
+      this.router.navigate(['/guest/apartments']);
     });
   }
 

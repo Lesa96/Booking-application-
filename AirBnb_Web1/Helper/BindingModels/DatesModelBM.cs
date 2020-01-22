@@ -19,4 +19,12 @@ namespace AirBnb_Web1.Helper.BindingModels
     public int ApartmanID { get; set; }
     public ICollection<DateTime> CheckedDates { get; set; }
   }
+
+  public class RentDateModelBM
+  {
+    public int ApartmanID { get; set; }
+    public int GuestID { get; set; }
+    public int RentDays { get; set; }
+    public DateTime RentDate { get; set; }
+  }
 }

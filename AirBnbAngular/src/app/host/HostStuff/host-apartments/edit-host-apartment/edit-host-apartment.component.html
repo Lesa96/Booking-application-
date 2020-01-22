@@ -62,9 +62,8 @@
           Status:
         </td>
         <td>
-          <select formControlName="Status">
-            <option *ngFor="let status of apartmentStatus" [value]="status">{{status}}</option>
-          </select>
+          <input type="text" formControlName="Status" readonly>
+            
         </td>
       </tr>
       <tr>

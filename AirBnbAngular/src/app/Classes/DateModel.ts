@@ -8,3 +8,10 @@ export class DateModelBM{
     ApartmanID : any;
     CheckedDate : any;
 }
+
+export class RentDateModelBM{    
+    ApartmanID : any;
+    GuestID : any;
+    RentDays : any;
+    RentDate : any;
+}

@@ -12,13 +12,12 @@ namespace AirBnb_Web1.Models
         public int ID { get; set; }
         public int ApartmanID { get; set; }
         public int? GuestID { get; set; }
-        public int? DatesModelID { get; set; }
+        
 
         [ForeignKey("ApartmanID")]
         public virtual Apartman Apartman { get; set; }
 
-        [ForeignKey("DatesModelID")]
-        public DatesModel SingUpDate { get; set; }
+        public DateTime SingUpDate { get; set; }
 
         public int NumberOfNights { get; set; }
 

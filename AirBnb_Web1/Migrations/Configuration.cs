@@ -73,15 +73,15 @@ namespace AirBnb_Web1.Migrations
             context.DatesModels.Add(rentDate3);
             context.SaveChanges();
 
-            Reservation reservation1 = new Reservation { ID = 1, ApartmanID = apartman1.ID, GuestID = user2.ID, NumberOfNights = 10, SingUpDate = rentDate1, Stauts = Helper.Enums.ReservationStatus.Accepted, TotalPrice = 100 };
+            Reservation reservation1 = new Reservation { ID = 1, ApartmanID = apartman1.ID, GuestID = user2.ID, NumberOfNights = 10, SingUpDate = rentDate1.RentDate, Stauts = Helper.Enums.ReservationStatus.Accepted, TotalPrice = 100 };
             context.Reservations.Add(reservation1);
             context.SaveChanges();
 
-            Reservation reservation2 = new Reservation { ID = 2, ApartmanID = apartman1.ID, GuestID = user2.ID, NumberOfNights = 10, SingUpDate = rentDate2, Stauts = Helper.Enums.ReservationStatus.Created, TotalPrice = 200 };
+            Reservation reservation2 = new Reservation { ID = 2, ApartmanID = apartman1.ID, GuestID = user2.ID, NumberOfNights = 10, SingUpDate = rentDate2.RentDate, Stauts = Helper.Enums.ReservationStatus.Created, TotalPrice = 200 };
             context.Reservations.Add(reservation2);
             context.SaveChanges();
 
-            Reservation reservation3 = new Reservation { ID = 3, ApartmanID = apartman1.ID, GuestID = user2.ID, NumberOfNights = 10, SingUpDate = rentDate3, Stauts = Helper.Enums.ReservationStatus.Created, TotalPrice = 200 };
+            Reservation reservation3 = new Reservation { ID = 3, ApartmanID = apartman1.ID, GuestID = user2.ID, NumberOfNights = 10, SingUpDate = rentDate3.RentDate, Stauts = Helper.Enums.ReservationStatus.Created, TotalPrice = 200 };
             context.Reservations.Add(reservation3);
             context.SaveChanges();
 

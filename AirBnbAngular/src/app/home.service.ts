@@ -12,6 +12,7 @@ export class HomeService {
   
   private apartmentUri = "http://localhost:8080/api/Apartment/";
   private amenitieUri = "http://localhost:8080/api/Amenitie/";
+  private reservationUri = "http://localhost:8080/api/Reservation/";
 
   constructor(private http: HttpClient) { }
 
@@ -88,6 +89,30 @@ export class HomeService {
       catchError(e => throwError(alert("Eror in host service:  " + e.error.Message)))
     );
 
+  }
+
+  GetApartmentRentDates(apartmanID : any ): Observable<any>
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role}),
+      params: new HttpParams().set('apartmanID', apartmanID)     
+      };
+ 
+     return this.http.get(this.apartmentUri+"GetHostApartmentRentDates",httpOptions).pipe(
+       catchError(e => throwError(alert("Eror in home service, rent date problem :   " + e.error.Message)))
+     );
+  }
+
+  RequestApartmentRentDates(rentD : any) : any
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json',  'Role' : localStorage.Role}),
+      // params: new HttpParams().set('apartmentDetails' , apartmentDetails)     
+      };
+ 
+     return this.http.put(this.reservationUri+"RequestApartmentRentDates",rentD,httpOptions).pipe(
+       catchError(e => throwError(alert("Eror in home service, rent request:  " + e.error.Message)))
+     );
   }
 
 }

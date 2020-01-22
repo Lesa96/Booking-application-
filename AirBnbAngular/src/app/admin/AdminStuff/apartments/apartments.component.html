@@ -106,7 +106,9 @@
           </p>           
         </td>
         <td align="3">
+          <ng-container *ngIf="apartment.Pictures ">
             <img src="{{apartment.Pictures[0]}}" alt="No pictures available" height="100px" width="150px"/>
+          </ng-container>
         </td>
         <td align="1">
           <button id="{{apartment.ID}}" (click)="editApartment(apartment.ID)" >Edit Apartment</button>

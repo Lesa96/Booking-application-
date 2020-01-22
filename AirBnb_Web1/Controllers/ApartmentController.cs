@@ -200,14 +200,24 @@ namespace AirBnb_Web1.Controllers
     [Route("ChangeApartment")]
     public IHttpActionResult ChangeApartment(ApartmentBM apartment)
     {
+      Apartman app = context.Apartmans.Where(x => x.ID == apartment.ID && x.Deleted == false).FirstOrDefault();
+      if(app == null)
+      {
+        return NotFound();
+      }
+
       if (CheckRole("Admin"))
       {
         if (CheckRole("Host"))
         {
           return StatusCode(HttpStatusCode.Unauthorized);
         }
+        else
+        {
+          apartment.Status = app.Status.ToString();
+        }
       }
-      Apartman app = context.Apartmans.Where(x => x.ID == apartment.ID && x.Deleted== false).FirstOrDefault();
+      
       SetApartment(app, apartment);
 
       return Ok();
@@ -317,9 +327,10 @@ namespace AirBnb_Web1.Controllers
     public IHttpActionResult GetHostApartmentRentDates(int apartmanID)
     {
       if (CheckRole("Host"))
+        if(CheckRole("Guest"))
         return StatusCode(HttpStatusCode.Unauthorized);
 
-      ICollection<DatesModel> datesModels = context.DatesModels.Where(x => x.ApartmanID == apartmanID && x.Deleted == false).ToList();
+      ICollection<DatesModel> datesModels = context.DatesModels.Where(x => x.ApartmanID == apartmanID && x.Available == true && x.Deleted == false).ToList();
       ICollection<DatesModelBM> returnDates = new HashSet<DatesModelBM>();
       if(datesModels != null && datesModels.Count > 0)
       {
@@ -345,6 +356,9 @@ namespace AirBnb_Web1.Controllers
       if (CheckRole("Host"))
         return StatusCode(HttpStatusCode.Unauthorized);
 
+      if (rentDate.RentDate.Year != DateTime.Now.Year)
+        return StatusCode(HttpStatusCode.NotAcceptable);
+
 
       DatesModel datesModel = new DatesModel();
       datesModel.ApartmanID = rentDate.ApartmentID;
@@ -356,6 +370,8 @@ namespace AirBnb_Web1.Controllers
 
       return Ok();
     }
+
+    
 
     [HttpDelete]
     [Route("DeleteHostRentDate")]

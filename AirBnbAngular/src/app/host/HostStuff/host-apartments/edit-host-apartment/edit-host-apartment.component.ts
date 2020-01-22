@@ -200,6 +200,7 @@ export class EditHostApartmentComponent implements OnInit {
   {
     this.hostService.GetHostApartmentRentDates(this.apartment.ID).subscribe(data=>{
       this.apartmentDates = data as DateModelBM[];
+      this.apartmentDates.sort((a,b)=> new Date(a.CheckedDate).getTime() - new Date(b.CheckedDate).getTime());
     
     });
   }
