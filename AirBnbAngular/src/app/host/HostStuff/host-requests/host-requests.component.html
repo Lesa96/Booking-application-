@@ -7,7 +7,7 @@
   <table >
       <tr *ngFor="let reservation of createdReservations">
         <td align="1">
-          <p class="p-table-home"> <i>Stauts: </i> {{reservation.Stauts}} , <i>Sing Up Date: </i> {{reservation.SingUpDate}} ,  
+          <p class="p-table-home"> <i>Stauts: </i> {{reservation.Stauts}} , <i>Sing Up Date: </i> {{reservation.SingUpDate.split("T")[0]}} ,  
             <i>Number Of Nights :</i>{{reservation.NumberOfNights}}<i>, Total Price :</i>{{reservation.TotalPrice}},
             <i>Guest : </i>{{reservation.GuestUserName}},<i>Host : </i>{{reservation.HostUserName}}
             <br>
@@ -37,7 +37,7 @@
   <table >
       <tr *ngFor="let reservation of acceptedReservations">
         <td align="1">
-          <p class="p-table-home"> <i>Stauts: </i> {{reservation.Stauts}} , <i>Sing Up Date: </i> {{reservation.SingUpDate}} ,  
+          <p class="p-table-home"> <i>Stauts: </i> {{reservation.Stauts}} , <i>Sing Up Date: </i> {{reservation.SingUpDate.split("T")[0]}} ,  
             <i>Number Of Nights :</i>{{reservation.NumberOfNights}}<i>, Total Price :</i>{{reservation.TotalPrice}},
             <i>Guest : </i>{{reservation.GuestUserName}},<i>Host : </i>{{reservation.HostUserName}}
             <br>
@@ -47,6 +47,9 @@
             {{reservation.ApartmentSettlement}} {{reservation.ApartmentZipCode}}
 
           </p>           
+        </td>
+        <td>
+          <button id="{{reservation.ID}}" (click)="doneReservation(reservation.ID)">Done</button>
         </td>
         <td>
           <button id="{{reservation.ID}}" (click)="rejectRequest($event)">Reject</button>

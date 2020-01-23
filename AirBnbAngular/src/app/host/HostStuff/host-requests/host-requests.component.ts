@@ -82,4 +82,25 @@ export class HostRequestsComponent implements OnInit {
     });
   }
 
+  doneReservation(id)
+  {
+    this.hostService.changeUserStatus(id , 'Done').subscribe(data=>{
+      
+      var res = this.acceptedReservations.find(x=> x.ID == id);
+      if(res != undefined)
+      {
+        var idx = this.acceptedReservations.indexOf(res);
+        this.acceptedReservations.splice(idx,1);
+      }
+
+      res = this.createdReservations.find(x=> x.ID == id);
+      if(res != undefined)
+      {
+        var idx = this.createdReservations.indexOf(res);
+        this.createdReservations.splice(idx,1);
+      }
+
+    });
+  }
+
 }

@@ -356,7 +356,7 @@ namespace AirBnb_Web1.Controllers
       if (CheckRole("Host"))
         return StatusCode(HttpStatusCode.Unauthorized);
 
-      if (rentDate.RentDate.Year != DateTime.Now.Year)
+      if (rentDate.RentDate.Year.ToString() != "0001") 
         return StatusCode(HttpStatusCode.NotAcceptable);
 
 
@@ -675,7 +675,7 @@ namespace AirBnb_Web1.Controllers
         
       }
       //za godinu dobija 0001 kao godinu ako nije odabrao
-      if(searchApartment.CheckIn.Year == DateTime.Now.Year && searchApartment.CheckOut.Year == DateTime.Now.Year)
+      if(searchApartment.CheckIn.Year.ToString() == "0001" && searchApartment.CheckOut.Year.ToString() == "0001")
       {
         ICollection<Apartman> helpApartments = new HashSet<Apartman>();
         foreach (Apartman apartment in apartments)
@@ -704,7 +704,7 @@ namespace AirBnb_Web1.Controllers
         }
 
       }
-      else if (searchApartment.CheckIn.Year == DateTime.Now.Year)
+      else if (searchApartment.CheckIn.Year.ToString() == "0001")
       {
         ICollection<Apartman> helpApartments = new HashSet<Apartman>();
         foreach (Apartman apartment in apartments)
@@ -779,7 +779,7 @@ namespace AirBnb_Web1.Controllers
 
       }
       //za godinu dobija 0001 kao godinu ako nije odabrao
-      if (searchApartment.CheckIn.Year == DateTime.Now.Year && searchApartment.CheckOut.Year == DateTime.Now.Year)
+      if (searchApartment.CheckIn.Year.ToString() == "0001" && searchApartment.CheckOut.Year.ToString() == "0001")
       {
         ICollection<Apartman> helpApartments = new HashSet<Apartman>();
         foreach (Apartman apartment in apartments)
@@ -808,7 +808,7 @@ namespace AirBnb_Web1.Controllers
         }
 
       }
-      else if (searchApartment.CheckIn.Year == DateTime.Now.Year)
+      else if (searchApartment.CheckIn.Year.ToString() == "0001")
       {
         ICollection<Apartman> helpApartments = new HashSet<Apartman>();
         foreach (Apartman apartment in apartments)

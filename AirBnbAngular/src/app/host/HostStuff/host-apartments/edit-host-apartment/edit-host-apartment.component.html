@@ -177,10 +177,10 @@
   <table>
     <tr>
       <td align="2">
-        <input type="date" formControlName="rentDate">
+        <input type="date" formControlName="rentDate" required>
       </td>
       <td >
-        <button type="submit" >Add Date </button>
+        <button type="submit" [disabled]="rentDateForm.invalid" >Add Date </button>
       </td>
     </tr>
   </table>

@@ -26,7 +26,7 @@ export class EditHostApartmentComponent implements OnInit {
   commentForm : any;
 
   rentDateForm = this.fb2.group({
-    rentDate: [],
+    rentDate: [,Validators.required],
   });
  
 

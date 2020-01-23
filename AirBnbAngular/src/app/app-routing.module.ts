@@ -25,6 +25,10 @@ import { UploadPictureComponent } from './host/HostStuff/upload-picture/upload-p
 import { ProfileComponent } from './profile/profile.component';
 import { HomeApartmentDetailsComponent } from './home-apartment-details/home-apartment-details.component';
 import { AddDatesComponent } from './add-dates/add-dates.component';
+import {AuthGuardService} from './auth-guard.service'
+import {GuestGuardService} from './guest-guard.service'
+import {HostGuardService} from './host-guard.service'
+import {AdminGuardService} from './admin-guard.service'
 
 
 const routes: Routes = [
@@ -47,83 +51,103 @@ const routes: Routes = [
   },
   { 
     path: 'admin', 
-    component: ApartmentsComponent 
+    component: ApartmentsComponent ,
+    canActivate: [AdminGuardService],
   },
   { 
     path: 'admin/createhost', 
-    component: CreateHostComponent 
+    component: CreateHostComponent ,
+    canActivate: [AdminGuardService],
   },
   { 
     path: 'admin/apartments', 
-    component: ApartmentsComponent 
+    component: ApartmentsComponent ,
+    canActivate: [AdminGuardService],
   },
   { 
     path: 'admin/apartments/edit', 
-    component: EditApartmentComponent 
+    component: EditApartmentComponent ,
+    canActivate: [AdminGuardService],
   },
   { 
     path: 'admin/reservations', 
-    component: ReservationsComponent 
+    component: ReservationsComponent ,
+    canActivate: [AdminGuardService],
   },
   { 
     path: 'admin/users', 
-    component: UsersComponent 
+    component: UsersComponent ,
+    canActivate: [AdminGuardService],
   },
   { 
     path: 'admin/amenities', 
-    component: AmenitieComponent 
+    component: AmenitieComponent ,
+    canActivate: [AdminGuardService],
   },
   { 
     path: 'host', 
-    component: HostApartmentsComponent 
+    component: HostApartmentsComponent ,
+    canActivate: [HostGuardService],
   },
   { 
     path: 'host/createapartment', 
-    component: HostCreateApartmentComponent 
+    component: HostCreateApartmentComponent ,
+    canActivate: [HostGuardService],
   },
   { 
     path: 'host/apartments', 
-    component: HostApartmentsComponent 
+    component: HostApartmentsComponent ,
+    canActivate: [HostGuardService],
   },
   { 
     path: 'host/reservations', 
-    component: HostReservationsComponent 
+    component: HostReservationsComponent ,
+    canActivate: [HostGuardService],
   },
   { 
     path: 'host/apartments/edit', 
-    component: EditHostApartmentComponent 
+    component: EditHostApartmentComponent ,
+    canActivate: [HostGuardService],
   },
   { 
     path: 'host/requests', 
-    component: HostRequestsComponent 
-  },
-  { 
-    path: 'guest', 
-    component: GuestApartmentsComponent
-  },
-  { 
-    path: 'guest/apartments', 
-    component: GuestApartmentsComponent
-  },
-  { 
-    path: 'guest/apartments/details', 
-    component: ApartmentDetailsComponent
-  },
-  { 
-    path: 'guest/reservations', 
-    component: GuestReservationsComponent
-  },
-  { 
-    path: 'guest/requests', 
-    component: GuestRequestsComponent
+    component: HostRequestsComponent ,
+    canActivate: [HostGuardService],
   },
   { 
     path: 'host/apartments/pictures', 
-    component: UploadPictureComponent
+    component: UploadPictureComponent,
+    canActivate: [HostGuardService],
+  },
+  { 
+    path: 'guest', 
+    component: GuestApartmentsComponent,
+    canActivate: [GuestGuardService],
+  },
+  { 
+    path: 'guest/apartments', 
+    component: GuestApartmentsComponent,
+    canActivate: [GuestGuardService],
+  },
+  { 
+    path: 'guest/apartments/details', 
+    component: ApartmentDetailsComponent,
+    canActivate: [GuestGuardService],
+  },
+  { 
+    path: 'guest/reservations', 
+    component: GuestReservationsComponent,
+    canActivate: [GuestGuardService],
+  },
+  { 
+    path: 'guest/requests', 
+    component: GuestRequestsComponent,
+    canActivate: [GuestGuardService],
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [AuthGuardService],
   },
   {
     path: 'home/details',
@@ -131,7 +155,8 @@ const routes: Routes = [
   },
   {
     path: 'apartment/dates',
-    component: AddDatesComponent
+    component: AddDatesComponent,
+    canActivate: [AuthGuardService],
   }
   
 ];
