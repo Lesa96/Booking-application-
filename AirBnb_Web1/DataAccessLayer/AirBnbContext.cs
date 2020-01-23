@@ -25,6 +25,7 @@ namespace AirBnb_Web1.DataAccessLayer
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<DatesModel> DatesModels { get; set; }
+        public DbSet<HolidayDays> Holidays { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) 
         {

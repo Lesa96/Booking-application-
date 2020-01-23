@@ -11,4 +11,11 @@ namespace AirBnb_Web1.Helper.BindingModels
 
     public string Name { get; set; }
   }
+
+  public class HolidayBM
+  {
+    public int ID { get; set; }
+
+    public DateTime HolidayDate { get; set; }
+  }
 }

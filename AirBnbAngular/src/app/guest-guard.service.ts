@@ -11,7 +11,7 @@ export class GuestGuardService implements CanActivate{
   canActivate()
   {
     
-    if(localStorage.Role == "Host")
+    if(localStorage.Role == "Guest")
       return true;
     else
     {

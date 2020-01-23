@@ -1,0 +1,40 @@
+<app-admin></app-admin>
+<br><br><br>
+<div>
+  <form [formGroup]="addForm" (ngSubmit)="onSubmit()" >
+    <table >
+      <tr>
+        <td>
+          Day: 
+        </td>
+        <td>
+            <input type="date" formControlName="holiday" required />
+        </td>
+        <td>
+            <button type="submit" [disabled]="addForm.invalid" >Add Holiday</button>
+        </td>
+      </tr>
+      
+    </table>
+  </form>
+</div>
+<br><br>
+
+<div>
+    <table  class="comment-table">
+      <tr>
+        <td align="*" >
+            <b><i> HolyDays :</i> </b>
+        </td>
+      </tr>
+      <tr *ngFor="let holiday of holidays">
+        <td align="*">
+          <p>{{holiday.HolidayDate.split('T')[0]}}</p>
+         
+        </td>
+        <td>
+            <button id="{{holiday.ID}}" (click)="deleteHolyday(holiday.ID)" >Delete</button>
+        </td>       
+      </tr>     
+    </table>
+  </div>

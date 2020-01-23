@@ -53,7 +53,7 @@ namespace AirBnb_Web1.Migrations
             context.Users.Add(user3);
             context.SaveChanges();
 
-            Apartman apartman1 = new Apartman { ID = 1, SingUpTime = new DateTime( DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,8,0,0), SingOutTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 0, 0), Status= Helper.Enums.ApartmanStatus.Active, GuestNumber = 3, HostID = user3.ID, LocationID = location1.ID, PricePerNight = 20, RoomNumber = 2 };
+            Apartman apartman1 = new Apartman { ID = 1, SingUpTime = new DateTime( DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,12,0,0), SingOutTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0), Status= Helper.Enums.ApartmanStatus.Active, GuestNumber = 3, HostID = user3.ID, LocationID = location1.ID, PricePerNight = 20, RoomNumber = 2 };
             context.Apartmans.Add(apartman1);
             context.SaveChanges();
 
@@ -61,15 +61,15 @@ namespace AirBnb_Web1.Migrations
             context.Comments.Add(comment1);
             context.SaveChanges();
 
-            DatesModel rentDate1 = new DatesModel { ID = 1, ApartmanID = apartman1.ID, Available = true, RentDate = DateTime.Now };
+            DatesModel rentDate1 = new DatesModel { ID = 1, ApartmanID = apartman1.ID, Available = true, RentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0) };
             context.DatesModels.Add(rentDate1);
             context.SaveChanges();
 
-            DatesModel rentDate2 = new DatesModel { ID = 1, ApartmanID = apartman1.ID, Available = true, RentDate = DateTime.Now };
+            DatesModel rentDate2 = new DatesModel { ID = 1, ApartmanID = apartman1.ID, Available = true, RentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0) };
             context.DatesModels.Add(rentDate2);
             context.SaveChanges();
 
-            DatesModel rentDate3 = new DatesModel { ID = 1, ApartmanID = apartman1.ID, Available = true, RentDate = DateTime.Now };
+            DatesModel rentDate3 = new DatesModel { ID = 1, ApartmanID = apartman1.ID, Available = true, RentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0) };
             context.DatesModels.Add(rentDate3);
             context.SaveChanges();
 
@@ -83,6 +83,10 @@ namespace AirBnb_Web1.Migrations
 
             Reservation reservation3 = new Reservation { ID = 3, ApartmanID = apartman1.ID, GuestID = user2.ID, NumberOfNights = 10, SingUpDate = rentDate3.RentDate, Stauts = Helper.Enums.ReservationStatus.Created, TotalPrice = 200 };
             context.Reservations.Add(reservation3);
+            context.SaveChanges();
+
+            HolidayDays h1 = new HolidayDays { Deleted = false, Holiday = DateTime.Now };
+            context.Holidays.Add(h1);
             context.SaveChanges();
 
             

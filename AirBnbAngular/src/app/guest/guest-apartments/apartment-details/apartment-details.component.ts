@@ -21,6 +21,7 @@ export class ApartmentDetailsComponent implements OnInit {
   editForm : any;
   commentForm : any;
   apartmentDates : any[] = [];
+  holidays : any[] = [];
 
   rentDateForm = this.fb.group({
     rentDate: ["",Validators.required],
@@ -90,6 +91,7 @@ export class ApartmentDetailsComponent implements OnInit {
       this.apartmentDates = data as DateModelBM[];
       this.apartmentDates.sort((a,b)=> new Date(a.CheckedDate).getTime() - new Date(b.CheckedDate).getTime());
     
+      this.getAllHolidays();
     });
   }
 
@@ -104,6 +106,15 @@ export class ApartmentDetailsComponent implements OnInit {
       alert(data);
       this.router.navigate(['/guest/apartments']);
     });
+  }
+
+  getAllHolidays()
+  {
+    this.homeService.GetHolydaysNames().subscribe(data=>
+      {
+        this.holidays = data as string[];
+        
+      });
   }
 
   

@@ -196,3 +196,19 @@
     </tr>
   </table>
   </div>
+
+  <div>
+    <table  class="comment-table">
+      <tr>
+        <td align="*" >
+            <b><i> HolyDays :</i> </b>
+        </td>
+      </tr>
+      <tr *ngFor="let holiday of holidays">
+        <td align="*">
+          <p>{{holiday.split(" ")[0]}}</p>
+         
+        </td>      
+      </tr>     
+    </table>
+  </div>

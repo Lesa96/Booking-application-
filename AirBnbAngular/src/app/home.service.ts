@@ -115,4 +115,16 @@ export class HomeService {
      );
   }
 
+  GetHolydaysNames() : Observable<any>
+  {   
+     const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json'})     
+     };
+
+    return this.http.get(this.amenitieUri+"GetHolydaysNames",httpOptions).pipe(
+      catchError(e => throwError(alert("Eror in host service:, Holydays:  " + e.error.Message)))
+    );
+
+  }
+
 }

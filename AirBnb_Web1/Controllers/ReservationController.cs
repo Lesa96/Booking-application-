@@ -266,6 +266,7 @@ namespace AirBnb_Web1.Controllers
         return NotFound();
 
       DateTime currentDate = reservation.SingUpDate;
+      
       if (status == ReservationStatus.Rejected || status == ReservationStatus.Canceled)
       {
         for (int i = 0; i < reservation.NumberOfNights; i++)
@@ -305,6 +306,9 @@ namespace AirBnb_Web1.Controllers
 
       bool Available = true;
       DateTime currentDate = rentD.RentDate;
+      int normalPriceDays = 0;
+      int discountPriceDays = 0;
+      int holidayPriceDays = 0;
       for (int i = 0; i < rentD.RentDays; i++)
       {
         DatesModel datesModel = context.DatesModels.Where(x => x.ApartmanID == rentD.ApartmanID && x.RentDate == currentDate && x.Available == true && x.Deleted == false).FirstOrDefault();
@@ -313,6 +317,26 @@ namespace AirBnb_Web1.Controllers
           Available = false;
           break;
         }
+
+        //praznici: 
+        var holidayCheck = context.Holidays.Where(x => x.Deleted == false && x.Holiday == datesModel.RentDate).FirstOrDefault();
+        if(holidayCheck != null)
+        {
+          holidayPriceDays++;
+        }
+        else
+        {
+          if (datesModel.RentDate.DayOfWeek == DayOfWeek.Friday || datesModel.RentDate.DayOfWeek == DayOfWeek.Saturday || datesModel.RentDate.DayOfWeek == DayOfWeek.Sunday) // popust za vikend
+          {
+            discountPriceDays++;
+          }
+          else
+          {
+            normalPriceDays++;
+          }
+        }
+
+        
         currentDate = currentDate.AddDays(1);
       }
 
@@ -327,7 +351,24 @@ namespace AirBnb_Web1.Controllers
       reservation.SingUpDate = rentD.RentDate;
       reservation.NumberOfNights = rentD.RentDays;
       reservation.Stauts = ReservationStatus.Created;
-      reservation.TotalPrice = rentD.RentDays * apartman.PricePerNight;
+      // popust za vikend:
+      reservation.TotalPrice = 0;
+      //ako je praznik onda se povecava cena za 5 % praznik
+      if (holidayPriceDays != 0) 
+      {
+        reservation.TotalPrice += holidayPriceDays * (apartman.PricePerNight + 5 / apartman.PricePerNight * 100);
+      }
+      if (normalPriceDays != 0)
+      {
+        reservation.TotalPrice += normalPriceDays * apartman.PricePerNight;
+      }
+      if (discountPriceDays != 0)
+      {
+        reservation.TotalPrice += discountPriceDays * (apartman.PricePerNight - 10 / apartman.PricePerNight * 100); //10% popusta
+      }
+
+      
+      
 
       context.Reservations.Add(reservation);
       context.SaveChanges();

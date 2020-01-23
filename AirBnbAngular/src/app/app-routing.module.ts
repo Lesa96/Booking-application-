@@ -29,6 +29,7 @@ import {AuthGuardService} from './auth-guard.service'
 import {GuestGuardService} from './guest-guard.service'
 import {HostGuardService} from './host-guard.service'
 import {AdminGuardService} from './admin-guard.service'
+import { HolidaysComponent } from './admin/AdminStuff/holidays/holidays.component';
 
 
 const routes: Routes = [
@@ -82,6 +83,11 @@ const routes: Routes = [
   { 
     path: 'admin/amenities', 
     component: AmenitieComponent ,
+    canActivate: [AdminGuardService],
+  },
+  { 
+    path: 'admin/holidays', 
+    component: HolidaysComponent ,
     canActivate: [AdminGuardService],
   },
   { 

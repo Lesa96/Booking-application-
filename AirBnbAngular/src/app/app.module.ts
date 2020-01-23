@@ -30,7 +30,8 @@ import { GuestRequestsComponent } from './guest/guest-requests/guest-requests.co
 import { UploadPictureComponent } from './host/HostStuff/upload-picture/upload-picture.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeApartmentDetailsComponent } from './home-apartment-details/home-apartment-details.component';
-import { AddDatesComponent } from './add-dates/add-dates.component'
+import { AddDatesComponent } from './add-dates/add-dates.component';
+import { HolidaysComponent } from './admin/AdminStuff/holidays/holidays.component'
 
 
 
@@ -63,6 +64,7 @@ import { AddDatesComponent } from './add-dates/add-dates.component'
     ProfileComponent,
     HomeApartmentDetailsComponent,
     AddDatesComponent,
+    HolidaysComponent,
   ],
   imports: [
     BrowserModule,

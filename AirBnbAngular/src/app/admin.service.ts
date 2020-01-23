@@ -202,4 +202,42 @@ export class AdminService {
      );
   }
 
+  AddHoliday(holiday : any) : any
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' , 'Role' : localStorage.Role}),
+      params: new HttpParams().set('holiday' , holiday) 
+     };
+
+    return this.http.delete(this.amenitieUri+"AddHoliday",httpOptions).pipe(
+      catchError(e => throwError(console.error("Eror in admin service, in addHoliday  " + e.error.Message)))
+    );
+  }
+
+  GetHolydays() : Observable<any>
+  {   
+     const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' , 'Role' : localStorage.Role}),
+         
+     };
+
+    return this.http.get(this.amenitieUri+"GetHolydays",httpOptions).pipe(
+      catchError(e => throwError(alert("Eror in admin service, Holydays:  " + e.error.Message)))
+    );
+
+  }
+
+  DeleteHoliday(holidayId: any) : any
+  {   
+     const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Role' : localStorage.Role }),
+      params: new HttpParams().set('holidayId' , holidayId)     
+     };
+
+    return this.http.delete(this.amenitieUri+"DeleteHoliday",httpOptions).pipe(
+      catchError(e => throwError(alert("Eror in admin service, Holiday  " + e.error.Message)))
+    );
+
+  }
+
 }
