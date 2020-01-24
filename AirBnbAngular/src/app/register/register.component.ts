@@ -20,8 +20,8 @@ export class RegisterComponent implements OnInit {
 
   registerForm = this.fb.group({
     username: ['', Validators.required],
-    password: ["", [Validators.required,Validators.minLength(6)]],
-    confirmPassword: [, [Validators.required , Validators.minLength(6)]],
+    password: ["", [Validators.required]],
+    confirmPassword: [, [Validators.required]],
     name: ['', Validators.required],
     surname: ['', Validators.required],
     gender: ['', Validators.required]
@@ -46,8 +46,8 @@ export class RegisterComponent implements OnInit {
       this.registUser.Gender =  this.registerForm.value.gender;
       
       this.userService.Register(this.registUser).subscribe(data=>{
-        alert("Host was created");
-         console.log(this.registUser);
+        alert("Account was created");
+         
          this.router.navigate(["login"]);
       });
       

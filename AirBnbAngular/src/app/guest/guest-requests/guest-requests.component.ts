@@ -14,12 +14,12 @@ export class GuestRequestsComponent implements OnInit {
   constructor(private guestService: GuestService) { }
 
   ngOnInit() {
-    this.guestService.GetGuestReservationRequest(2,'Created').subscribe(data=> 
+    this.guestService.GetGuestReservationRequest(localStorage.ID,'Created').subscribe(data=> 
       { 
         this.createdReservations = data as Reservation[];
         console.log(this.createdReservations);
 
-        this.guestService.GetGuestReservationRequest(2,'Accepted').subscribe(data=> 
+        this.guestService.GetGuestReservationRequest(localStorage.ID,'Accepted').subscribe(data=> 
           { 
             this.acceptedReservations = data as Reservation[];
             console.log(this.acceptedReservations);

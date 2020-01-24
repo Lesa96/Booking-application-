@@ -15,7 +15,7 @@ export class HostRequestsComponent implements OnInit {
   constructor(private hostService: HostService) { }
 
   ngOnInit() {
-    this.hostService.GetReservationRequests(3,'Created').subscribe(data=> 
+    this.hostService.GetReservationRequests(localStorage.ID,'Created').subscribe(data=> 
       { 
         this.createdReservations = data as Reservation[];
         console.log(this.createdReservations);
@@ -86,6 +86,8 @@ export class HostRequestsComponent implements OnInit {
   {
     this.hostService.changeUserStatus(id , 'Done').subscribe(data=>{
       
+    if(data == undefined || data == "")
+    {
       var res = this.acceptedReservations.find(x=> x.ID == id);
       if(res != undefined)
       {
@@ -99,6 +101,11 @@ export class HostRequestsComponent implements OnInit {
         var idx = this.createdReservations.indexOf(res);
         this.createdReservations.splice(idx,1);
       }
+    }
+    else
+    {
+      alert(data);
+    }
 
     });
   }

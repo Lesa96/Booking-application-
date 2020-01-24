@@ -88,8 +88,8 @@ D:\Fax\6.Semestar\Web\Projekat\AirBnb_Web1\AirBnb_Web1\bin\System.Web.Http.Owin.
 D:\Fax\6.Semestar\Web\Projekat\AirBnb_Web1\AirBnb_Web1\bin\System.Web.Cors.dll
 D:\Fax\6.Semestar\Web\Projekat\AirBnb_Web1\AirBnb_Web1\bin\System.Web.Http.Cors.dll
 D:\Fax\6.Semestar\Web\Projekat\AirBnb_Web1\AirBnb_Web1\bin\System.Web.Http.Cors.xml
-D:\Fax\6.Semestar\Web\Projekat\AirBnb_Web1\AirBnb_Web1\obj\Debug\AirBnb_Web1.csprojResolveAssemblyReference.cache
 D:\Fax\6.Semestar\Web\Projekat\AirBnb_Web1\AirBnb_Web1\bin\Microsoft.AspNet.Identity.Core.dll
 D:\Fax\6.Semestar\Web\Projekat\AirBnb_Web1\AirBnb_Web1\bin\Microsoft.AspNet.Identity.Core.xml
-D:\Fax\6.Semestar\Web\Projekat\AirBnb_Web1\AirBnb_Web1\obj\Debug\AirBnb_Web1.Migrations.AirBnbMigration.resources
+D:\Fax\6.Semestar\Web\Projekat\AirBnb_Web1\AirBnb_Web1\obj\Debug\AirBnb_Web1.Migrations.AirBnbMigrationTheEnd.resources
 D:\Fax\6.Semestar\Web\Projekat\AirBnb_Web1\AirBnb_Web1\obj\Debug\AirBnb_Web1.csproj.GenerateResource.cache
+D:\Fax\6.Semestar\Web\Projekat\AirBnb_Web1\AirBnb_Web1\obj\Debug\AirBnb_Web1.csprojResolveAssemblyReference.cache

@@ -229,9 +229,9 @@
     <Compile Include="Helper\BindingModels\ReservationBM.cs" />
     <Compile Include="Helper\BindingModels\UserBM.cs" />
     <Compile Include="Helper\Enums\EnumHelper.cs" />
-    <Compile Include="Migrations\202001231948069_AirBnbMigration.cs" />
-    <Compile Include="Migrations\202001231948069_AirBnbMigration.Designer.cs">
-      <DependentUpon>202001231948069_AirBnbMigration.cs</DependentUpon>
+    <Compile Include="Migrations\202001241910432_AirBnbMigrationTheEnd.cs" />
+    <Compile Include="Migrations\202001241910432_AirBnbMigrationTheEnd.Designer.cs">
+      <DependentUpon>202001241910432_AirBnbMigrationTheEnd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Adress.cs" />
@@ -251,15 +251,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\LongInForm.css" />
-    <Content Include="dist\AirBnbAngular\assets\ce-travel.jpg" />
-    <Content Include="dist\AirBnbAngular\favicon.ico" />
-    <Content Include="dist\AirBnbAngular\index.html" />
-    <Content Include="dist\AirBnbAngular\main.js" />
-    <Content Include="dist\AirBnbAngular\polyfills-es5.js" />
-    <Content Include="dist\AirBnbAngular\polyfills.js" />
-    <Content Include="dist\AirBnbAngular\runtime.js" />
-    <Content Include="dist\AirBnbAngular\styles.js" />
-    <Content Include="dist\AirBnbAngular\vendor.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -287,16 +278,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="angular.json" />
     <Content Include="browserslist" />
-    <Content Include="package-lock.json" />
-    <Content Include="package.json" />
-    <Content Include="dist\AirBnbAngular\main.js.map" />
-    <Content Include="dist\AirBnbAngular\polyfills-es5.js.map" />
-    <Content Include="dist\AirBnbAngular\polyfills.js.map" />
-    <Content Include="dist\AirBnbAngular\runtime.js.map" />
-    <Content Include="dist\AirBnbAngular\styles.js.map" />
-    <Content Include="dist\AirBnbAngular\vendor.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -304,19 +286,6 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="src\app\app.component.css" />
-    <Content Include="src\app\app.component.html" />
-    <Content Include="src\app\home\home.component.css" />
-    <Content Include="src\app\home\home.component.html" />
-    <Content Include="src\app\log-in\log-in.component.css" />
-    <Content Include="src\app\log-in\log-in.component.html" />
-    <Content Include="src\app\register\register.component.css" />
-    <Content Include="src\app\register\register.component.html" />
-    <Content Include="src\assets\ce-travel.jpg" />
-    <Content Include="src\favicon.ico" />
-    <Content Include="src\index.html" />
-    <Content Include="src\styles.css" />
-    <Content Include="tsconfig.app.json" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -331,8 +300,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="src\assets\.gitkeep" />
-    <Content Include="tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -352,35 +319,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="src\app\app-routing.module.ts" />
-    <TypeScriptCompile Include="src\app\app.component.spec.ts" />
-    <TypeScriptCompile Include="src\app\app.component.ts" />
-    <TypeScriptCompile Include="src\app\app.module.ts" />
-    <TypeScriptCompile Include="src\app\Classes\User.ts" />
-    <TypeScriptCompile Include="src\app\home.service.spec.ts" />
-    <TypeScriptCompile Include="src\app\home.service.ts" />
-    <TypeScriptCompile Include="src\app\home\home.component.spec.ts" />
-    <TypeScriptCompile Include="src\app\home\home.component.ts" />
-    <TypeScriptCompile Include="src\app\log-in\log-in.component.spec.ts" />
-    <TypeScriptCompile Include="src\app\log-in\log-in.component.ts" />
-    <TypeScriptCompile Include="src\app\login.service.spec.ts" />
-    <TypeScriptCompile Include="src\app\login.service.ts" />
-    <TypeScriptCompile Include="src\app\register.service.spec.ts" />
-    <TypeScriptCompile Include="src\app\register.service.ts" />
-    <TypeScriptCompile Include="src\app\register\register.component.spec.ts" />
-    <TypeScriptCompile Include="src\app\register\register.component.ts" />
-    <TypeScriptCompile Include="src\environments\environment.prod.ts" />
-    <TypeScriptCompile Include="src\environments\environment.ts" />
-    <TypeScriptCompile Include="src\main.ts" />
-    <TypeScriptCompile Include="src\polyfills.ts" />
-    <TypeScriptCompile Include="src\test.ts" />
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202001231948069_AirBnbMigration.resx">
-      <DependentUpon>202001231948069_AirBnbMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001241910432_AirBnbMigrationTheEnd.resx">
+      <DependentUpon>202001241910432_AirBnbMigrationTheEnd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

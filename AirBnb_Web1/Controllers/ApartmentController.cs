@@ -691,7 +691,7 @@ namespace AirBnb_Web1.Controllers
 
           while(currentDate <= searchApartment.CheckOut)
           {
-            var helpApartment = apar.RentDates.Where(x => x.RentDate == currentDate && x.Available == true).FirstOrDefault();
+            var helpApartment = apar.RentDates.Where(x => x.RentDate.Year == currentDate.Year && x.RentDate.Month == currentDate.Month && x.RentDate.Day == currentDate.Day && x.Available == true).FirstOrDefault();
             if (helpApartment == null && apartments.Contains(apar))
             {
               apartments.Remove(apar);
@@ -714,7 +714,7 @@ namespace AirBnb_Web1.Controllers
 
         foreach (Apartman apar in helpApartments)
         {
-          var helpApartment = apar.RentDates.Where(x => x.RentDate == searchApartment.CheckIn && x.Available == true).FirstOrDefault();
+          var helpApartment = apar.RentDates.Where(x => x.RentDate.Year == searchApartment.CheckIn.Year && x.RentDate.Month == searchApartment.CheckIn.Month && x.RentDate.Day == searchApartment.CheckIn.Day && x.Available == true).FirstOrDefault();
           if (helpApartment == null && apartments.Contains(apar))
           {
             apartments.Remove(apar);
@@ -795,7 +795,7 @@ namespace AirBnb_Web1.Controllers
 
           while (currentDate <= searchApartment.CheckOut)
           {
-            var helpApartment = apar.RentDates.Where(x => x.RentDate == currentDate && x.Available == true).FirstOrDefault();
+            var helpApartment = apar.RentDates.Where(x => x.RentDate.Year == currentDate.Year && x.RentDate.Month == currentDate.Month && x.RentDate.Day == currentDate.Day && x.Available == true).FirstOrDefault();
             if (helpApartment == null && apartments.Contains(apar))
             {
               apartments.Remove(apar);
@@ -818,7 +818,7 @@ namespace AirBnb_Web1.Controllers
 
         foreach (Apartman apar in helpApartments)
         {
-          var helpApartment = apar.RentDates.Where(x => x.RentDate == searchApartment.CheckIn && x.Available == true).FirstOrDefault();
+          var helpApartment = apar.RentDates.Where(x => x.RentDate.Year == searchApartment.CheckIn.Year && x.RentDate.Month == searchApartment.CheckIn.Month && x.RentDate.Day == searchApartment.CheckIn.Day && x.Available == true).FirstOrDefault();
           if (helpApartment == null && apartments.Contains(apar))
           {
             apartments.Remove(apar);

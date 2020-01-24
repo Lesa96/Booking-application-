@@ -162,13 +162,19 @@ namespace AirBnb_Web1.Controllers
 
       List<ReservationBM> reservationInfo = new List<ReservationBM>();
       List<Apartman> apps = context.Apartmans.Where(x => x.HostID == hostId && x.Deleted != true).ToList();
-      foreach (var apartment in apps)
+      if (apps != null && apps.Count > 0)
       {
-        foreach (var reservation in apartment.Reservations)
+        foreach (var apartment in apps)
         {
-          ReservationBM reservationBM = GetReservationInfo(reservation);
-          reservationInfo.Add(reservationBM);
+          if (apartment.Reservations != null && apartment.Reservations.Count > 0)
+          {
+            foreach (var reservation in apartment.Reservations)
+            {
+              ReservationBM reservationBM = GetReservationInfo(reservation);
+              reservationInfo.Add(reservationBM);
 
+            }
+          }
         }
       }
 
@@ -186,12 +192,15 @@ namespace AirBnb_Web1.Controllers
       }
       List<ReservationBM> reservationInfo = new List<ReservationBM>();
       List<Reservation> ress = context.Reservations.Where(x => x.GuestID == guestId && x.Deleted != true).ToList();
-           
-      foreach (var reservation in ress)
-      {
-        ReservationBM reservationBM = GetReservationInfo(reservation);
-        reservationInfo.Add(reservationBM);
 
+      if (ress != null && ress.Count > 0)
+      {
+        foreach (var reservation in ress)
+        {
+          ReservationBM reservationBM = GetReservationInfo(reservation);
+          reservationInfo.Add(reservationBM);
+
+        }
       }
       
 
@@ -210,15 +219,18 @@ namespace AirBnb_Web1.Controllers
       List<ReservationBM> reservationInfo = new List<ReservationBM>();
       List<Reservation> ress = context.Reservations.Where(x => x.GuestID == guestId && x.Deleted != true).ToList();
 
-      foreach (var reservation in ress)
+      if (ress != null && ress.Count > 0)
       {
-        if(reservation.Stauts == status)
+        foreach (var reservation in ress)
         {
-          ReservationBM reservationBM = GetReservationInfo(reservation);
-          reservationInfo.Add(reservationBM);
-        }
-        
+          if (reservation.Stauts == status)
+          {
+            ReservationBM reservationBM = GetReservationInfo(reservation);
+            reservationInfo.Add(reservationBM);
+          }
 
+
+        }
       }
       return Ok(reservationInfo);
 
@@ -284,6 +296,13 @@ namespace AirBnb_Web1.Controllers
 
       }
 
+      if(status == ReservationStatus.Done)
+      {
+        DateTime checkIfDateIsDone = reservation.SingUpDate.AddDays(reservation.NumberOfNights);
+        if (checkIfDateIsDone >= DateTime.Now)
+          return Ok("Date is not done");
+      }
+
       reservation.Stauts = status;
       context.SaveChanges();
 
@@ -311,7 +330,7 @@ namespace AirBnb_Web1.Controllers
       int holidayPriceDays = 0;
       for (int i = 0; i < rentD.RentDays; i++)
       {
-        DatesModel datesModel = context.DatesModels.Where(x => x.ApartmanID == rentD.ApartmanID && x.RentDate == currentDate && x.Available == true && x.Deleted == false).FirstOrDefault();
+        DatesModel datesModel = context.DatesModels.Where(x => x.ApartmanID == rentD.ApartmanID && x.RentDate.Year == currentDate.Year && x.RentDate.Month == currentDate.Month && x.RentDate.Day == currentDate.Day && x.Available == true && x.Deleted == false).FirstOrDefault();
         if (datesModel == null)
         {
           Available = false;
@@ -319,7 +338,7 @@ namespace AirBnb_Web1.Controllers
         }
 
         //praznici: 
-        var holidayCheck = context.Holidays.Where(x => x.Deleted == false && x.Holiday == datesModel.RentDate).FirstOrDefault();
+        var holidayCheck = context.Holidays.Where(x => x.Deleted == false && x.Holiday.Year == datesModel.RentDate.Year && x.Holiday.Month == datesModel.RentDate.Month && x.Holiday.Day == datesModel.RentDate.Day).FirstOrDefault();
         if(holidayCheck != null)
         {
           holidayPriceDays++;
@@ -356,7 +375,7 @@ namespace AirBnb_Web1.Controllers
       //ako je praznik onda se povecava cena za 5 % praznik
       if (holidayPriceDays != 0) 
       {
-        reservation.TotalPrice += holidayPriceDays * (apartman.PricePerNight + 5 / apartman.PricePerNight * 100);
+        reservation.TotalPrice += holidayPriceDays * (apartman.PricePerNight + ((5 * apartman.PricePerNight) / 100 ));
       }
       if (normalPriceDays != 0)
       {
@@ -364,7 +383,7 @@ namespace AirBnb_Web1.Controllers
       }
       if (discountPriceDays != 0)
       {
-        reservation.TotalPrice += discountPriceDays * (apartman.PricePerNight - 10 / apartman.PricePerNight * 100); //10% popusta
+        reservation.TotalPrice += discountPriceDays * (apartman.PricePerNight - ((10 * apartman.PricePerNight) / 100)); //10% popusta
       }
 
       
@@ -376,7 +395,7 @@ namespace AirBnb_Web1.Controllers
       currentDate = rentD.RentDate;
       for (int i = 0; i < rentD.RentDays; i++)
       {
-        DatesModel datesModel = context.DatesModels.Where(x => x.ApartmanID == rentD.ApartmanID && x.RentDate == currentDate && x.Available == true && x.Deleted == false).FirstOrDefault();
+        DatesModel datesModel = context.DatesModels.Where(x => x.ApartmanID == rentD.ApartmanID && x.RentDate.Year == currentDate.Year && x.RentDate.Month == currentDate.Month && x.RentDate.Day == currentDate.Day && x.Available == true && x.Deleted == false).FirstOrDefault();
         datesModel.Available = false;
         context.SaveChanges();
 

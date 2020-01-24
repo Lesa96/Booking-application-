@@ -25,7 +25,7 @@ export class HostReservationsComponent implements OnInit {
   constructor(private hostService: HostService,private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.hostService.getHostReservations(3).subscribe(data=> 
+    this.hostService.getHostReservations(localStorage.ID).subscribe(data=> 
       { 
         this.hostReservations = data as Reservation[];
         this.FiltredReservations = data as Reservation[];
