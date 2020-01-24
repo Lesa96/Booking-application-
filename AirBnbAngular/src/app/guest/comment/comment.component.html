@@ -1,0 +1,25 @@
+<app-guest></app-guest>
+<br><br><br>
+<h3>Reservations:</h3>
+<div >
+    <table >
+        <tr *ngFor="let reservation of guestCommentReservations">
+          <td align="1">
+            <p class="p-table-home"> <i>Stauts: </i> {{reservation.Stauts}} , <i>Sing Up Date: </i> {{reservation.SingUpDate.split("T")[0]}} ,  
+              <i>Number Of Nights :</i>{{reservation.NumberOfNights}}<i>, Total Price :</i>{{reservation.TotalPrice}},
+               Host : {{reservation.HostUserName}}
+              <br>
+              <b>Apartment : </b>
+              <br>
+              {{reservation.ApartmentStreat}} {{reservation.ApartmentStreatNumber}},
+              {{reservation.ApartmentSettlement}} {{reservation.ApartmentZipCode}}
+  
+            </p>           
+          </td> 
+          <td>
+              <button id="{{reservation.ID}}" (click)="commentReservation(reservation.ID)">Comment</button>
+          </td>              
+        </tr>
+    </table>
+    
+  </div>

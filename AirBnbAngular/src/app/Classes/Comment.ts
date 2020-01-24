@@ -6,3 +6,10 @@ export class Comment {
     Blocked : boolean;
     
 }
+
+export class GuestComment {
+    ReservationID : number;
+    Comment : string;    
+    Rate : number;
+    
+}

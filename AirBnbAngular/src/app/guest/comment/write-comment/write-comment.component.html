@@ -1,0 +1,23 @@
+<button (click) = "returnBack()"> Back</button>
+
+<br><br>
+<div >
+    <table *ngIf="reservation">
+        <tr>
+          <td align="1" >
+            <p class="p-table-home"> <i>Stauts: </i> {{reservation.Stauts}} , <i>Sing Up Date: </i> {{reservation.SingUpDate.split("T")[0]}} ,  
+              <i>Number Of Nights :</i>{{reservation.NumberOfNights}}<i>, Total Price :</i>{{reservation.TotalPrice}},
+               Host : {{reservation.HostUserName}}
+              <br>
+              <b>Apartment : </b>
+              <br>
+              {{reservation.ApartmentStreat}} {{reservation.ApartmentStreatNumber}},
+              {{reservation.ApartmentSettlement}} {{reservation.ApartmentZipCode}}
+  
+            </p>           
+          </td>               
+        </tr>
+    </table>   
+  </div>
+
+<br><br>

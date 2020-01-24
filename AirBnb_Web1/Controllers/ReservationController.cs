@@ -209,6 +209,82 @@ namespace AirBnb_Web1.Controllers
     }
 
     [HttpGet]
+    [Route("GetReservation")]
+    public IHttpActionResult GetReservation(int reservationID)
+    {
+      if (CheckRole("Guest"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
+      ReservationBM reservationInfo = new ReservationBM();
+      Reservation ress = context.Reservations.Where(x => x.ID == reservationID && x.Deleted != true).FirstOrDefault();
+
+      if (ress != null)
+      {
+        reservationInfo = GetReservationInfo(ress);         
+      }
+
+
+      return Ok(reservationInfo);
+
+    }
+
+    [HttpGet]
+    [Route("GetGuestCommentReservations")]
+    public IHttpActionResult GetGuestCommentReservations(int guestId)
+    {
+      if (CheckRole("Guest"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
+      List<ReservationBM> reservationInfo = new List<ReservationBM>();
+      List<Reservation> ress = context.Reservations.Where(x => x.GuestID == guestId && (x.Stauts == ReservationStatus.Done || x.Stauts == ReservationStatus.Rejected) && x.Deleted != true).ToList();
+
+      if (ress != null && ress.Count > 0)
+      {
+        foreach (var reservation in ress)
+        {
+          ReservationBM reservationBM = GetReservationInfo(reservation);
+          reservationInfo.Add(reservationBM);
+
+        }
+      }
+
+
+      return Ok(reservationInfo);
+
+    }
+
+    [HttpPut]
+    [Route("CommentReservation")]
+    public IHttpActionResult CommentReservation(GuestComment guestComment)
+    {
+      if (CheckRole("Guest"))
+      {
+        return StatusCode(HttpStatusCode.Unauthorized);
+      }
+      
+      Reservation ress = context.Reservations.Where(x => x.ID == guestComment.ReservationID && (x.Stauts == ReservationStatus.Done || x.Stauts == ReservationStatus.Rejected) && x.Deleted != true).FirstOrDefault();
+      if (ress == null)
+        return BadRequest("Reservation doesn't exist");
+
+      Comment comment = new Comment();
+      comment.ApartmanID = ress.ApartmanID;
+      comment.GuestID = ress.GuestID;
+      comment.Text = guestComment.Comment;
+      comment.Rate = guestComment.Rate;
+
+      comment.Deleted = false;
+      comment.Blocked = true;
+
+      context.Comments.Add(comment);
+      context.SaveChanges();
+
+      return Ok();
+
+    }
+
+    [HttpGet]
     [Route("GetGuestReservationRequest")]
     public IHttpActionResult GetGuestReservationRequest(int guestId, Helper.Enums.ReservationStatus status)
     {

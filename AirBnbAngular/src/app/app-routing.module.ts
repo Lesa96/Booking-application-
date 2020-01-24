@@ -30,6 +30,8 @@ import {GuestGuardService} from './guest-guard.service'
 import {HostGuardService} from './host-guard.service'
 import {AdminGuardService} from './admin-guard.service'
 import { HolidaysComponent } from './admin/AdminStuff/holidays/holidays.component';
+import { CommentComponent } from './guest/comment/comment.component';
+import { WriteCommentComponent } from './guest/comment/write-comment/write-comment.component';
 
 
 const routes: Routes = [
@@ -148,6 +150,17 @@ const routes: Routes = [
   { 
     path: 'guest/requests', 
     component: GuestRequestsComponent,
+    canActivate: [GuestGuardService],
+  },
+  {
+    path:'guest/comments',
+    component: CommentComponent,
+    canActivate: [GuestGuardService],
+
+  },
+  {
+    path:'guest/comments/write',
+    component: WriteCommentComponent,
     canActivate: [GuestGuardService],
   },
   {
