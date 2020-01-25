@@ -87,9 +87,7 @@ namespace AirBnb_Web1.Migrations
 
             HolidayDays h1 = new HolidayDays { Deleted = false, Holiday = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0) };
             context.Holidays.Add(h1);
-            context.SaveChanges();
-
-            
+            context.SaveChanges();           
     }
     }
 }
