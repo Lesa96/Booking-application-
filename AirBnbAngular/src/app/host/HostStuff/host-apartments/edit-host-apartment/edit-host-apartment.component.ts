@@ -36,6 +36,7 @@ export class EditHostApartmentComponent implements OnInit {
   apartmentDatesString = new Array();
 
   ngOnInit() {
+    console.warn(localStorage.Role);
     this.apartment = this.storageService.getHostApartment();
 
     this.GetAllAmenitiNames();

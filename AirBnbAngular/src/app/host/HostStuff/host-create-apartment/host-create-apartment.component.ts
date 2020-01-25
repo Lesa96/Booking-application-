@@ -40,8 +40,8 @@ export class HostCreateApartmentComponent implements OnInit {
       SingUpTime: [,Validators.required],
       SingOutTime: [,Validators.required],
   
-      Latitude: [,Validators.required],
-      Longitude: [,Validators.required],
+      Latitude: [,],
+      Longitude: [,],
       Streat: [,Validators.required],
       StreatNumber: [,Validators.required],
       Settlement: [,Validators.required],
@@ -53,16 +53,37 @@ export class HostCreateApartmentComponent implements OnInit {
 
   createApartment()
   {
-    this.AddApartmentInfos(this.addForm.value);
-    this.apartment.HostID = localStorage.ID;
+    var canCreate = true;
+    if(this.addForm.value.Latitude == undefined || this.addForm.value.Longitude == undefined )
+    {
+      var markInfo = this.storageService.getLocation();
+      if(markInfo != null && markInfo != undefined)
+      {
+        this.addForm.value.Latitude = markInfo.Latitude;
+        this.addForm.value.Longitude = markInfo.Longitude;
+        this.storageService.setLocationNull();
+      }
+      else
+      {
+        canCreate = false;
+        alert("You need to chose coordinationas! \n Enter manuly or click on the map below");
+      }
+    }
 
-    this.hostService.addApartment(this.apartment).subscribe(data=>{
-      var apartmentID = data as number;
-      this.storageService.setApartmentID(apartmentID);
-      
-      this.router.navigate(['apartment/dates']);
-      
-    });
+    if(canCreate)
+    {    
+      console.warn("Usao je u CANCREATE: " + this.addForm.value.Latitude + " " + this.addForm.value.Longitude);
+      this.AddApartmentInfos(this.addForm.value);
+      this.apartment.HostID = localStorage.ID;
+
+      this.hostService.addApartment(this.apartment).subscribe(data=>{
+        var apartmentID = data as number;
+        this.storageService.setApartmentID(apartmentID);
+        
+        this.router.navigate(['apartment/dates']);
+        
+      });
+    }
   }
 
   AddApartmentInfos(element : any)

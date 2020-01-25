@@ -1,0 +1,26 @@
+
+    <!-- Kreiramo mapu -->
+  <agm-map [latitude]="marketInfo.Latitude" [longitude]="marketInfo.Longitude" [zoom]="7" >  
+
+    <agm-marker [latitude]="marketInfo.Latitude" [longitude]="marketInfo.Longitude" [title]="marketInfo.Settlement"
+     [iconUrl]="marketInfo.IconUrl">
+
+      <!-- Svakom markeru dodajemo info-window (Nije obavezno!)-->
+      <agm-info-window [latitude]="marketInfo.Latitude" [longitude]="marketInfo.Longitude" >
+
+        <!-- U info-window stavljamo html -->
+        <span style="font-size: 16px;font-family:'Times New Roman'">{{marketInfo.Settlement}} </span>
+        <span style="font-size: 16px;font-family:'Times New Roman'">{{marketInfo.ZipCode}}</span>
+        <br/>
+        <span style="font-family:'Times New Roman'; color:gray;"><strong>{{marketInfo.Streat}} </strong></span>
+        <span style="font-family:'Times New Roman'; color:gray;">{{marketInfo.StreatNumber}}</span>
+        <br/>
+        <span style="font-family:'Times New Roman'; color:black;">{{marketInfo.Latitude}} </span>
+        <span style="font-family:'Times New Roman'; color: black;">{{marketInfo.Longitude}}</span>
+        
+      </agm-info-window>
+
+    </agm-marker>
+
+  </agm-map>
+

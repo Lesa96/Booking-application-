@@ -34,6 +34,9 @@ import { AddDatesComponent } from './add-dates/add-dates.component';
 import { HolidaysComponent } from './admin/AdminStuff/holidays/holidays.component';
 import { CommentComponent } from './guest/comment/comment.component';
 import { WriteCommentComponent } from './guest/comment/write-comment/write-comment.component'
+import { AgmCoreModule } from '@agm/core';
+import { MapComponent } from './map/map.component';
+import { MapHostComponent } from './host/map-host/map-host.component';
 
 
 
@@ -69,12 +72,15 @@ import { WriteCommentComponent } from './guest/comment/write-comment/write-comme
     HolidaysComponent,
     CommentComponent,
     WriteCommentComponent,
+    MapComponent,
+    MapHostComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyDnihJyw_34z5S1KZXp90pfTGAqhFszNJk'}),
   ],
   providers: [],
   bootstrap: [AppComponent]

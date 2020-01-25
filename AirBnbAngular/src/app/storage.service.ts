@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Apartment } from '../app/Classes/Apartment'
+import { MarkerInfo } from './Classes/MarkerInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class StorageService {
   public GuestApartmentStorage: Apartment ;
   public apartmentID: number ;
   public reservationID: number ;
+  public location : MarkerInfo;
 
     constructor() {}
 
@@ -52,6 +54,18 @@ public getReservationID(): number  {
 
 public setReservationID(app1: number): void {
   this.reservationID = app1;
+}
+
+public getLocation(): MarkerInfo  {
+  return this.location;
+}
+
+public setLocation(app1: MarkerInfo): void {
+  this.location = app1;
+}
+
+public setLocationNull(): void {
+  this.location = null;
 }
 
 

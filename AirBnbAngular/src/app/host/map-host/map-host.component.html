@@ -1,0 +1,7 @@
+<!-- Kreiramo mapu -->
+<agm-map [latitude]="45" [longitude]="20" [zoom]="7" (mapClick)="placeMarker($event)">  
+
+    <agm-marker  [latitude]="marketInfo.Latitude" [longitude]="marketInfo.Longitude" [iconUrl]="marketInfo.IconUrl">
+    </agm-marker>
+
+</agm-map>

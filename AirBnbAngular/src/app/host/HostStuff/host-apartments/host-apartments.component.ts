@@ -41,6 +41,7 @@ export class HostApartmentsComponent implements OnInit {
 
 
   ngOnInit() {
+    console.warn(localStorage.Role);
      this.hostService.getHostApartments(localStorage.ID).subscribe(data => {
         this.HostApartmants = data as Apartment[];
         this.FiltredApartments = data as Apartment[]; //

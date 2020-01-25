@@ -122,4 +122,6 @@ export class HomeComponent implements OnInit {
     this.FiltredApartments.sort((a,b) => b.PricePerNight - a.PricePerNight);
   }
 
+ 
+
 }
