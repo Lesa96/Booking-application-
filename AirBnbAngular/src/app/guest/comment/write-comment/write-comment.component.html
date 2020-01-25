@@ -21,3 +21,37 @@
   </div>
 
 <br><br>
+<h3>Leave comment: </h3>
+<div>
+  <form class="AddComment-form" [formGroup]="commentForm">
+    <table >
+      <tr>
+        <td>
+          <label>Comment: </label>
+        </td>
+        <td>          
+          <textarea formControlName="comment" rows="10" cols="40"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <br>
+      </tr>
+      <tr>
+        <td>
+          <label>Rate apartment(1 - 10): </label>
+        </td>
+        <td>         
+          <input type="number"  formControlName="rate" min="1" max="10" required>
+        </td>
+      </tr>
+      <tr>
+        <br>
+      </tr>  
+      <tr>
+        <td>
+          <button (click)="onAddComment()" align="right" [disabled]="commentForm.invalid">Add comment</button>
+        </td>
+      </tr> 
+    </table>
+  </form>
+</div>

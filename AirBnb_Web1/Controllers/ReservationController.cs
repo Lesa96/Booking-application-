@@ -280,7 +280,7 @@ namespace AirBnb_Web1.Controllers
       context.Comments.Add(comment);
       context.SaveChanges();
 
-      return Ok();
+      return Ok("Comment added");
 
     }
 
