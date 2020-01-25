@@ -17,7 +17,8 @@ table {
     border: 2px solid black;
     border-spacing: 5px , 2px;
     width: 90%;
-    border-collapse: separate;    
+    border-collapse: separate;
+    background-color: white;    
        
 }
 tr   {padding: 50px;}
@@ -33,13 +34,26 @@ button {
       background-color: #000000c0 ;
       color: white;
   }
+
+  body{
+    background-image: url("assets/ce-travel.jpg");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    
+    background-size: cover; 
+  }
   
 
 
 /* --------------------------------------------------------------------------------------------*/
 
+.bg{
+    background-image: url("assets/whiteBack.png");
+    
+}
+
 .login-body {
-    /* background-image: url("assets/ce-travel.jpg");   */
+    background-image: none;
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center;
@@ -47,7 +61,7 @@ button {
     
   }
 
-input[type=text]:focus,input[type=email]:focus, input[type=password]:focus {
+input[type=text]:focus,input[type=email]:focus,input[type=number]:focus, input[type=password]:focus {
     background-color: #ddd;
     outline: none;
 }
@@ -125,6 +139,12 @@ input[type=text]:focus,input[type=email]:focus, input[type=password]:focus {
 {
     
     color: dodgerblue;
+}
+
+.link-register-style
+{
+    
+    color: black;
 }
 
 .login100-form-btn {

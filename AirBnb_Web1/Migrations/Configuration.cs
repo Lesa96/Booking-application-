@@ -81,7 +81,7 @@ namespace AirBnb_Web1.Migrations
             context.Reservations.Add(reservation2);
             context.SaveChanges();
 
-            Reservation reservation3 = new Reservation { ID = 3, ApartmanID = apartman1.ID, GuestID = user2.ID, NumberOfNights = 10, SingUpDate = rentDate3.RentDate, Stauts = Helper.Enums.ReservationStatus.Created, TotalPrice = 200 };
+            Reservation reservation3 = new Reservation { ID = 3, ApartmanID = apartman1.ID, GuestID = user2.ID, NumberOfNights = 10, SingUpDate = rentDate3.RentDate, Stauts = Helper.Enums.ReservationStatus.Done, TotalPrice = 200 };
             context.Reservations.Add(reservation3);
             context.SaveChanges();
 

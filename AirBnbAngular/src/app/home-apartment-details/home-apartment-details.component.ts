@@ -26,7 +26,7 @@ export class HomeApartmentDetailsComponent implements OnInit {
     this.apartment = this.storageService.getGuestApartment();
     
     
-    console.warn(this.apartment);
+    //console.warn(this.apartment);
 
     this.editForm = this.fb.group({
       Type: [this.apartment.Type, Validators.required],
@@ -72,7 +72,7 @@ export class HomeApartmentDetailsComponent implements OnInit {
       this.apartmentComments = data as Observable<Comment>;
       
 
-      console.warn(this.apartmentComments);
+     // console.warn(this.apartmentComments);
     });
   }
 }

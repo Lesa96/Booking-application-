@@ -20,6 +20,8 @@ export class LoginService {
     };
     return this.http.get(this.LogInUri+"Login",httpOptions).pipe(
       catchError(e => throwError(alert("Eror in LogIn service:  " + e.error.Message)))
+      
+      
     );;
   }
 }

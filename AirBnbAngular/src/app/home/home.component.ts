@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
             this.addCheckboxes();
     
             this.amNames.forEach(element => {
-              console.warn(element);
+              //console.warn(element);
             });
           });
     }); 
@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
     // const idAttr = target.attributes.id;
     // const value = idAttr.nodeValue; //id kliknutog button-a
 
-    console.log(id); // id
+    //console.log(id); // id
     var apartment = this.ActiveApartments.find(x => x.ID == id);
 
     this.storageService.setGuestApartment(apartment);

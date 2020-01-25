@@ -41,11 +41,11 @@ export class HostApartmentsComponent implements OnInit {
 
 
   ngOnInit() {
-    console.warn(localStorage.Role);
+    
      this.hostService.getHostApartments(localStorage.ID).subscribe(data => {
         this.HostApartmants = data as Apartment[];
         this.FiltredApartments = data as Apartment[]; //
-        console.warn(this.FiltredApartments);
+        
         //amenities for search:
         this.homeService.GetAmenitieNames().subscribe(names => 
           {
@@ -53,7 +53,7 @@ export class HostApartmentsComponent implements OnInit {
             this.addCheckboxes();
     
             this.amNames.forEach(element => {
-              console.warn(element);
+              
             });
           });
        

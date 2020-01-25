@@ -49,7 +49,7 @@ export class GuestApartmentsComponent implements OnInit {
           this.addCheckboxes();
   
           this.amNames.forEach(element => {
-            console.warn(element);
+           // console.warn(element);
           });
         });
 
